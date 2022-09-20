@@ -1,0 +1,75 @@
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+
+public class FrameJUno extends JFrame {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4653355276161482242L;
+	private static final ImageIcon logo = new ImageIcon("Uno_Logo_PNG1-3.png");
+	
+	public FrameJUno() {
+		
+		super("J Uno");
+		
+		setIconImage(new ImageIcon("Uno_logo_PNG2.png").getImage());
+
+	
+		JPanel myPanel = new PanelGradient();;
+		BoxLayout layout = new BoxLayout(myPanel, BoxLayout.PAGE_AXIS);
+		myPanel.setLayout(layout);
+		
+		JButton playButton = new JButton("GIOCA");
+		playButton.setIcon(logo);
+		playButton.setBorder(BorderFactory.createEmptyBorder());
+		playButton.setContentAreaFilled(false);
+		playButton.setHorizontalTextPosition(JButton.CENTER);
+		playButton.setVerticalTextPosition(JButton.BOTTOM);
+		playButton.setForeground(Color.WHITE);
+		playButton.setFont(new Font("Cabin Bold", 30, 30));
+
+		
+		playButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				new AccountFrame();
+				dispose();
+				
+			}
+		});
+
+		JLabel labely = new JLabel("Benvenuto al gioco");
+		labely.setForeground(Color.BLACK);
+		labely.setFont(new Font("Cabin Medium", 30, 45));
+		
+
+		JLabel unoText = new JLabel("UNO!");
+		unoText.setForeground(Color.BLACK);
+		unoText.setFont(new Font("Cabin Bold", 60, 150));
+
+		playButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+		labely.setAlignmentX(Component.CENTER_ALIGNMENT);
+		unoText.setAlignmentX(Component.CENTER_ALIGNMENT);
+		
+		myPanel.add(Box.createRigidArea(new Dimension(0,180)));
+		myPanel.add(labely);
+		myPanel.add(unoText);
+		myPanel.add(Box.createRigidArea(new Dimension(0,30)));
+		myPanel.add(playButton);
+		add(myPanel);
+		
+		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		setBounds(100, 100, 1280, 720);
+		pack();
+		setExtendedState(JFrame.MAXIMIZED_BOTH);
+		setResizable(true);
+		setLocationRelativeTo(null);
+		setVisible(true);
+		
+	}
+
+}
