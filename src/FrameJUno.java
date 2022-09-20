@@ -8,13 +8,14 @@ public class FrameJUno extends JFrame {
 	 * 
 	 */
 	private static final long serialVersionUID = -4653355276161482242L;
-	private static final ImageIcon logo = new ImageIcon("Uno_Logo_PNG1-3.png");
+	private static final ImageIcon logo = new ImageIcon("ImageLibrary/Uno_Logo_PNG1-3.png");
+	private static final ImageIcon iconApp = new ImageIcon("ImageLibrary/Uno_logo_PNG2.png");
 	
 	public FrameJUno() {
 		
 		super("J Uno");
 		
-		setIconImage(new ImageIcon("Uno_logo_PNG2.png").getImage());
+		setIconImage(iconApp.getImage());
 
 	
 		JPanel myPanel = new PanelGradient();;
@@ -43,7 +44,7 @@ public class FrameJUno extends JFrame {
 		});
 
 		JLabel labely = new JLabel("Benvenuto al gioco");
-		labely.setForeground(Color.BLACK);
+		labely.setForeground(Color.WHITE);
 		labely.setFont(new Font("Cabin Medium", 30, 45));
 		
 

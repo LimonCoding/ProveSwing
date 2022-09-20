@@ -3,6 +3,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.*;
+import javax.swing.border.LineBorder;
 
 import com.formdev.flatlaf.*;
 
@@ -10,22 +11,18 @@ import com.formdev.flatlaf.*;
 @SuppressWarnings("serial")
 public class PlayFrame extends JFrame {
 	
-	ImageIcon deckCard = new ImageIcon("Retro.png");
-	ImageIcon deckCardDx = new ImageIcon("Retro2.png");
-	ImageIcon deckCardSx = new ImageIcon("Retro3.png");
+	private static final ImageIcon deckCard = new ImageIcon("ImageLibrary/CARTE-UNO/small/RETRO.png");
+	private static final ImageIcon deckCardDx = new ImageIcon("ImageLibrary/CARTE-UNO/small/RETRO.png");
+	private static final ImageIcon deckCardSx = new ImageIcon("ImageLibrary/CARTE-UNO/small/RETRO.png");
+	private static final ImageIcon iconApp = new ImageIcon("ImageLibrary/Uno_logo_PNG2.png");
 	
-	PlayFrame() {
+	public PlayFrame() {
 		
 		super("Play Frame");
 		
-		try {
-			UIManager.setLookAndFeel(new FlatDarculaLaf());
-		} catch (UnsupportedLookAndFeelException e) {
-			e.printStackTrace();
-		}
-	
 		JPanel myPanel = new PanelGradient();
-		myPanel.setLayout(new BorderLayout());
+		myPanel.setLayout(new BorderLayout(8,6));
+		myPanel.setBorder(BorderFactory.createEmptyBorder(40, 40, 40, 40));
 		
 		/**
 		 * Creazione e posizionamento dei pannelli per giocatore
@@ -43,6 +40,7 @@ public class PlayFrame extends JFrame {
 		player2.setLayout(new GridLayout(15, 1, 10, -20));
 		player3.setLayout(new GridLayout(15, 1, 10, -20));
 		player4.setLayout(new FlowLayout(FlowLayout.CENTER,-30,20));
+		player4.setBorder(BorderFactory.createTitledBorder("Simone"));
 		deckPanel.setLayout(new FlowLayout(FlowLayout.CENTER,20,20));
 		
 		myPanel.add(player1, BorderLayout.PAGE_START);
@@ -133,13 +131,13 @@ public class PlayFrame extends JFrame {
 		 */
 		JButton carta7 = new JButton("Carta 1");
 		carta7.setPreferredSize(new Dimension(100, 150));
-		carta7.setIcon(new ImageIcon("CARTE-UNO/small/YELLOW_NINE.png"));
+		carta7.setIcon(new ImageIcon("ImageLibrary/CARTE-UNO/small/YELLOW_NINE.png"));
 		carta7.setContentAreaFilled(false);
 		player4.add(carta7);
 		
 		JButton carta8 = new JButton("Carta 2");
 		carta8.setPreferredSize(new Dimension(100, 150));		
-		carta8.setIcon(new ImageIcon("CARTE-UNO/small/WILD.png"));
+		carta8.setIcon(new ImageIcon("ImageLibrary/CARTE-UNO/small/WILD.png"));
 		carta8.setContentAreaFilled(false);
 		player4.add(carta8);
 		
@@ -172,8 +170,8 @@ public class PlayFrame extends JFrame {
 				JButton cartaP4 = new JButton("Carta");
 				cartaP4.setPreferredSize(new Dimension(100, 150));
 				cartaP4.setBorder(BorderFactory.createEmptyBorder());
-				cartaP4.setIcon(new ImageIcon("CARTE-UNO/BLUE_ZERO.png"));
-				cartaP4.setIcon(new ImageIcon("CARTE-UNO/small/BLUE_ZERO.png"));
+				cartaP4.setIcon(new ImageIcon("ImageLibrary/CARTE-UNO/BLUE_ZERO.png"));
+				cartaP4.setIcon(new ImageIcon("ImageLibrary/CARTE-UNO/small/BLUE_ZERO.png"));
 				player4.add(cartaP4);
 				cartaP4.setContentAreaFilled(false);
 				setVisible(true);
@@ -183,11 +181,12 @@ public class PlayFrame extends JFrame {
 
 		
 		add(myPanel);
-		setIconImage(new ImageIcon("Uno_logo_PNG2.png").getImage());
+		setIconImage(iconApp.getImage());
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1280, 720);
-		//setExtendedState(JFrame.MAXIMIZED_BOTH);
-		setUndecorated(true);
+		setExtendedState(JFrame.MAXIMIZED_BOTH);
+		setResizable(true);
+		setLocationRelativeTo(null);
 		setVisible(true);
 	}
 }
