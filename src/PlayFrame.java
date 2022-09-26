@@ -38,7 +38,8 @@ public class PlayFrame extends JFrame {
 		 */
 		player1.setLayout(new FlowLayout(FlowLayout.CENTER,-30,20));
 		player2.setLayout(new GridLayout(15, 1, 10, -20));
-		player3.setLayout(new GridLayout(15, 1, 10, -20));
+		player3.setLayout(new FlowLayout(FlowLayout.LEFT,-20, 10));
+		player3.setBorder(BorderFactory.createTitledBorder("AI 2"));
 		player4.setLayout(new FlowLayout(FlowLayout.CENTER,-30,20));
 		player4.setBorder(BorderFactory.createTitledBorder("Simone"));
 		deckPanel.setLayout(new FlowLayout(FlowLayout.CENTER,20,20));
