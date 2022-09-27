@@ -27,6 +27,9 @@ public class PlayFrame extends JFrame {
 		JPanel player1 = new JPanel();
 		JPanel player2 = new JPanel();
 		JPanel player3 = new JPanel();
+		JPanel borderPlayer3 = new JPanel();
+		borderPlayer3.setLayout(new BorderLayout(8,6));
+		borderPlayer3.setBorder(BorderFactory.createMatteBorder(30, 30, 30, 30, Color.BLACK));
 		JPanel player4 = new JPanel();
 		JPanel deckPanel = new JPanel();
 		
@@ -34,16 +37,19 @@ public class PlayFrame extends JFrame {
 		 * Settaggio del FlowLayout per tutti i pannelli giocatore
 		 */
 		player1.setLayout(new FlowLayout(FlowLayout.CENTER,-30,20));
+		player1.setBorder(BorderFactory.createTitledBorder("AI 1"));
 		player2.setLayout(new GridLayout(15, 1, 10, -20));
-		player3.setLayout(new FlowLayout(FlowLayout.LEFT,-20, 10));
-		player3.setBorder(BorderFactory.createTitledBorder("AI 2"));
+		player2.setBorder(BorderFactory.createTitledBorder("AI 2"));
+		player3.setLayout(new FlowLayout(FlowLayout.CENTER,-1, 0));
 		player4.setLayout(new FlowLayout(FlowLayout.CENTER,-30,20));
 		player4.setBorder(BorderFactory.createTitledBorder("Simone"));
 		deckPanel.setLayout(new FlowLayout(FlowLayout.CENTER,20,20));
 		
 		myPanel.add(player1, BorderLayout.PAGE_START);
 		myPanel.add(player2, BorderLayout.EAST);
-		myPanel.add(player3, BorderLayout.WEST);
+		myPanel.add(borderPlayer3, BorderLayout.WEST);
+		borderPlayer3.add(player3);
+		borderPlayer3.setOpaque(false);
 		myPanel.add(player4, BorderLayout.PAGE_END);
 		myPanel.add(deckPanel, BorderLayout.CENTER);
 		
@@ -97,28 +103,28 @@ public class PlayFrame extends JFrame {
 		carta3.setIcon(deckCardSx);
 		carta3.setBorder(BorderFactory.createEmptyBorder());
 		carta3.setContentAreaFilled(false);
-		carta3.setPreferredSize(new Dimension(150, 100));
+		carta3.setPreferredSize(new Dimension(100, 150));
 		player2.add(carta3);
 		
 		JButton carta4 = new JButton();
 		carta4.setIcon(deckCardSx);
 		carta4.setBorder(BorderFactory.createEmptyBorder());
 		carta4.setContentAreaFilled(false);
-		carta4.setPreferredSize(new Dimension(150, 100));
+		carta4.setPreferredSize(new Dimension(100, 150));
 		player2.add(carta4);
 		
 		/**
 		 * Creazione e posizionamento delle carte (bottoni) per il giocatore 3
 		 */
 		JButton carta5 = new JButton();
-		carta5.setPreferredSize(new Dimension(150, 100));
+		carta5.setPreferredSize(new Dimension(100, 150));
 		carta5.setIcon(deckCardDx);
 		carta5.setBorder(BorderFactory.createEmptyBorder());
 		carta5.setContentAreaFilled(false);
 		player3.add(carta5);
 		
 		JButton carta6 = new JButton();
-		carta6.setPreferredSize(new Dimension(150, 100));
+		carta6.setPreferredSize(new Dimension(100, 150));
 		carta6.setIcon(deckCardDx);
 		carta6.setBorder(BorderFactory.createEmptyBorder());
 		carta6.setContentAreaFilled(false);
@@ -152,14 +158,14 @@ public class PlayFrame extends JFrame {
 				player1.add(cartaP1);
 				
 				JButton cartaP2 = new JButton();
-				cartaP2.setPreferredSize(new Dimension(150, 100));
+				cartaP2.setPreferredSize(new Dimension(100, 150));
 				cartaP2.setIcon(deckCardSx);
 				cartaP2.setBorder(BorderFactory.createEmptyBorder());
 				cartaP2.setContentAreaFilled(false);
 				player2.add(cartaP2);
 				
 				JButton cartaP3 = new JButton();
-				cartaP3.setPreferredSize(new Dimension(150, 100));
+				cartaP3.setPreferredSize(new Dimension(100, 150));
 				cartaP3.setIcon(deckCardDx);
 				cartaP3.setBorder(BorderFactory.createEmptyBorder());
 				cartaP3.setContentAreaFilled(false);
