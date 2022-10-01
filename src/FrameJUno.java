@@ -1,6 +1,7 @@
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import javax.swing.plaf.InsetsUIResource;
 
 public class FrameJUno extends JFrame {
 	
@@ -30,6 +31,7 @@ public class FrameJUno extends JFrame {
 		playButton.setVerticalTextPosition(JButton.BOTTOM);
 		playButton.setForeground(Color.WHITE);
 		playButton.setFont(new Font("Cabin Bold", 30, 30));
+		playButton.setToolTipText("Clicca per giocare!");
 
 		
 		playButton.addActionListener(new ActionListener() {
@@ -52,15 +54,32 @@ public class FrameJUno extends JFrame {
 		unoText.setForeground(Color.BLACK);
 		unoText.setFont(new Font("Cabin Bold", 60, 150));
 
+		JButton exitButton = new JButton("ESCI");
+		exitButton.setFont(new Font("Cabin Bold", 30, 30));
+		exitButton.setToolTipText("Clicca per uscire!");
+		exitButton.setMargin(new InsetsUIResource(10, 20, 10, 20));
+
+		exitButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				dispose();
+				
+			}
+		});
+
 		playButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 		labely.setAlignmentX(Component.CENTER_ALIGNMENT);
 		unoText.setAlignmentX(Component.CENTER_ALIGNMENT);
+		exitButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 		
 		myPanel.add(Box.createRigidArea(new Dimension(0,80)));
 		myPanel.add(labely);
 		myPanel.add(unoText);
 		myPanel.add(Box.createRigidArea(new Dimension(0,30)));
 		myPanel.add(playButton);
+		myPanel.add(exitButton);
 		add(myPanel);
 		
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
