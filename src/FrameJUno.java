@@ -1,7 +1,6 @@
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-import javax.swing.plaf.InsetsUIResource;
 
 public class FrameJUno extends JFrame {
 	
@@ -12,6 +11,13 @@ public class FrameJUno extends JFrame {
 	private static final ImageIcon logo = new ImageIcon("ImageLibrary/Uno_Logo_PNG1-3.png");
 	private static final ImageIcon iconApp = new ImageIcon("ImageLibrary/Uno_logo_PNG2.png");
 	
+	private JPanel myPanel;
+	
+	private JButton playButton;
+	private JLabel labely;
+	private JLabel unoText;
+	private ExitPanel exitButton;
+	
 	public FrameJUno() {
 		
 		super("J Uno");
@@ -19,11 +25,11 @@ public class FrameJUno extends JFrame {
 		setIconImage(iconApp.getImage());
 
 	
-		JPanel myPanel = new PanelGradient();;
+		myPanel = new PanelGradient();
 		BoxLayout layout = new BoxLayout(myPanel, BoxLayout.PAGE_AXIS);
 		myPanel.setLayout(layout);
 		
-		JButton playButton = new JButton("Clicca sul logo per giocare");
+		playButton = new JButton("Clicca sul logo per giocare");
 		playButton.setIcon(logo);
 		playButton.setBorder(BorderFactory.createEmptyBorder());
 		playButton.setContentAreaFilled(false);
@@ -45,29 +51,16 @@ public class FrameJUno extends JFrame {
 			}
 		});
 
-		JLabel labely = new JLabel("Benvenuto al gioco");
+		labely = new JLabel("Benvenuto al gioco");
 		labely.setForeground(Color.WHITE);
 		labely.setFont(new Font("Cabin Medium", 30, 45));
 		
 
-		JLabel unoText = new JLabel("UNO!");
+		unoText = new JLabel("UNO!");
 		unoText.setForeground(Color.BLACK);
 		unoText.setFont(new Font("Cabin Bold", 60, 150));
 
-		JButton exitButton = new JButton("ESCI");
-		exitButton.setFont(new Font("Cabin Bold", 30, 30));
-		exitButton.setToolTipText("Clicca per uscire!");
-		exitButton.setMargin(new InsetsUIResource(10, 20, 10, 20));
-
-		exitButton.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				
-				dispose();
-				
-			}
-		});
+		exitButton = new ExitPanel();
 
 		playButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 		labely.setAlignmentX(Component.CENTER_ALIGNMENT);
