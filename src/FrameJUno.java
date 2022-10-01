@@ -22,7 +22,7 @@ public class FrameJUno extends JFrame {
 		BoxLayout layout = new BoxLayout(myPanel, BoxLayout.PAGE_AXIS);
 		myPanel.setLayout(layout);
 		
-		JButton playButton = new JButton("GIOCA");
+		JButton playButton = new JButton("Clicca sul logo per giocare");
 		playButton.setIcon(logo);
 		playButton.setBorder(BorderFactory.createEmptyBorder());
 		playButton.setContentAreaFilled(false);
@@ -56,7 +56,7 @@ public class FrameJUno extends JFrame {
 		labely.setAlignmentX(Component.CENTER_ALIGNMENT);
 		unoText.setAlignmentX(Component.CENTER_ALIGNMENT);
 		
-		myPanel.add(Box.createRigidArea(new Dimension(0,180)));
+		myPanel.add(Box.createRigidArea(new Dimension(0,80)));
 		myPanel.add(labely);
 		myPanel.add(unoText);
 		myPanel.add(Box.createRigidArea(new Dimension(0,30)));

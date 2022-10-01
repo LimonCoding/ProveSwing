@@ -22,7 +22,7 @@ public class PlayFrame extends JFrame {
 		
 		JPanel myPanel = new PanelGradient();
 		myPanel.setLayout(new BorderLayout(8,6));
-		myPanel.setBorder(BorderFactory.createEmptyBorder(40, 40, 40, 40));
+		myPanel.setBorder(BorderFactory.createEmptyBorder(30, 30, 30, 30));
 		
 		/**
 		 * Creazione e posizionamento dei pannelli per giocatore
@@ -33,6 +33,8 @@ public class PlayFrame extends JFrame {
 		JPanel player4 = new JPanel();
 		JPanel deckPanel = new JPanel();
 		
+		JPanel borderPlayer4 = new JPanel();
+		
 		/**
 		 * Settaggio del FlowLayout per tutti i pannelli giocatore
 		 */
@@ -40,7 +42,6 @@ public class PlayFrame extends JFrame {
 		player2.setLayout(new GridLayout(15, 1, 10, -20));
 		player3.setLayout(new GridLayout(15, 1, 10, -20));
 		player4.setLayout(new FlowLayout(FlowLayout.CENTER,-30,20));
-		player4.setBorder(BorderFactory.createTitledBorder("Simone"));
 		deckPanel.setLayout(new FlowLayout(FlowLayout.CENTER,20,20));
 		
 		myPanel.add(player1, BorderLayout.PAGE_START);
