@@ -39,17 +39,22 @@ public class PlayFrame extends JFrame {
 		JPanel player4 = new JPanel();
 		JPanel deckPanel = new JPanel();
 		
-		Border innerBorder = BorderFactory.createTitledBorder("Player 3");
-		Border outerBorder = BorderFactory.createEmptyBorder(30, 30, 30, 30);
+		Border innerBorder = BorderFactory.createTitledBorder("AI Player");
+		Border outerBorder = BorderFactory.createEmptyBorder(8, 8, 8, 8);
+		Dimension dim = getPreferredSize();
+		dim.width = 450;
+		dim.height = 450;
+		player2.setPreferredSize(dim);
+		player3.setPreferredSize(dim);
 		
 		/**
 		 * Settaggio del FlowLayout per tutti i pannelli giocatore
 		 */
 		player1.setLayout(new FlowLayout(FlowLayout.CENTER,-30,20));
-		player1.setBorder(BorderFactory.createTitledBorder("AI 1"));
-		player2.setLayout(new GridLayout(15, 1, 10, -20));
-		player2.setBorder(BorderFactory.createTitledBorder("AI 2"));
-		player3.setLayout(new FlowLayout(FlowLayout.CENTER,-1, 0));
+		player1.setBorder(BorderFactory.createCompoundBorder(outerBorder, innerBorder));
+		player2.setLayout(new FlowLayout(FlowLayout.CENTER,-50,20));
+		player2.setBorder(BorderFactory.createCompoundBorder(outerBorder, innerBorder));
+		player3.setLayout(new FlowLayout(FlowLayout.CENTER,-50,20));
 		player3.setBorder(BorderFactory.createCompoundBorder(outerBorder, innerBorder));
 		player4.setLayout(new FlowLayout(FlowLayout.CENTER,-30,20));
 		deckPanel.setLayout(new FlowLayout(FlowLayout.CENTER,20,20));
