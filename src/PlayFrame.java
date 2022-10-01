@@ -1,8 +1,17 @@
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.*;
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.WindowConstants;
+import javax.swing.border.Border;
 
 
 @SuppressWarnings("serial")
@@ -27,13 +36,11 @@ public class PlayFrame extends JFrame {
 		JPanel player1 = new JPanel();
 		JPanel player2 = new JPanel();
 		JPanel player3 = new JPanel();
-		JPanel borderPlayer3 = new JPanel();
-		borderPlayer3.setLayout(new BorderLayout(8,6));
-		borderPlayer3.setBorder(BorderFactory.createMatteBorder(30, 30, 30, 30, Color.BLACK));
 		JPanel player4 = new JPanel();
 		JPanel deckPanel = new JPanel();
 		
-		JPanel borderPlayer4 = new JPanel();
+		Border innerBorder = BorderFactory.createTitledBorder("Player 3");
+		Border outerBorder = BorderFactory.createEmptyBorder(30, 30, 30, 30);
 		
 		/**
 		 * Settaggio del FlowLayout per tutti i pannelli giocatore
@@ -43,14 +50,13 @@ public class PlayFrame extends JFrame {
 		player2.setLayout(new GridLayout(15, 1, 10, -20));
 		player2.setBorder(BorderFactory.createTitledBorder("AI 2"));
 		player3.setLayout(new FlowLayout(FlowLayout.CENTER,-1, 0));
+		player3.setBorder(BorderFactory.createCompoundBorder(outerBorder, innerBorder));
 		player4.setLayout(new FlowLayout(FlowLayout.CENTER,-30,20));
 		deckPanel.setLayout(new FlowLayout(FlowLayout.CENTER,20,20));
 		
 		myPanel.add(player1, BorderLayout.PAGE_START);
 		myPanel.add(player2, BorderLayout.EAST);
-		myPanel.add(borderPlayer3, BorderLayout.WEST);
-		borderPlayer3.add(player3);
-		borderPlayer3.setOpaque(false);
+		myPanel.add(player3, BorderLayout.WEST);
 		myPanel.add(player4, BorderLayout.PAGE_END);
 		myPanel.add(deckPanel, BorderLayout.CENTER);
 		
