@@ -53,9 +53,11 @@ public class PlayFrame extends JFrame {
 		myPanel.add(leftPlayerAI, BorderLayout.WEST);
 		myPanel.add(myPlayer, BorderLayout.PAGE_END);
 		myPanel.add(deckPanel, BorderLayout.CENTER);
-		
+		/**
+		 * Creazione e posizionamento delle carte (bottoni) per il giocatore 1
+		 */
 		topPlayerAI.drawCard(deckCard);		
-			
+		topPlayerAI.drawCard(deckCard);		
 		/**
 		 * Creazione e posizionamento delle carte (bottoni) per il giocatore 2
 		 */
