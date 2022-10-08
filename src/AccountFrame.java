@@ -2,6 +2,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
+import javax.swing.plaf.InsetsUIResource;
+
 import com.formdev.flatlaf.FlatDarkLaf;
 
 @SuppressWarnings("serial")
@@ -12,6 +14,10 @@ public class AccountFrame extends JFrame {
 	
 	private PanelGradient myPanel;
 	private JPanel accountPanel1;
+	private JLabel inserisci;
+	private JTextField insertName;
+	private JButton insertButton;
+	private JButton submit;
 	
 	public AccountFrame() {
 		
@@ -25,10 +31,21 @@ public class AccountFrame extends JFrame {
 		BoxLayout layout = new BoxLayout(accountPanel1, BoxLayout.PAGE_AXIS);
 		accountPanel1.setLayout(layout);
 		
-		JLabel inserisci = new JLabel("Inserisci il nome utente: ");
-		JTextField insertName = new JTextField();
-		JButton insertButton = new JButton("Inserisci");
-		JButton submit = new JButton("Avanti");
+		inserisci = new JLabel("Inserisci il nome utente: ");
+		inserisci.setFont(new Font("Cabin Bold", 30, 30));
+		
+		insertName = new JTextField();
+		insertName.setMargin(new InsetsUIResource(10, 20, 10, 20));
+		
+		insertButton = new JButton("Inserisci");
+		insertButton.setToolTipText("Clicca per giocare!");
+		insertButton.setMargin(new InsetsUIResource(10, 20, 10, 20));
+		insertButton.setFont(new Font("Cabin Bold", 30, 30));
+		
+		submit = new JButton("GIOCA");
+		submit.setToolTipText("Clicca per giocare!");
+		submit.setMargin(new InsetsUIResource(10, 20, 10, 20));
+		submit.setFont(new Font("Cabin Bold", 30, 30));
 		
 		inserisci.setForeground(Color.BLACK);
 		inserisci.setFont(new Font("Cabin Bold", 30, 50));
@@ -62,6 +79,8 @@ public class AccountFrame extends JFrame {
 					accountPanel1.add(Box.createRigidArea(new Dimension(0,10)));
 					submit.setAlignmentX(Component.CENTER_ALIGNMENT);
 					accountPanel1.add(submit);
+					
+					insertName.setText(null);
 					
 					submit.addActionListener(new ActionListener() {
 						

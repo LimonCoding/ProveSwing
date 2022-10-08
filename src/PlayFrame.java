@@ -1,11 +1,11 @@
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
@@ -83,8 +83,11 @@ public class PlayFrame extends JFrame {
 
 				topPlayerAI.drawCard(deckCard);	
 				rightPlayerAI.drawCard(deckCard);	
-				leftPlayerAI.drawCard(deckCard);	
-				myPlayer.drawCard(new ImageIcon("ImageLibrary/CARTE-UNO/small/BLUE_ZERO.png"));	
+				leftPlayerAI.drawCard(deckCard);
+				//UnoCard cardDrawed = new UnoCard(Color.getColor(2),Value.getValue(2));
+				//String cardString = cardDrawed.toString();
+				//myPlayer.drawCard(new ImageIcon(cardString));	
+				myPlayer.drawCard(new ImageIcon("ImageLibrary/CARTE-UNO/small/RED_SIX.png"));	
 				setVisible(true);
 				
 			}
