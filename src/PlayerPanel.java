@@ -9,6 +9,10 @@ import javax.swing.border.Border;
 
 public class PlayerPanel extends JPanel {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	Border aiInnerBorder;
 	Border outerBorder;
 	

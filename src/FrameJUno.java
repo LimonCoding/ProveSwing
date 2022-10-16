@@ -38,7 +38,7 @@ public class FrameJUno extends JFrame {
 		playButton.setForeground(Color.WHITE);
 		playButton.setFont(new Font("Cabin Bold", 30, 30));
 		playButton.setToolTipText("Clicca per giocare!");
-
+		playButton.setMnemonic(KeyEvent.VK_ENTER);
 		
 		playButton.addActionListener(new ActionListener() {
 			
@@ -75,6 +75,10 @@ public class FrameJUno extends JFrame {
 		myPanel.add(exitButton);
 		add(myPanel);
 		
+		setFrameSettings();
+	}
+
+	private void setFrameSettings() {
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1280, 720);
 		pack();
@@ -82,7 +86,6 @@ public class FrameJUno extends JFrame {
 		setResizable(true);
 		setLocationRelativeTo(null);
 		setVisible(true);
-		
 	}
-
+	
 }

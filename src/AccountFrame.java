@@ -1,10 +1,12 @@
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Desktop.Action;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.AbstractAction;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -62,7 +64,42 @@ public class AccountFrame extends JFrame {
 		
 		myPanel.add(accountPanel1);
 		
+		AbstractAction action = new AbstractAction()
+		{
+		    @Override
+		    public void actionPerformed(ActionEvent e)
+		    {
+		    	if (checkBtn()) {
+		    		accountName = insertName.getText();	
+					JLabel stampaNome = new JLabel("Benvenuto "+accountName+"!");
+					stampaNome.setForeground(Color.BLACK);
+					stampaNome.setFont(new Font("Cabin", 30, 30));
+					stampaNome.setAlignmentX(Component.CENTER_ALIGNMENT);
+					accountPanel1.add(Box.createRigidArea(new Dimension(0,20)));
+					accountPanel1.add(stampaNome);
+						
+					accountPanel1.add(Box.createRigidArea(new Dimension(0,10)));
+					submit.setAlignmentX(Component.CENTER_ALIGNMENT);
+					accountPanel1.add(submit);
+						
+					insertName.setText(null);
+						
+					submit.addActionListener(new ActionListener() {
+							
+						@Override
+						public void actionPerformed(ActionEvent e) {
+								new PlayFrame();
+								dispose();
+						}				
+					});
+					
+				setVisible(true);
+			    }
+			}
+		};
+		
 		insertButton.setEnabled(false);
+		insertName.addActionListener(action);
 		
 		insertName.getDocument().addDocumentListener(new DocumentListener() {
             @Override
@@ -79,58 +116,23 @@ public class AccountFrame extends JFrame {
             }
         });
 		
-		insertButton.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				
-				accountName = insertName.getText();	
-				JLabel stampaNome = new JLabel("Benvenuto "+accountName+"!");
-				stampaNome.setForeground(Color.BLACK);
-				stampaNome.setFont(new Font("Cabin", 30, 30));
-				stampaNome.setAlignmentX(Component.CENTER_ALIGNMENT);
-				accountPanel1.add(Box.createRigidArea(new Dimension(0,20)));
-				accountPanel1.add(stampaNome);
-					
-				accountPanel1.add(Box.createRigidArea(new Dimension(0,10)));
-				submit.setAlignmentX(Component.CENTER_ALIGNMENT);
-				accountPanel1.add(submit);
-					
-				insertName.setText(null);
-					
-				submit.addActionListener(new ActionListener() {
-						
-					@Override
-					public void actionPerformed(ActionEvent e) {
-							new PlayFrame();
-							dispose();
-					}				
-				});
-				
-			setVisible(true);
-			
-			}				
-		});
+		insertButton.addActionListener(action);
 
 		accountPanel1.add(Box.createRigidArea(new Dimension(0,10)));
 		accountPanel1.add(insertButton);
 		add(myPanel);
-		setIconImage(iconApp.getImage());
-		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-		pack();
-		setExtendedState(JFrame.MAXIMIZED_BOTH);
-		setResizable(true);
-		setLocationRelativeTo(null);
-		setVisible(true);
+		
+		frameSettings();
 	}
 	
 	public String getAccountName() {
 		return accountName;
 	}
 	
-    private void checkBtn() {
+    private boolean checkBtn() {
         boolean value = !insertName.getText().trim().isEmpty();
         insertButton.setEnabled(value);
+        return value;
     }
     
     private void fontSettings() {
@@ -148,5 +150,15 @@ public class AccountFrame extends JFrame {
 		
 		inserisci.setForeground(Color.BLACK);
 		inserisci.setFont(new Font("Cabin Bold", 30, 50));
+    }
+    
+    private void frameSettings() {
+    	setIconImage(iconApp.getImage());
+		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		pack();
+		setExtendedState(JFrame.MAXIMIZED_BOTH);
+		setResizable(true);
+		setLocationRelativeTo(null);
+		setVisible(true);
     }
 }
