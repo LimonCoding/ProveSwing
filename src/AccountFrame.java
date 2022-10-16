@@ -39,30 +39,17 @@ public class AccountFrame extends JFrame {
 		FlatDarkLaf.setup();
 		
 		myPanel = new PanelGradient();
-		
 		accountPanel1 = new JPanel();
+		inserisci = new JLabel("Inserisci il nome utente: ");
+		insertName = new JTextField();
+		insertButton = new JButton("Inserisci");
+		submit = new JButton("GIOCA");
+		
 		accountPanel1.setOpaque(false);
 		BoxLayout layout = new BoxLayout(accountPanel1, BoxLayout.PAGE_AXIS);
 		accountPanel1.setLayout(layout);
 		
-		inserisci = new JLabel("Inserisci il nome utente: ");
-		inserisci.setFont(new Font("Cabin Bold", 30, 30));
-		
-		insertName = new JTextField();
-		insertName.setMargin(new InsetsUIResource(10, 20, 10, 20));
-		
-		insertButton = new JButton("Inserisci");
-		insertButton.setToolTipText("Clicca per giocare!");
-		insertButton.setMargin(new InsetsUIResource(10, 20, 10, 20));
-		insertButton.setFont(new Font("Cabin Bold", 30, 30));
-		
-		submit = new JButton("GIOCA");
-		submit.setToolTipText("Clicca per giocare!");
-		submit.setMargin(new InsetsUIResource(10, 20, 10, 20));
-		submit.setFont(new Font("Cabin Bold", 30, 30));
-		
-		inserisci.setForeground(Color.BLACK);
-		inserisci.setFont(new Font("Cabin Bold", 30, 50));
+		fontSettings();
 		
 		inserisci.setAlignmentX(Component.CENTER_ALIGNMENT);
 		insertName.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -144,5 +131,22 @@ public class AccountFrame extends JFrame {
     private void checkBtn() {
         boolean value = !insertName.getText().trim().isEmpty();
         insertButton.setEnabled(value);
+    }
+    
+    private void fontSettings() {
+    	inserisci.setFont(new Font("Cabin Bold", 30, 30));
+		
+		insertName.setMargin(new InsetsUIResource(10, 20, 10, 20));
+		
+		insertButton.setToolTipText("Clicca per giocare!");
+		insertButton.setMargin(new InsetsUIResource(10, 20, 10, 20));
+		insertButton.setFont(new Font("Cabin Bold", 30, 30));
+		
+		submit.setToolTipText("Clicca per giocare!");
+		submit.setMargin(new InsetsUIResource(10, 20, 10, 20));
+		submit.setFont(new Font("Cabin Bold", 30, 30));
+		
+		inserisci.setForeground(Color.BLACK);
+		inserisci.setFont(new Font("Cabin Bold", 30, 50));
     }
 }
