@@ -9,9 +9,14 @@ import javax.swing.border.Border;
 
 public class DeckPanel extends JPanel {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	private static final ImageIcon deckCard = new ImageIcon("ImageLibrary/CARTE-UNO/small/RETRO.png");
 	
-	Border aiInnerBorder;
+	Border innerBorder;
 	Border outerBorder;
 	
 	private JButton deck;
@@ -22,7 +27,7 @@ public class DeckPanel extends JPanel {
 		setNameBorder(borderTitle);
 		outerBorder = BorderFactory.createEmptyBorder(8, 8, 8, 8);
 		
-		setBorder(BorderFactory.createCompoundBorder(outerBorder, aiInnerBorder));
+		setBorder(BorderFactory.createCompoundBorder(outerBorder, innerBorder));
 		
 		setCardLayoutSpec(space, nCards);
 		setLayout(myCardLayout);
@@ -48,7 +53,7 @@ public class DeckPanel extends JPanel {
 	}
 	
 	public void setNameBorder(String title) {
-		aiInnerBorder = BorderFactory.createTitledBorder(title);
+		innerBorder = BorderFactory.createTitledBorder(title);
 	}
 	
 	public void setCardLayoutSpec(int space, int nCards) {

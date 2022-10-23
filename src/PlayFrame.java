@@ -34,10 +34,10 @@ public class PlayFrame extends JFrame {
 		/**
 		 * Creazione e posizionamento dei pannelli per giocatore
 		 */
-		topPlayerAI = new PlayerPanel("Top Player", -30, 20);
-		rightPlayerAI = new PlayerPanel("Right Player", -50, 20);
-		leftPlayerAI = new PlayerPanel("Left Player", -50, 20);
-		myPlayer = new PlayerPanel("Me", -30, 20);
+		topPlayerAI = new PlayerPanel("Top Player", -30, 15);
+		rightPlayerAI = new PlayerPanel("Right Player", -50, 15);
+		leftPlayerAI = new PlayerPanel("Left Player", -50, 15);
+		myPlayer = new PlayerPanel("Me", -30, 15);
 		
 		deckPanel = new DeckPanel("Deck", 50,2);
 		
@@ -94,12 +94,19 @@ public class PlayFrame extends JFrame {
 
 		
 		add(myPanel);
+		
+		setFrameSettings();
+	}
+	
+	private void setFrameSettings() {
 		setIconImage(iconApp.getImage());
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		pack();
+		setMinimumSize(new Dimension(1200, 1000));
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		setResizable(true);
 		setLocationRelativeTo(null);
 		setVisible(true);
 	}
+	
 }

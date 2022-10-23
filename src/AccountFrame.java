@@ -42,7 +42,7 @@ public class AccountFrame extends JFrame {
 		
 		myPanel = new PanelGradient();
 		accountPanel1 = new JPanel();
-		inserisci = new JLabel("Inserisci il nome utente: ");
+		inserisci = new JLabel("Crea un Account: ");
 		insertName = new JTextField();
 		insertButton = new JButton("Inserisci");
 		submit = new JButton("GIOCA");
@@ -122,7 +122,7 @@ public class AccountFrame extends JFrame {
 		accountPanel1.add(insertButton);
 		add(myPanel);
 		
-		frameSettings();
+		setFrameSettings();
 	}
 	
 	public String getAccountName() {
@@ -152,10 +152,11 @@ public class AccountFrame extends JFrame {
 		inserisci.setFont(new Font("Cabin Bold", 30, 50));
     }
     
-    private void frameSettings() {
+    private void setFrameSettings() {
     	setIconImage(iconApp.getImage());
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		pack();
+		setMinimumSize(new Dimension(500, 900));
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		setResizable(true);
 		setLocationRelativeTo(null);

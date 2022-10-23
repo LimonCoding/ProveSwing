@@ -82,6 +82,7 @@ public class FrameJUno extends JFrame {
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1280, 720);
 		pack();
+		setMinimumSize(new Dimension(500, 900));
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		setResizable(true);
 		setLocationRelativeTo(null);

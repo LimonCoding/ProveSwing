@@ -13,7 +13,7 @@ public class PlayerPanel extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	Border aiInnerBorder;
+	Border innerBorder;
 	Border outerBorder;
 	
 	FlowLayout myCardLayout;
@@ -22,7 +22,7 @@ public class PlayerPanel extends JPanel {
 		setNameBorder(borderTitle);
 		outerBorder = BorderFactory.createEmptyBorder(8, 8, 8, 8);
 		
-		setBorder(BorderFactory.createCompoundBorder(outerBorder, aiInnerBorder));
+		setBorder(BorderFactory.createCompoundBorder(outerBorder, innerBorder));
 		
 		setCardLayoutSpec(space, nCards);
 		setLayout(myCardLayout);
@@ -31,7 +31,7 @@ public class PlayerPanel extends JPanel {
 	}
 	
 	public void setNameBorder(String title) {
-		aiInnerBorder = BorderFactory.createTitledBorder(title);
+		innerBorder = BorderFactory.createTitledBorder(title);
 	}
 	
 	public void setCardLayoutSpec(int space, int nCards) {

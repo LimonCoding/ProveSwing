@@ -32,7 +32,7 @@ public class ExitPanel extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
-				System.out.println("esci");
+				System.exit(0);
 				
 			}
 		});
