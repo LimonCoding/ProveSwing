@@ -3,10 +3,22 @@ package model;
 import javax.swing.ImageIcon;
 
 public class Account {
+	
+	private static int count = 0;
 
+	private int id;
 	private String alias;
 	private int level = 0;
 	private ImageIcon accountIcon;
+	
+	public Account(String alias, int level, ImageIcon accountIcon) {
+		this.alias = alias;
+		this.level = level;
+		this.accountIcon = accountIcon;
+		
+		this.id = count;
+		count++;
+	}
 	
 	public String getAlias() {
 		return alias;
@@ -27,5 +39,12 @@ public class Account {
 	}
 	public void setAccountIcon(ImageIcon accountIcon) {
 		this.accountIcon = accountIcon;
+	}
+
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
 	}
 }

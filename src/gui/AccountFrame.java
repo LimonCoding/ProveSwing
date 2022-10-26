@@ -1,7 +1,6 @@
 package gui;
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.Desktop.Action;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -23,6 +22,8 @@ import javax.swing.plaf.InsetsUIResource;
 
 import com.formdev.flatlaf.FlatDarkLaf;
 
+import controller.Controller;
+
 @SuppressWarnings("serial")
 public class AccountFrame extends JFrame {
 	
@@ -36,6 +37,8 @@ public class AccountFrame extends JFrame {
 	private JButton insertButton;
 	private JButton submit;
 	
+	private Controller controller;
+	
 	public AccountFrame() {
 		
 		super("Account Frame");
@@ -47,6 +50,8 @@ public class AccountFrame extends JFrame {
 		insertName = new JTextField();
 		insertButton = new JButton("Inserisci");
 		submit = new JButton("GIOCA");
+		
+		controller = new Controller();
 		
 		accountPanel1.setOpaque(false);
 		BoxLayout layout = new BoxLayout(accountPanel1, BoxLayout.PAGE_AXIS);
