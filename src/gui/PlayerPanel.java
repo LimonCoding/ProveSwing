@@ -1,3 +1,4 @@
+package gui;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 
@@ -7,23 +8,18 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 
-public class DeckPanel extends JPanel {
+public class PlayerPanel extends JPanel {
 	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
-	private static final ImageIcon deckCard = new ImageIcon("ImageLibrary/CARTE-UNO/small/RETRO.png");
-	
 	Border innerBorder;
 	Border outerBorder;
 	
-	private JButton deck;
-	
 	FlowLayout myCardLayout;
 	
-	public DeckPanel(String borderTitle, int space, int nCards) {
+	public PlayerPanel(String borderTitle, int space, int nCards) {
 		setNameBorder(borderTitle);
 		outerBorder = BorderFactory.createEmptyBorder(8, 8, 8, 8);
 		
@@ -33,23 +29,6 @@ public class DeckPanel extends JPanel {
 		setLayout(myCardLayout);
 		setOpaque(false);
 		
-
-		/**
-		 * Creazione e posizionamento dei bottoni Mazzo e Scartate
-		 */
-		deck = new JButton();
-		
-		deck.setIcon(deckCard);
-		deck.setBorder(BorderFactory.createEmptyBorder());
-		deck.setContentAreaFilled(false);
-		deck.setPreferredSize(new Dimension(100, 150));
-		add(deck);
-
-		
-		JButton discard = new JButton("Scartate");
-		discard.setPreferredSize(new Dimension(100, 150));
-		discard.setEnabled(false);
-		add(discard);
 	}
 	
 	public void setNameBorder(String title) {
@@ -60,7 +39,12 @@ public class DeckPanel extends JPanel {
 		myCardLayout = new FlowLayout(FlowLayout.CENTER,space,nCards);
 	}
 	
-	public JButton getButton() {
-		return deck;
+	public void drawCard(ImageIcon image) {
+		JButton carta = new JButton();
+		carta.setIcon(image);
+		carta.setBorder(BorderFactory.createEmptyBorder());
+		carta.setContentAreaFilled(false);
+		carta.setPreferredSize(new Dimension(100, 150));
+		add(carta);
 	}
 }

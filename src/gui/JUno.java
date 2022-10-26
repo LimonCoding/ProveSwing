@@ -1,3 +1,4 @@
+package gui;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
