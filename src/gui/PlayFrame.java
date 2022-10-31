@@ -24,7 +24,7 @@ public class PlayFrame extends JFrame {
 	private DeckPanel deckPanel;
 	
 	
-	public PlayFrame() {
+	public PlayFrame(String alias) {
 		
 		super("Play Frame");
 		
@@ -38,7 +38,7 @@ public class PlayFrame extends JFrame {
 		topPlayerAI = new PlayerPanel("Top Player", -30, 15);
 		rightPlayerAI = new PlayerPanel("Right Player", -50, 15);
 		leftPlayerAI = new PlayerPanel("Left Player", -50, 15);
-		myPlayer = new PlayerPanel("Me", -30, 15);
+		myPlayer = new PlayerPanel(alias, -30, 15);
 		
 		deckPanel = new DeckPanel("Deck", 50,2);
 		

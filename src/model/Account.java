@@ -11,6 +11,14 @@ public class Account {
 	private int level = 0;
 	private ImageIcon accountIcon;
 	
+	public Account(String alias, int level) {
+		this.alias = alias;
+		this.level = level;
+		
+		this.id = count;
+		count++;
+	}
+	
 	public Account(String alias, int level, ImageIcon accountIcon) {
 		this.alias = alias;
 		this.level = level;
