@@ -1,12 +1,15 @@
 package gui;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
+import javax.swing.border.TitledBorder;
 
 public class PlayerPanel extends JPanel {
 	
@@ -20,8 +23,8 @@ public class PlayerPanel extends JPanel {
 	FlowLayout myCardLayout;
 	
 	public PlayerPanel(String borderTitle, int space, int nCards) {
-		setNameBorder(borderTitle);
-		outerBorder = BorderFactory.createEmptyBorder(8, 8, 8, 8);
+		setInnerBorder(borderTitle);
+		setOuterBorder();
 		
 		setBorder(BorderFactory.createCompoundBorder(outerBorder, innerBorder));
 		
@@ -31,8 +34,14 @@ public class PlayerPanel extends JPanel {
 		
 	}
 	
-	public void setNameBorder(String title) {
-		innerBorder = BorderFactory.createTitledBorder(title);
+	public void setInnerBorder(String title) {
+		innerBorder = BorderFactory.createTitledBorder(null, title, 
+				TitledBorder.CENTER, TitledBorder.TOP, 
+				new Font("Cabin Bold", 30, 30), Color.BLACK);
+	}
+	
+	public void setOuterBorder() {
+		outerBorder = BorderFactory.createEmptyBorder(8, 8, 8, 8);
 	}
 	
 	public void setCardLayoutSpec(int space, int nCards) {
