@@ -9,9 +9,11 @@ import java.awt.event.ActionListener;
 
 import javax.swing.AbstractAction;
 import javax.swing.Box;
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -124,19 +126,21 @@ public class AccountPanel extends JPanel {
     public void updateAccountGuiList(Controller controller) {
 
 		String alias = controller.getAccounts().get(0).getAlias();
-		int level = controller.getAccounts().get(0).getLevel();
+//		int level = controller.getAccounts().get(0).getLevel();
 		
-		JLabel stampaNome = new JLabel("Benvenuto "+alias+"!");
-		JLabel stampaLivello = new JLabel("Livello: "+level);
-		stampaNome.setForeground(Color.BLACK);
-		stampaNome.setFont(new Font("Cabin", 30, 30));
-		stampaNome.setAlignmentX(Component.CENTER_ALIGNMENT);
-		stampaLivello.setForeground(Color.BLACK);
-		stampaLivello.setFont(new Font("Cabin", 30, 30));
-		stampaLivello.setAlignmentX(Component.CENTER_ALIGNMENT);
-		add(Box.createRigidArea(new Dimension(0,20)));
-		add(stampaNome);
-		add(stampaLivello);
+		ButtonGroup players = new ButtonGroup();
+		
+		controller.getAccounts().stream().forEach(
+				(accListTemp) -> {
+					JRadioButton list = new JRadioButton(accListTemp.getAlias() + " - Level: " + accListTemp.getLevel());
+					list.setFont(new Font("Cabin", 30, 30));
+					list.setAlignmentX(Component.CENTER_ALIGNMENT);
+					list.setForeground(Color.BLACK);
+					list.setSelected(true);
+					players.add(list);
+					add(list);
+				}
+		);
 		
 		submit = new JButton("GIOCA");
 		submit.setToolTipText("Clicca per giocare!");
@@ -144,7 +148,9 @@ public class AccountPanel extends JPanel {
 		submit.setFont(new Font("Cabin Bold", 30, 30));
 		add(Box.createRigidArea(new Dimension(0,10)));
 		submit.setAlignmentX(Component.CENTER_ALIGNMENT);
-		add(submit);
+		if (controller.getAccounts() != null) {
+			add(submit);
+		}
 			
 		submit.addActionListener(new ActionListener() {
 				
@@ -153,5 +159,6 @@ public class AccountPanel extends JPanel {
 					new PlayFrame(alias);
 			}				
 		});
+		this.revalidate();
     }
 }

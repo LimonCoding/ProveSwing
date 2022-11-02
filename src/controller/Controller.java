@@ -23,7 +23,8 @@ public class Controller {
 		
 		accList.getAccount().stream().forEach(
 				(accListTemp) -> 
-					System.out.println( accListTemp.getAlias() + 
+					System.out.println( "ID: " + accListTemp.getId() + " - " +
+							accListTemp.getAlias() + 
 							" - Level: " + accListTemp.getLevel())
 		);
 	}
