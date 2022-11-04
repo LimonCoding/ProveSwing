@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch JUno",
+            "request": "launch",
+            "mainClass": "gui.JUno",
+            "projectName": "ProveSwing"
+        },
+        {
+            "type": "java",
             "name": "Launch Uno",
             "request": "launch",
             "mainClass": "view.Uno",
