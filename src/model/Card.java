@@ -42,7 +42,7 @@ public class Card {
 		this.value = value;
 	}
 	
-	public Card getCard(final Color color, final Value value) {
+	public static Card getCard(final Color color, final Value value) {
 		return new Card(color, value);
 	}
 	
