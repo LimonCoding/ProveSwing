@@ -10,6 +10,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
+import controller.Controller;
+
 
 @SuppressWarnings("serial")
 public class PlayFrame extends JFrame {
@@ -23,10 +25,12 @@ public class PlayFrame extends JFrame {
 	private PlayerPanel myPlayer;
 	private DeckPanel deckPanel;
 	
+	private Controller controller = new Controller();
 	
 	public PlayFrame(String alias) {
 		
 		super("Play Frame");
+		controller.createDeck();
 		
 		JPanel myPanel = new PanelGradient();
 		myPanel.setLayout(new BorderLayout(8,6));
@@ -73,21 +77,20 @@ public class PlayFrame extends JFrame {
 		/**
 		 * Creazione e posizionamento delle carte (bottoni) per il giocatore 4 (io)
 		 */
-		myPlayer.drawCard(new ImageIcon("ImageLibrary/CARTE-UNO/small/YELLOW_NINE.png"));
-		myPlayer.drawCard(new ImageIcon("ImageLibrary/CARTE-UNO/small/WILD.png"));
+		myPlayer.drawCard(new ImageIcon("ImageLibrary/CARTE-UNO/small/"+controller.getDeck().getCard().toString()));
+		myPlayer.drawCard(new ImageIcon("ImageLibrary/CARTE-UNO/small/"+controller.getDeck().getCard().toString()));
 		
 		deckPanel.getButton().addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-
+			    System.out.println(controller.getDeck().toString());
+			    String cartaPescata = controller.getDeck().getCard().toString();
+			    System.out.println(cartaPescata);
 				topPlayerAI.drawCard(deckCard);	
 				rightPlayerAI.drawCard(deckCard);	
 				leftPlayerAI.drawCard(deckCard);
-				//UnoCard cardDrawed = new UnoCard(Color.getColor(2),Value.getValue(2));
-				//String cardString = cardDrawed.toString();
-				//myPlayer.drawCard(new ImageIcon(cardString));	
-				myPlayer.drawCard(new ImageIcon("ImageLibrary/CARTE-UNO/small/RED_SIX.png"));	
+				myPlayer.drawCard(new ImageIcon("ImageLibrary/CARTE-UNO/small/"+cartaPescata));	
 				setVisible(true);
 				
 			}

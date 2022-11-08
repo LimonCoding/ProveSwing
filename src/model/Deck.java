@@ -9,7 +9,7 @@ public class Deck {
 	private static int numCards = 0;
 	int cards = 0;
 	
-    private Deck() {
+    public Deck() {
 		this.deck = initDeck();
 	}
 	
@@ -54,21 +54,22 @@ public class Deck {
             }
         }
 		
-//		Collections.shuffle(deckCards);
+		Collections.shuffle(deckCards);
 		return deckCards;
+	}
+	
+	public Card getCard() {
+	    return deck.pop();
 	}
 	
 	@Override
     public String toString() {
 	    String deckString = "";
+	    numCards = 0;
 	    for (Card card : deck) {
 	        deckString += ++numCards + " " + card.toString() + "\n";
 	    }
         return "Deck: \n" + deckString + "";
     }
 	
-	public static void main(String[] args) {
-	    final Deck deck = new Deck();
-	    System.out.println(deck.toString());
-    }
 }

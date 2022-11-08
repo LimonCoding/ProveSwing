@@ -5,8 +5,19 @@ import java.util.List;
 import gui.AccountEvent;
 import model.Account;
 import model.AccountList;
+import model.Deck;
 
 public class Controller {
+    
+    private Deck deck;
+    
+    public void createDeck() {
+        deck = new Deck();
+    }
+    
+    public Deck getDeck() {
+        return this.deck;
+    }
 
 	AccountList accList = new AccountList();
 	
