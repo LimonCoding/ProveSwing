@@ -33,8 +33,10 @@ public class AccountPanel extends JPanel {
 	private String accountName = "";
 	private AccountListener accountListener;
 	private JButton submit;
+	private AccountFrame frame;
 	
-	public AccountPanel() {
+	public AccountPanel(AccountFrame frame) {
+		this.frame = frame;
 		
 		inserisci = new JLabel("Crea un Account: ");
 		insertName = new JTextField();
@@ -153,9 +155,9 @@ public class AccountPanel extends JPanel {
 		}
 			
 		submit.addActionListener(new ActionListener() {
-				
 			@Override
 			public void actionPerformed(ActionEvent e) {
+			        frame.dispose();
 					new PlayFrame(alias);
 			}				
 		});

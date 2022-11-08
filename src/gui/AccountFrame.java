@@ -21,15 +21,14 @@ public class AccountFrame extends JFrame {
 	private Controller controller;
 	
 	public AccountFrame() {
-		
 		super("Account Frame");
 		FlatDarkLaf.setup();
 		
 		myPanel = new PanelGradient();
-		accountPanel = new AccountPanel();
-		
+		accountPanel = new AccountPanel(this);
 		
 		controller = new Controller();
+		controller.createAccountList();
 		
 		accountPanel.setOpaque(false);
 		BoxLayout layout = new BoxLayout(accountPanel, BoxLayout.PAGE_AXIS);

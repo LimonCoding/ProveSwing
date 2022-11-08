@@ -3,6 +3,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -17,13 +19,16 @@ public class PlayerPanel extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	Border innerBorder;
-	Border outerBorder;
+	private Border innerBorder;
+	private Border outerBorder;
+	private PlayFrame frame;
 	
 	FlowLayout myCardLayout;
 	
-	public PlayerPanel(String borderTitle, int space, int nCards) {
-		setInnerBorder(borderTitle);
+	public PlayerPanel(PlayFrame frame, String borderTitle, int space, int nCards) {
+		this.frame = frame;
+	    
+	    setInnerBorder(borderTitle);
 		setOuterBorder();
 		
 		setBorder(BorderFactory.createCompoundBorder(outerBorder, innerBorder));
@@ -55,5 +60,30 @@ public class PlayerPanel extends JPanel {
 		carta.setContentAreaFilled(false);
 		carta.setPreferredSize(new Dimension(100, 150));
 		add(carta);
+		carta.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame.getDeckPanel().getDiscard().setVisible(true);
+                frame.getDeckPanel().getDiscard().setIcon(image);
+                System.out.println(image);
+            }
+        });
 	}
+	
+	public void drawEnemyCard(ImageIcon image, ImageIcon value) {
+        JButton carta = new JButton();
+        carta.setIcon(image);
+        carta.setBorder(BorderFactory.createEmptyBorder());
+        carta.setContentAreaFilled(false);
+        carta.setPreferredSize(new Dimension(100, 150));
+        add(carta);
+        carta.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame.getDeckPanel().getDiscard().setVisible(true);
+                frame.getDeckPanel().getDiscard().setIcon(value);
+                System.out.println(value);
+            }
+        });
+    }
 }

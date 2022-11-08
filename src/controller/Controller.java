@@ -10,6 +10,7 @@ import model.Deck;
 public class Controller {
     
     private Deck deck;
+    AccountList accList;
     
     public void createDeck() {
         deck = new Deck();
@@ -19,7 +20,9 @@ public class Controller {
         return this.deck;
     }
 
-	AccountList accList = new AccountList();
+	public void createAccountList() {
+	    accList = new AccountList();
+    }
 	
 	public List<Account> getAccounts() {
 		return accList.getAccount();
