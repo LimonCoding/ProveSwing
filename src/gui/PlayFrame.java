@@ -87,6 +87,7 @@ public class PlayFrame extends JFrame {
 			    System.out.println(controller.getDeck().toString());
 			    String cartaPescata = controller.getDeck().getCard().toString();
 			    System.out.println(cartaPescata);
+			    topPlayerAI.drawEnemyCard(deckCard,new ImageIcon("ImageLibrary/CARTE-UNO/small/"+controller.getDeck().getCard().toString()));
 				myPlayer.drawCard(new ImageIcon("ImageLibrary/CARTE-UNO/small/"+cartaPescata));	
 				setVisible(true);
 				

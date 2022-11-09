@@ -43,7 +43,7 @@ public class DeckPanel extends JPanel {
 		setDeck();
 		add(deck);
 
-		discard = new JButton("Scartate");
+		discard = new JButton();
 		setDiscard();
 		add(discard);
 	}
