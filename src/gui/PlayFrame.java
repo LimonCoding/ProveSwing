@@ -60,8 +60,10 @@ public class PlayFrame extends JFrame {
 		/**
 		 * Creazione e posizionamento delle carte (bottoni) per il giocatore 1
 		 */
-		topPlayerAI.drawEnemyCard(deckCard, new ImageIcon("ImageLibrary/CARTE-UNO/small/"+controller.getDeck().getCard().toString()));		
-		topPlayerAI.drawEnemyCard(deckCard, new ImageIcon("ImageLibrary/CARTE-UNO/small/"+controller.getDeck().getCard().toString()));		
+		controller.createGame(null);
+		topPlayerAI.drawEnemyCards(controller.getGame().getTopPlayer().getHandCards());
+//		topPlayerAI.drawEnemyCard(deckCard, new ImageIcon("ImageLibrary/CARTE-UNO/small/"+controller.getDeck().getCard().toString()));		
+//		topPlayerAI.drawEnemyCard(deckCard, new ImageIcon("ImageLibrary/CARTE-UNO/small/"+controller.getDeck().getCard().toString()));		
 		/**
 		 * Creazione e posizionamento delle carte (bottoni) per il giocatore 2
 		 */
@@ -87,7 +89,7 @@ public class PlayFrame extends JFrame {
 			    System.out.println(controller.getDeck().toString());
 			    String cartaPescata = controller.getDeck().getCard().toString();
 			    System.out.println(cartaPescata);
-			    topPlayerAI.drawEnemyCard(deckCard,new ImageIcon("ImageLibrary/CARTE-UNO/small/"+controller.getDeck().getCard().toString()));
+			    topPlayerAI.drawEnemyCard(controller.getDeck().getCard());
 				myPlayer.drawCard(new ImageIcon("ImageLibrary/CARTE-UNO/small/"+cartaPescata));	
 				setVisible(true);
 				

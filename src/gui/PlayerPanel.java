@@ -5,6 +5,7 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -12,6 +13,8 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
+
+import model.Card;
 
 public class PlayerPanel extends JPanel {
 	
@@ -69,6 +72,26 @@ public class PlayerPanel extends JPanel {
             }
         });
 	}
+	
+	public void drawEnemyCards(List<Card> cards) {
+	    for (Card card : cards) {
+	        JButton carta = new JButton();
+	        carta.setIcon(new ImageIcon("ImageLibrary/CARTE-UNO/small/"+card.toString()));
+	        carta.setBorder(BorderFactory.createEmptyBorder());
+	        carta.setContentAreaFilled(false);
+	        carta.setPreferredSize(new Dimension(100, 150));
+	        add(carta);
+        }
+    }
+	
+	public void drawEnemyCard(Card card) {
+        JButton carta = new JButton();
+        carta.setIcon(new ImageIcon("ImageLibrary/CARTE-UNO/small/"+card.toString()));
+        carta.setBorder(BorderFactory.createEmptyBorder());
+        carta.setContentAreaFilled(false);
+        carta.setPreferredSize(new Dimension(100, 150));
+        add(carta);
+    }
 	
 	public void drawEnemyCard(ImageIcon image, ImageIcon value) {
         JButton carta = new JButton();

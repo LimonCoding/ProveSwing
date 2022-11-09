@@ -7,7 +7,7 @@ public class Game {
     private Player leftPlayer;
     private Player bottomPlayer;
     
-    private Game(Account player) {
+    public Game(Account player) {
         topPlayer = new Player(new Account("Top Player", 0));
         rightPlayer = new Player(new Account("Right Player", 0));
         leftPlayer = new Player(new Account("Left Player", 0));
