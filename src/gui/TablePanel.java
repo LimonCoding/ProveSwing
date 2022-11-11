@@ -26,6 +26,10 @@ public class TablePanel extends JPanel {
         tableModel.setData(db);
     }
     
+    public JTable getTable() {
+        return table;
+    }
+    
     public void refresh() {
         tableModel.fireTableDataChanged();
     }

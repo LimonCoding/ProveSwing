@@ -11,6 +11,7 @@ import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JTable;
 import javax.swing.WindowConstants;
 import javax.swing.plaf.InsetsUIResource;
 
@@ -64,7 +65,8 @@ public class AccountFrame extends JFrame {
         submit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                    String alias = controller.getAccounts().get(0).getAlias();
+                    JTable table = tablePanel.getTable();
+                    String alias = table.getValueAt(table.getSelectedRow(), 1).toString();
                     dispose();
                     new PlayFrame(alias);
             }               

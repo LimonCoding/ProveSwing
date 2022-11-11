@@ -52,12 +52,5 @@ public class Controller {
 		
 		Account account = new Account(alias, level);
 		db.addAccount(account);
-		
-		db.getAccounts().stream().forEach(
-				(accListTemp) -> 
-					System.out.println( "ID: " + accListTemp.getId() + " - " +
-							accListTemp.getAlias() + 
-							" - Level: " + accListTemp.getLevel())
-		);
 	}
 }

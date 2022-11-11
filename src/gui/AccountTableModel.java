@@ -23,7 +23,7 @@ public class AccountTableModel extends AbstractTableModel {
     public int getColumnCount() {
         return 3;
     }
-
+    
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         Account account = db.get(rowIndex);
