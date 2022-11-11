@@ -1,10 +1,18 @@
 package gui;
+import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.WindowConstants;
+import javax.swing.plaf.InsetsUIResource;
 
 import com.formdev.flatlaf.FlatDarkLaf;
 
@@ -19,6 +27,8 @@ public class AccountFrame extends JFrame {
 	private AccountPanel accountPanel;
 //	private JButton submit;
 	private Controller controller;
+	private TablePanel tablePanel;
+	
 	
 	public AccountFrame() {
 		super("Account Frame");
@@ -26,9 +36,13 @@ public class AccountFrame extends JFrame {
 		
 		myPanel = new PanelGradient();
 		accountPanel = new AccountPanel(this);
-		
+		tablePanel = new TablePanel();
 		controller = new Controller();
 		controller.createAccountList();
+		tablePanel.setData(controller.getAccounts());
+		
+		BorderLayout mainLayout = new BorderLayout();
+		myPanel.setLayout(mainLayout);
 		
 		accountPanel.setOpaque(false);
 		BoxLayout layout = new BoxLayout(accountPanel, BoxLayout.PAGE_AXIS);
@@ -38,11 +52,28 @@ public class AccountFrame extends JFrame {
 			@Override
 			public void accountEventOccurred(AccountEvent e) {
 				controller.addAccount(e);
-				accountPanel.updateAccountGuiList(controller);
+				accountPanel.updateAccountGuiList(controller, tablePanel);
 			}
 		});
 		
-		myPanel.add(accountPanel);
+		JButton submit = new JButton("GIOCA");
+        submit.setToolTipText("Clicca per giocare!");
+        submit.setMargin(new InsetsUIResource(10, 20, 10, 20));
+        submit.setFont(new Font("Cabin Bold", 30, 30));
+        submit.setAlignmentX(Component.CENTER_ALIGNMENT);
+        submit.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                    String alias = controller.getAccounts().get(0).getAlias();
+                    dispose();
+                    new PlayFrame(alias);
+            }               
+        });
+		
+		myPanel.add(accountPanel, BorderLayout.PAGE_START);
+		myPanel.add(Box.createRigidArea(new Dimension(0,10)),BorderLayout.CENTER);
+		myPanel.add(submit, BorderLayout.PAGE_END);
+		myPanel.add(tablePanel, BorderLayout.CENTER);
 		add(myPanel);
 		
 		setFrameSettings();

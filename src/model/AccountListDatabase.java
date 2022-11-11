@@ -3,11 +3,11 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AccountList {
+public class AccountListDatabase {
 
-	private List<Account> listAccount;
+	private ArrayList<Account> listAccount;
 	
-	public AccountList() {
+	public AccountListDatabase() {
 		listAccount = new ArrayList<Account>();
 	}
 	
@@ -15,7 +15,7 @@ public class AccountList {
 		listAccount.add(account);
 	}
 	
-	public List<Account> getAccount() {
+	public List<Account> getAccounts() {
 		return listAccount;
 	}
 }

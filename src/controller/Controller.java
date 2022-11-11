@@ -5,7 +5,7 @@ import java.util.List;
 
 import gui.AccountEvent;
 import model.Account;
-import model.AccountList;
+import model.AccountListDatabase;
 import model.Card;
 import model.Deck;
 import model.Game;
@@ -14,7 +14,7 @@ public class Controller {
     
     private Deck deck;
     List<Card> handCards;
-    AccountList accList;
+    AccountListDatabase db;
     private Game game;
     
     public void createGame(Account player) {
@@ -39,11 +39,11 @@ public class Controller {
     }
 
 	public void createAccountList() {
-	    accList = new AccountList();
+	    db = new AccountListDatabase();
     }
 	
 	public List<Account> getAccounts() {
-		return accList.getAccount();
+		return db.getAccounts();
 	}
 	
 	public void addAccount(AccountEvent ev) {
@@ -51,9 +51,9 @@ public class Controller {
 		int level = ev.getLevel();
 		
 		Account account = new Account(alias, level);
-		accList.addAccount(account);
+		db.addAccount(account);
 		
-		accList.getAccount().stream().forEach(
+		db.getAccounts().stream().forEach(
 				(accListTemp) -> 
 					System.out.println( "ID: " + accListTemp.getId() + " - " +
 							accListTemp.getAlias() + 

@@ -47,7 +47,7 @@ public class PlayFrame extends JFrame {
 		deckPanel = new DeckPanel("Deck", 50,2);
 		
 		Dimension dim = getPreferredSize();
-		dim.width = 700;
+		dim.width = 550;
 		dim.height = 700;
 		rightPlayerAI.setPreferredSize(dim);
 		leftPlayerAI.setPreferredSize(dim);

@@ -125,42 +125,7 @@ public class AccountPanel extends JPanel {
     	this.accountListener = accountListener;
     }
     
-    public void updateAccountGuiList(Controller controller) {
-
-		String alias = controller.getAccounts().get(0).getAlias();
-//		int level = controller.getAccounts().get(0).getLevel();
-		
-		ButtonGroup players = new ButtonGroup();
-		
-		controller.getAccounts().stream().forEach(
-				(accListTemp) -> {
-					JRadioButton list = new JRadioButton(accListTemp.getAlias() + " - Level: " + accListTemp.getLevel());
-					list.setFont(new Font("Cabin", 30, 30));
-					list.setAlignmentX(Component.CENTER_ALIGNMENT);
-					list.setForeground(Color.BLACK);
-					list.setSelected(true);
-					players.add(list);
-					add(list);
-				}
-		);
-		
-		submit = new JButton("GIOCA");
-		submit.setToolTipText("Clicca per giocare!");
-		submit.setMargin(new InsetsUIResource(10, 20, 10, 20));
-		submit.setFont(new Font("Cabin Bold", 30, 30));
-		add(Box.createRigidArea(new Dimension(0,10)));
-		submit.setAlignmentX(Component.CENTER_ALIGNMENT);
-		if (controller.getAccounts() != null) {
-			add(submit);
-		}
-			
-		submit.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-			        frame.dispose();
-					new PlayFrame(alias);
-			}				
-		});
-		this.revalidate();
+    public void updateAccountGuiList(Controller controller, TablePanel tablePanel) {
+		tablePanel.refresh();
     }
 }
