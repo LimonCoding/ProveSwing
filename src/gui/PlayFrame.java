@@ -43,8 +43,10 @@ public class PlayFrame extends JFrame {
 		rightPlayerAI = new PlayerPanel(this, "Right Player", -50, 15);
 		leftPlayerAI = new PlayerPanel(this, "Left Player", -50, 15);
 		myPlayer = new PlayerPanel(this, alias, -30, 15);
-		
-		deckPanel = new DeckPanel("Deck", 50,2);
+		System.out.println(controller.getDeck().toString());
+		String scartata = controller.getDeck().getCard().toString();
+		System.out.println("Scartata: "+scartata);
+		deckPanel = new DeckPanel(scartata, "Deck", 50,2);
 		
 		Dimension dim = getPreferredSize();
 		dim.width = 550;
@@ -110,7 +112,7 @@ public class PlayFrame extends JFrame {
 		setIconImage(iconApp.getImage());
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		pack();
-		setMinimumSize(new Dimension(1200, 1000));
+		setMinimumSize(new Dimension(1800, 1000));
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		setResizable(true);
 		setLocationRelativeTo(null);

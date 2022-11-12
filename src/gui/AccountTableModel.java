@@ -9,6 +9,7 @@ import model.Account;
 public class AccountTableModel extends AbstractTableModel {
     
     private List<Account> db;
+    private String[] colNames = {"ID", "ALIAS", "LEVEL"};
 
     public void setData(List<Account> db) {
         this.db = db;
@@ -24,6 +25,11 @@ public class AccountTableModel extends AbstractTableModel {
         return 3;
     }
     
+    @Override
+    public String getColumnName(int column) {
+        return colNames[column];
+    }
+
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         Account account = db.get(rowIndex);

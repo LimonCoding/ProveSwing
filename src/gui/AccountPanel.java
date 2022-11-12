@@ -5,15 +5,12 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.AbstractAction;
 import javax.swing.Box;
-import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -32,12 +29,8 @@ public class AccountPanel extends JPanel {
 	private JButton insertButton;
 	private String accountName = "";
 	private AccountListener accountListener;
-	private JButton submit;
-	private AccountFrame frame;
 	
-	public AccountPanel(AccountFrame frame) {
-		this.frame = frame;
-		
+	public AccountPanel() {
 		inserisci = new JLabel("Crea un Account: ");
 		insertName = new JTextField();
 		insertButton = new JButton("Inserisci");
@@ -45,11 +38,6 @@ public class AccountPanel extends JPanel {
 		inserisci.setAlignmentX(Component.CENTER_ALIGNMENT);
 		insertName.setAlignmentX(Component.CENTER_ALIGNMENT);
 		insertButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-		
-		add(Box.createRigidArea(new Dimension(0,250)));
-		add(inserisci);
-		add(Box.createRigidArea(new Dimension(0,30)));
-		add(insertName);
 		
 		fontSettings();
 		
@@ -97,9 +85,12 @@ public class AccountPanel extends JPanel {
         });
 		
 		insertButton.addActionListener(action);
-
-		add(Box.createRigidArea(new Dimension(0,10)));
+		
+		add(inserisci);
+        add(Box.createRigidArea(new Dimension(0,30)));
+        add(insertName);
 		add(insertButton);
+		add(Box.createRigidArea(new Dimension(0,30)));
 	}
 	
     private boolean checkBtn() {
@@ -111,7 +102,8 @@ public class AccountPanel extends JPanel {
     private void fontSettings() {
     	inserisci.setFont(new Font("Cabin Bold", 30, 30));
 		
-		insertName.setMargin(new InsetsUIResource(10, 20, 10, 20));
+    	insertName.setMargin(new InsetsUIResource(10, 20, 10, 20));
+    	insertName.setHorizontalAlignment(JTextField.CENTER);
 		
 		insertButton.setToolTipText("Clicca per giocare!");
 		insertButton.setMargin(new InsetsUIResource(10, 20, 10, 20));

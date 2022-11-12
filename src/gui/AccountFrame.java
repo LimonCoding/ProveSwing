@@ -36,11 +36,12 @@ public class AccountFrame extends JFrame {
 		FlatDarkLaf.setup();
 		
 		myPanel = new PanelGradient();
-		accountPanel = new AccountPanel(this);
+		accountPanel = new AccountPanel();
 		tablePanel = new TablePanel();
 		controller = new Controller();
 		controller.createAccountList();
 		tablePanel.setData(controller.getAccounts());
+		tablePanel.setOpaque(false);
 		
 		BorderLayout mainLayout = new BorderLayout();
 		myPanel.setLayout(mainLayout);
@@ -71,9 +72,15 @@ public class AccountFrame extends JFrame {
                     new PlayFrame(alias);
             }               
         });
+        
+        Dimension dim = getPreferredSize();
+        dim.width = 500;
+        dim.height = 100;
+        tablePanel.setPreferredSize(dim);
 		
 		myPanel.add(accountPanel, BorderLayout.PAGE_START);
-		myPanel.add(Box.createRigidArea(new Dimension(0,10)),BorderLayout.CENTER);
+		myPanel.add(Box.createRigidArea(new Dimension(400,50)),BorderLayout.EAST);
+		myPanel.add(Box.createRigidArea(new Dimension(400,50)),BorderLayout.WEST);
 		myPanel.add(submit, BorderLayout.PAGE_END);
 		myPanel.add(tablePanel, BorderLayout.CENTER);
 		add(myPanel);
@@ -89,7 +96,7 @@ public class AccountFrame extends JFrame {
     	setIconImage(iconApp.getImage());
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		pack();
-		setMinimumSize(new Dimension(500, 900));
+		setMinimumSize(new Dimension(1500, 700));
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		setResizable(true);
 		setLocationRelativeTo(null);
