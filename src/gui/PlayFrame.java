@@ -25,12 +25,10 @@ public class PlayFrame extends JFrame {
 	private PlayerPanel myPlayer;
 	private DeckPanel deckPanel;
 	
-	private Controller controller = new Controller();
-	
-	public PlayFrame(String alias) {
+	public PlayFrame(Controller controller, int id) {
 		
 		super("Play Frame");
-		controller.createDeck();
+		controller.createGame(null);
 		
 		JPanel myPanel = new PanelGradient();
 		myPanel.setLayout(new BorderLayout(8,6));
@@ -42,10 +40,8 @@ public class PlayFrame extends JFrame {
 		topPlayerAI = new PlayerPanel(this, "Top Player", -30, 15);
 		rightPlayerAI = new PlayerPanel(this, "Right Player", -50, 15);
 		leftPlayerAI = new PlayerPanel(this, "Left Player", -50, 15);
-		myPlayer = new PlayerPanel(this, alias, -30, 15);
-		System.out.println(controller.getDeck().toString());
+		myPlayer = new PlayerPanel(this, controller.getAccount(id).getAlias(), -30, 15);
 		String scartata = controller.getDeck().getCard().toString();
-		System.out.println("Scartata: "+scartata);
 		deckPanel = new DeckPanel(scartata, "Deck", 50,2);
 		
 		Dimension dim = getPreferredSize();
@@ -62,7 +58,6 @@ public class PlayFrame extends JFrame {
 		/**
 		 * Creazione e posizionamento delle carte (bottoni) per il giocatore 1
 		 */
-		controller.createGame(null);
 		topPlayerAI.drawEnemyCards(controller.getGame().getTopPlayer().getHandCards());
 //		topPlayerAI.drawEnemyCard(deckCard, new ImageIcon("ImageLibrary/CARTE-UNO/small/"+controller.getDeck().getCard().toString()));		
 //		topPlayerAI.drawEnemyCard(deckCard, new ImageIcon("ImageLibrary/CARTE-UNO/small/"+controller.getDeck().getCard().toString()));		
@@ -90,7 +85,6 @@ public class PlayFrame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 			    System.out.println(controller.getDeck().toString());
 			    String cartaPescata = controller.getDeck().getCard().toString();
-			    System.out.println(cartaPescata);
 			    topPlayerAI.drawEnemyCard(controller.getDeck().getCard());
 				myPlayer.drawCard(new ImageIcon("ImageLibrary/CARTE-UNO/small/"+cartaPescata));	
 				setVisible(true);

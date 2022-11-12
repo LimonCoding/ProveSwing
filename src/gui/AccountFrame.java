@@ -67,9 +67,9 @@ public class AccountFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                     JTable table = tablePanel.getTable();
-                    String alias = table.getValueAt(table.getSelectedRow(), 1).toString();
+                    Integer id = (Integer) table.getValueAt(table.getSelectedRow(), 0);
                     dispose();
-                    new PlayFrame(alias);
+                    new PlayFrame(controller, id);
             }               
         });
         

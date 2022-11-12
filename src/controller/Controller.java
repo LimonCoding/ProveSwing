@@ -20,6 +20,7 @@ public class Controller {
     public void createGame(Account player) {
         deck = new Deck();
         game = new Game(player);
+        System.out.println(getDeck().toString());
         handCards = new ArrayList<>();
         handCards.add(deck.getCard());
         handCards.add(deck.getCard());
@@ -28,10 +29,6 @@ public class Controller {
     
     public Game getGame() {
         return this.game;
-    }
-    
-    public void createDeck() {
-        deck = new Deck();
     }
     
     public Deck getDeck() {
@@ -46,10 +43,13 @@ public class Controller {
 		return db.getAccounts();
 	}
 	
+	public Account getAccount(int id) {
+	    return db.getAccounts().get(id);
+    }
+	
 	public void addAccount(AccountEvent ev) {
 		String alias = ev.getAlias();
 		int level = ev.getLevel();
-		
 		Account account = new Account(alias, level);
 		db.addAccount(account);
 	}

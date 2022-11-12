@@ -2,7 +2,7 @@ package model;
 
 import javax.swing.ImageIcon;
 
-public class Account {
+public class Account extends Object {
 	
 	private static int count = 0;
 

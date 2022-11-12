@@ -43,5 +43,4 @@ public class AccountTableModel extends AbstractTableModel {
         }
         return null;
     }
-
 }

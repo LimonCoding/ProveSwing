@@ -28,10 +28,10 @@ public class PlayerPanel extends JPanel {
 	
 	FlowLayout myCardLayout;
 	
-	public PlayerPanel(PlayFrame frame, String borderTitle, int space, int nCards) {
+	public PlayerPanel(PlayFrame frame, String alias, int space, int nCards) {
 		this.frame = frame;
 	    
-	    setInnerBorder(borderTitle);
+	    setInnerBorder(alias);
 		setOuterBorder();
 		
 		setBorder(BorderFactory.createCompoundBorder(outerBorder, innerBorder));
