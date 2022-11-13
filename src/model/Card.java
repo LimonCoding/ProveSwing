@@ -1,8 +1,6 @@
 package model;
 
-import javax.swing.JButton;
-
-public class Card {
+public class Card implements Comparable<Card>{
 	
 	public enum Color {
 		BLUE(0), GREEN(1), RED(2), YELLOW(3), WILD(4);
@@ -59,5 +57,17 @@ public class Card {
 	public String toString() {
 		return color + "_" + value + ".png";
 	}
-	
+
+    @Override
+    public int compareTo(Card card) {
+        if (card.getColor().equals(Color.WILD)) {
+            return 1;
+        }
+        return 0;
+    }
+    
+    public boolean isWild(Card card) {
+        return card.getColor().equals(Color.WILD);
+    }
+
 }

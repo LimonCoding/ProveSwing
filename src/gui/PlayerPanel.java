@@ -1,5 +1,6 @@
 package gui;
 import java.awt.Color;
+import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -72,10 +73,19 @@ public class PlayerPanel extends JPanel {
             carta.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    controller.getDiscard().setDiscard(card);
-                    System.out.println("\n"+controller.getDiscard().toString());
-                    frame.getDeckPanel().getDiscardButton().setVisible(true);
-                    frame.getDeckPanel().getDiscardButton().setIcon(carta.getIcon());
+                    if (controller.getDiscard().getLastDiscard().getColor().equals(card.getColor()) ||
+                            controller.getDiscard().getLastDiscard().getValue().equals(card.getValue()) ||
+                            card.isWild(card) || controller.getDiscard().getLastDiscard().isWild(controller.getDiscard().getLastDiscard())) {
+                        controller.getDiscard().setDiscard(card);
+                        System.out.println("\n"+controller.getDiscard().toString());
+                        frame.getDeckPanel().getDiscardButton().setVisible(true);
+                        frame.getDeckPanel().getDiscardButton().setIcon(carta.getIcon());
+                        JButton buttonThatWasClicked = (JButton)e.getSource();
+                        Container parent = buttonThatWasClicked.getParent();
+                        parent.remove(buttonThatWasClicked);
+                        parent.revalidate();
+                        parent.repaint();
+                    } else System.out.println("errore");
                 }
             });
 	    });
@@ -90,12 +100,22 @@ public class PlayerPanel extends JPanel {
 		carta.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                controller.getDiscard().setDiscard(card);
-                System.out.println(controller.getDiscard().toString());
-                frame.getDeckPanel().getDiscardButton().setVisible(true);
-                frame.getDeckPanel().getDiscardButton().setIcon(carta.getIcon());
-            }
+                if (controller.getDiscard().getLastDiscard().getColor().equals(card.getColor()) ||
+                        controller.getDiscard().getLastDiscard().getValue().equals(card.getValue()) ||
+                        card.isWild(card) || controller.getDiscard().getLastDiscard().isWild(controller.getDiscard().getLastDiscard())) {
+                    controller.getDiscard().setDiscard(card);
+                    System.out.println("\n"+controller.getDiscard().toString());
+                    frame.getDeckPanel().getDiscardButton().setVisible(true);
+                    frame.getDeckPanel().getDiscardButton().setIcon(carta.getIcon());
+                    JButton buttonThatWasClicked = (JButton)e.getSource();
+                    Container parent = buttonThatWasClicked.getParent();
+                    parent.remove(buttonThatWasClicked);
+                    parent.revalidate();
+                    parent.repaint();
+                } else System.out.println("errore");
+    		}
         });
+		System.out.println();
 	}
 	
 	public void setEnemyCard(List<Card> cards) {

@@ -40,4 +40,8 @@ public class Player {
         this.accountInfo = accountInfo;
     }
     
+    @Override
+    public String toString() {
+        return accountInfo.toString()+" [handCards=" + handCards + "]";
+    }
 }

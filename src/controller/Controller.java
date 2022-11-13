@@ -24,13 +24,9 @@ public class Controller {
         game = new Game(player);
         System.out.println(getDeck().toString());
         discard.setDiscard(deck.getCard());
-        System.out.println("- TOP PLAYER'S CARDS: ");
         game.getTopPlayer().setHandCards(new ArrayList<>(Arrays.asList(deck.getCard(), deck.getCard())));
-        System.out.println("- RIGHT PLAYER'S CARDS: ");
         game.getRightPlayer().setHandCards(new ArrayList<>(Arrays.asList(deck.getCard(), deck.getCard())));
-        System.out.println("- LEFT PLAYER'S CARDS: ");
         game.getLeftPlayer().setHandCards(new ArrayList<>(Arrays.asList(deck.getCard(), deck.getCard())));
-        System.out.println("- BOTTOM PLAYER'S CARDS: ");
         game.getBottomPlayer().setHandCards(new ArrayList<>(Arrays.asList(deck.getCard(), deck.getCard())));
 
     }

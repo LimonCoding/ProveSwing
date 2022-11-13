@@ -59,9 +59,7 @@ public class Deck {
 	}
 	
 	public Card getCard() {
-	    Card c = deck.pop();
-	    System.out.println(c.toString());
-	    return c;
+	    return deck.pop();
 	}
 	
 	@Override

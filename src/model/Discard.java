@@ -28,6 +28,7 @@ public class Discard {
     @Override
     public String toString() {
         String discardString = "";
+        numCards = 0;
         for (Card card : discard) {
             discardString += (numCards++) + " " + card.toString() + "\n";
         }
