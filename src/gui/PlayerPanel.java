@@ -73,9 +73,10 @@ public class PlayerPanel extends JPanel {
             carta.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    if (controller.getDiscard().getLastDiscard().getColor().equals(card.getColor()) ||
-                            controller.getDiscard().getLastDiscard().getValue().equals(card.getValue()) ||
-                            card.isWild(card) || controller.getDiscard().getLastDiscard().isWild(controller.getDiscard().getLastDiscard())) {
+                    Card lastDiscard = controller.getDiscard().getLastDiscard();
+                    if (lastDiscard.getColor().equals(card.getColor()) ||
+                            lastDiscard.getValue().equals(card.getValue()) ||
+                            card.isWild() || lastDiscard.isWild()) {
                         controller.getDiscard().setDiscard(card);
                         System.out.println("\n"+controller.getDiscard().toString());
                         frame.getDeckPanel().getDiscardButton().setVisible(true);
@@ -100,9 +101,10 @@ public class PlayerPanel extends JPanel {
 		carta.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (controller.getDiscard().getLastDiscard().getColor().equals(card.getColor()) ||
-                        controller.getDiscard().getLastDiscard().getValue().equals(card.getValue()) ||
-                        card.isWild(card) || controller.getDiscard().getLastDiscard().isWild(controller.getDiscard().getLastDiscard())) {
+                Card lastDiscard = controller.getDiscard().getLastDiscard();
+                if (lastDiscard.getColor().equals(card.getColor()) ||
+                        lastDiscard.getValue().equals(card.getValue()) ||
+                        card.isWild() || lastDiscard.isWild()) {
                     controller.getDiscard().setDiscard(card);
                     System.out.println("\n"+controller.getDiscard().toString());
                     frame.getDeckPanel().getDiscardButton().setVisible(true);

@@ -1,6 +1,6 @@
 package model;
 
-public class Card implements Comparable<Card>{
+public class Card {
 	
 	public enum Color {
 		BLUE(0), GREEN(1), RED(2), YELLOW(3), WILD(4);
@@ -58,16 +58,8 @@ public class Card implements Comparable<Card>{
 		return color + "_" + value + ".png";
 	}
 
-    @Override
-    public int compareTo(Card card) {
-        if (card.getColor().equals(Color.WILD)) {
-            return 1;
-        }
-        return 0;
-    }
-    
-    public boolean isWild(Card card) {
-        return card.getColor().equals(Color.WILD);
+    public boolean isWild() {
+        return this.getColor().equals(Color.WILD);
     }
 
 }
