@@ -27,7 +27,7 @@ public class DeckPanel extends JPanel {
 	
 	FlowLayout myCardLayout;
 	
-	public DeckPanel(String discard, String borderTitle, int space, int nCards) {
+	public DeckPanel(Card discard, String borderTitle, int space, int nCards) {
 		setNameBorder(borderTitle);
 		outerBorder = BorderFactory.createEmptyBorder(20, 20, 20, 20);
 		
@@ -46,7 +46,7 @@ public class DeckPanel extends JPanel {
 		add(deck);
 
 		this.discard = new JButton();
-		setDiscard(discard);
+		setDiscardButton(discard.toString());
 		add(this.discard);
 	}
 	
@@ -62,7 +62,7 @@ public class DeckPanel extends JPanel {
 		return deck;
 	}
 	
-	public JButton getDiscard() {
+	public JButton getDiscardButton() {
         return discard;
     }
 	
@@ -73,7 +73,7 @@ public class DeckPanel extends JPanel {
         deck.setPreferredSize(new Dimension(100, 150));
     }
 	
-	public void setDiscard(String discard) {
+	public void setDiscardButton(String discard) {
 	    this.discard.setIcon(new ImageIcon("ImageLibrary/CARTE-UNO/small/"+discard));
 	    this.discard.setBorder(BorderFactory.createEmptyBorder());
         this.discard.setContentAreaFilled(false);

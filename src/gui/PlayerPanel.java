@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 
+import controller.Controller;
 import model.Card;
 
 public class PlayerPanel extends JPanel {
@@ -22,14 +23,18 @@ public class PlayerPanel extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	private static final ImageIcon deckCard = new ImageIcon("ImageLibrary/CARTE-UNO/small/RETRO.png");
+	
 	private Border innerBorder;
 	private Border outerBorder;
 	private PlayFrame frame;
-	
+	private Controller controller;
 	FlowLayout myCardLayout;
 	
-	public PlayerPanel(PlayFrame frame, String alias, int space, int nCards) {
+	public PlayerPanel(Controller controller, PlayFrame frame, String alias, int space, int nCards) {
 		this.frame = frame;
+		this.controller = controller;
 	    
 	    setInnerBorder(alias);
 		setOuterBorder();
@@ -56,9 +61,28 @@ public class PlayerPanel extends JPanel {
 		myCardLayout = new FlowLayout(FlowLayout.CENTER,space,nCards);
 	}
 	
-	public void drawCard(ImageIcon image) {
+	public void setCard(List<Card> cards) {
+	    cards.stream().forEach((card) -> {
+	        JButton carta = new JButton();
+            carta.setIcon(new ImageIcon("ImageLibrary/CARTE-UNO/small/"+card.toString()));
+            carta.setBorder(BorderFactory.createEmptyBorder());
+            carta.setContentAreaFilled(false);
+            carta.setPreferredSize(new Dimension(100, 150));
+            add(carta);
+            carta.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    controller.getDiscard().setDiscard(card);
+                    System.out.println("\n"+controller.getDiscard().toString());
+                    frame.getDeckPanel().getDiscardButton().setVisible(true);
+                    frame.getDeckPanel().getDiscardButton().setIcon(carta.getIcon());
+                }
+            });
+	    });
+	}	
+	public void drawCard(Card card) {
 		JButton carta = new JButton();
-		carta.setIcon(image);
+		carta.setIcon(new ImageIcon("ImageLibrary/CARTE-UNO/small/"+card));
 		carta.setBorder(BorderFactory.createEmptyBorder());
 		carta.setContentAreaFilled(false);
 		carta.setPreferredSize(new Dimension(100, 150));
@@ -66,22 +90,23 @@ public class PlayerPanel extends JPanel {
 		carta.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                frame.getDeckPanel().getDiscard().setVisible(true);
-                frame.getDeckPanel().getDiscard().setIcon(image);
-                System.out.println(image);
+                controller.getDiscard().setDiscard(card);
+                System.out.println(controller.getDiscard().toString());
+                frame.getDeckPanel().getDiscardButton().setVisible(true);
+                frame.getDeckPanel().getDiscardButton().setIcon(carta.getIcon());
             }
         });
 	}
 	
-	public void drawEnemyCards(List<Card> cards) {
-	    for (Card card : cards) {
+	public void setEnemyCard(List<Card> cards) {
+	    cards.stream().forEach((card) -> {
 	        JButton carta = new JButton();
-	        carta.setIcon(new ImageIcon("ImageLibrary/CARTE-UNO/small/"+card.toString()));
-	        carta.setBorder(BorderFactory.createEmptyBorder());
-	        carta.setContentAreaFilled(false);
-	        carta.setPreferredSize(new Dimension(100, 150));
-	        add(carta);
-        }
+            carta.setIcon(deckCard);
+            carta.setBorder(BorderFactory.createEmptyBorder());
+            carta.setContentAreaFilled(false);
+            carta.setPreferredSize(new Dimension(100, 150));
+            add(carta);
+	    });
     }
 	
 	public void drawEnemyCard(Card card) {
@@ -91,22 +116,5 @@ public class PlayerPanel extends JPanel {
         carta.setContentAreaFilled(false);
         carta.setPreferredSize(new Dimension(100, 150));
         add(carta);
-    }
-	
-	public void drawEnemyCard(ImageIcon image, ImageIcon value) {
-        JButton carta = new JButton();
-        carta.setIcon(image);
-        carta.setBorder(BorderFactory.createEmptyBorder());
-        carta.setContentAreaFilled(false);
-        carta.setPreferredSize(new Dimension(100, 150));
-        add(carta);
-        carta.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                frame.getDeckPanel().getDiscard().setVisible(true);
-                frame.getDeckPanel().getDiscard().setIcon(value);
-                System.out.println(value);
-            }
-        });
     }
 }

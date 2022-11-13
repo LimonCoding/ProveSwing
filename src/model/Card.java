@@ -1,5 +1,7 @@
 package model;
 
+import javax.swing.JButton;
+
 public class Card {
 	
 	public enum Color {
