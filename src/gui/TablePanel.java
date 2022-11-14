@@ -5,9 +5,12 @@ import java.awt.Color;
 import java.awt.Font;
 import java.util.List;
 
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JViewport;
+import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableCellRenderer;
 
 import model.Account;
@@ -23,8 +26,16 @@ public class TablePanel extends JPanel {
         table = new JTable(tableModel);
         scrollPane = new JScrollPane(table);
         fontSettings();
+        table.setRowHeight(table.getRowHeight() + 20);
+        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        table.getTableHeader().setFont(new Font("Cabin Bold", 30, 30));
+        
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment( JLabel.CENTER );
+        centerRenderer.setOpaque(false);
+        table.setDefaultRenderer(Object.class, centerRenderer);
+        
         table.setOpaque(false);
-        ((DefaultTableCellRenderer)table.getDefaultRenderer(Object.class)).setOpaque(false);
         scrollPane.setOpaque(false);
         scrollPane.getViewport().setOpaque(false);
         

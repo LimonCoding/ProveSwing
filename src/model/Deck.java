@@ -1,6 +1,8 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.Stack;
 
 public class Deck {
@@ -15,14 +17,10 @@ public class Deck {
 	
 	private Stack<Card> initDeck() {
 		Stack<Card> deckCards = new Stack<>();
-//		for (final Card.Color color : Card.Color.values()) {
-//			for (final Card.Value value : Card.Value.values()) {
-//			    deckCards.push(Card.getCard(color, value));
-//			}
-//		}
 		
 		Card.Color[] colors = Card.Color.values();
 		Card.Value[] values = Card.Value.values();
+		
 		for (int i = 0; i < colors.length-1; i++) {
             
             Card.Color color = colors[i];
@@ -61,6 +59,14 @@ public class Deck {
 	public Card getCard() {
 	    return deck.pop();
 	}
+	
+	public ArrayList<Card> getCards(int nCards) {
+	    ArrayList<Card> cardsDrawed = new ArrayList<>(nCards);
+        for (int i = 0; i < nCards; i++) {
+            cardsDrawed.add(deck.pop());
+        }
+        return cardsDrawed;
+    }
 	
 	@Override
     public String toString() {

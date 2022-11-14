@@ -11,6 +11,7 @@ import java.util.List;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
@@ -63,7 +64,9 @@ public class PlayerPanel extends JPanel {
 	}
 	
 	public void setCard(List<Card> cards) {
-	    cards.stream().forEach((card) -> {
+	    controller.getGame().getBottomPlayer().setHandCards(cards);
+        System.out.println(controller.getGame().getBottomPlayer().getHandCards().toString());
+        cards.stream().forEach((card) -> {
 	        JButton carta = new JButton();
             carta.setIcon(new ImageIcon("ImageLibrary/CARTE-UNO/small/"+card.toString()));
             carta.setBorder(BorderFactory.createEmptyBorder());
@@ -73,10 +76,9 @@ public class PlayerPanel extends JPanel {
             carta.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    Card lastDiscard = controller.getDiscard().getLastDiscard();
-                    if (lastDiscard.getColor().equals(card.getColor()) ||
-                            lastDiscard.getValue().equals(card.getValue()) ||
-                            card.isWild() || lastDiscard.isWild()) {
+                    if (controller.legitDiscard(card)) {
+                        controller.getGame().getBottomPlayer().discard(card);
+                        System.out.println(controller.getGame().getBottomPlayer().getHandCards().toString());
                         controller.getDiscard().setDiscard(card);
                         System.out.println("\n"+controller.getDiscard().toString());
                         frame.getDeckPanel().getDiscardButton().setVisible(true);
@@ -86,7 +88,11 @@ public class PlayerPanel extends JPanel {
                         parent.remove(buttonThatWasClicked);
                         parent.revalidate();
                         parent.repaint();
-                    } else System.out.println("errore");
+                    } else {
+                        JOptionPane.showMessageDialog(frame, 
+                                "This card is not legit to throw.", 
+                                "Unlegit discard!", JOptionPane.ERROR_MESSAGE);
+                    }
                 }
             });
 	    });
@@ -98,13 +104,14 @@ public class PlayerPanel extends JPanel {
 		carta.setContentAreaFilled(false);
 		carta.setPreferredSize(new Dimension(100, 150));
 		add(carta);
+		controller.getGame().getBottomPlayer().addHandCard(card);
+		System.out.println(controller.getGame().getBottomPlayer().getHandCards().toString());
 		carta.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Card lastDiscard = controller.getDiscard().getLastDiscard();
-                if (lastDiscard.getColor().equals(card.getColor()) ||
-                        lastDiscard.getValue().equals(card.getValue()) ||
-                        card.isWild() || lastDiscard.isWild()) {
+                if (controller.legitDiscard(card)) {
+                    controller.getGame().getBottomPlayer().discard(card);
+                    System.out.println(controller.getGame().getBottomPlayer().getHandCards().toString());
                     controller.getDiscard().setDiscard(card);
                     System.out.println("\n"+controller.getDiscard().toString());
                     frame.getDeckPanel().getDiscardButton().setVisible(true);
@@ -114,10 +121,13 @@ public class PlayerPanel extends JPanel {
                     parent.remove(buttonThatWasClicked);
                     parent.revalidate();
                     parent.repaint();
-                } else System.out.println("errore");
+                } else {
+                    JOptionPane.showMessageDialog(frame, 
+                            "This card is not legit to throw.", 
+                            "Unlegit discard!", JOptionPane.ERROR_MESSAGE);
+                }
     		}
         });
-		System.out.println();
 	}
 	
 	public void setEnemyCard(List<Card> cards) {

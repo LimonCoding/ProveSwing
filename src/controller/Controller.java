@@ -7,6 +7,7 @@ import java.util.List;
 import gui.AccountEvent;
 import model.Account;
 import model.AccountListDatabase;
+import model.Card;
 import model.Deck;
 import model.Discard;
 import model.Game;
@@ -24,10 +25,10 @@ public class Controller {
         game = new Game(player);
         System.out.println(getDeck().toString());
         discard.setDiscard(deck.getCard());
-        game.getTopPlayer().setHandCards(new ArrayList<>(Arrays.asList(deck.getCard(), deck.getCard())));
-        game.getRightPlayer().setHandCards(new ArrayList<>(Arrays.asList(deck.getCard(), deck.getCard())));
-        game.getLeftPlayer().setHandCards(new ArrayList<>(Arrays.asList(deck.getCard(), deck.getCard())));
-        game.getBottomPlayer().setHandCards(new ArrayList<>(Arrays.asList(deck.getCard(), deck.getCard())));
+        game.getTopPlayer().setHandCards(new ArrayList<>(deck.getCards(7)));
+        game.getRightPlayer().setHandCards(new ArrayList<>(deck.getCards(7)));
+        game.getLeftPlayer().setHandCards(new ArrayList<>(deck.getCards(7)));
+        game.getBottomPlayer().setHandCards(new ArrayList<>(deck.getCards(7)));
 
     }
     
@@ -41,6 +42,13 @@ public class Controller {
 
     public Discard getDiscard() {
         return this.discard;
+    }
+    
+    public boolean legitDiscard(Card card) {
+        Card lastDiscard = getDiscard().getLastDiscard();
+        return lastDiscard.getColor().equals(card.getColor()) ||
+                lastDiscard.getValue().equals(card.getValue()) ||
+                card.isWild() || lastDiscard.isWild();
     }
     
 	public void createAccountList() {

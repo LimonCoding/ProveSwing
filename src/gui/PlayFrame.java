@@ -92,7 +92,7 @@ public class PlayFrame extends JFrame {
 		setIconImage(iconApp.getImage());
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		pack();
-		setMinimumSize(new Dimension(1800, 1000));
+		setMinimumSize(new Dimension(1700, 850));
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		setResizable(true);
 		setLocationRelativeTo(null);

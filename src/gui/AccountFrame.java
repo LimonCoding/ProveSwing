@@ -11,6 +11,7 @@ import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.WindowConstants;
 import javax.swing.plaf.InsetsUIResource;
@@ -19,20 +20,19 @@ import com.formdev.flatlaf.FlatDarkLaf;
 
 import controller.Controller;
 
-@SuppressWarnings("serial")
 public class AccountFrame extends JFrame {
 	
 	private static final ImageIcon iconApp = new ImageIcon("ImageLibrary/Uno_logo_PNG2.png");
 	
 	private PanelGradient myPanel;
 	private AccountPanel accountPanel;
-//	private JButton submit;
 	private Controller controller;
 	private TablePanel tablePanel;
-	
+	private JFrame frame;
 	
 	public AccountFrame() {
 		super("Account Frame");
+		frame = this;
 		FlatDarkLaf.setup();
 		
 		myPanel = new PanelGradient();
@@ -58,7 +58,7 @@ public class AccountFrame extends JFrame {
 			}
 		});
 		
-		JButton submit = new JButton("GIOCA");
+		JButton submit = new JButton("PLAY");
         submit.setToolTipText("Clicca per giocare!");
         submit.setMargin(new InsetsUIResource(10, 20, 10, 20));
         submit.setFont(new Font("Cabin Bold", 30, 30));
@@ -66,16 +66,28 @@ public class AccountFrame extends JFrame {
         submit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                    JTable table = tablePanel.getTable();
-                    Integer id = (Integer) table.getValueAt(table.getSelectedRow(), 0);
-                    dispose();
-                    new PlayFrame(controller, id);
+                    if (!controller.getAccounts().isEmpty()) {
+                        JTable table = tablePanel.getTable();
+                        if (table.getSelectedRow() != -1) {
+                            Integer id = (Integer) table.getValueAt(table.getSelectedRow(), 0);
+                            dispose();
+                            new PlayFrame(controller, id);
+                        } else {
+                            JOptionPane.showMessageDialog(frame, 
+                                    "SELECT AN ACCOUNT TO PLAY!", 
+                                    "SELECT ACCOUNT", JOptionPane.WARNING_MESSAGE);
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(frame, 
+                                "INSERT AN ACCOUNT FIRST!", 
+                                "INSERT ACCOUNT", JOptionPane.WARNING_MESSAGE);
+                    }
             }               
         });
         
         Dimension dim = getPreferredSize();
-        dim.width = 500;
-        dim.height = 100;
+        dim.width = 1200;
+        dim.height = 1200;
         tablePanel.setPreferredSize(dim);
 		
 		myPanel.add(accountPanel, BorderLayout.PAGE_START);

@@ -31,6 +31,10 @@ public class Player {
     public void addHandCard(Card handCards) {
         this.handCards.add(handCards);
     }
+    
+    public void discard(Card card) {
+        handCards.remove(card);
+    }
 
     public Account getAccountInfo() {
         return accountInfo;
