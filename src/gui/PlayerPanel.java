@@ -27,6 +27,7 @@ public class PlayerPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 	
 	private static final ImageIcon deckCard = new ImageIcon("ImageLibrary/CARTE-UNO/small/RETRO.png");
+	private static final String subPath = "ImageLibrary/CARTE-UNO/small/";
 	
 	private Border innerBorder;
 	private Border outerBorder;
@@ -68,7 +69,7 @@ public class PlayerPanel extends JPanel {
         System.out.println(controller.getGame().getBottomPlayer().getHandCards().toString());
         cards.stream().forEach((card) -> {
 	        JButton carta = new JButton();
-            carta.setIcon(new ImageIcon("ImageLibrary/CARTE-UNO/small/"+card.toString()));
+            carta.setIcon(new ImageIcon(subPath+card.toString()));
             carta.setBorder(BorderFactory.createEmptyBorder());
             carta.setContentAreaFilled(false);
             carta.setPreferredSize(new Dimension(100, 150));
@@ -99,7 +100,7 @@ public class PlayerPanel extends JPanel {
 	}	
 	public void drawCard(Card card) {
 		JButton carta = new JButton();
-		carta.setIcon(new ImageIcon("ImageLibrary/CARTE-UNO/small/"+card));
+		carta.setIcon(new ImageIcon(subPath+card));
 		carta.setBorder(BorderFactory.createEmptyBorder());
 		carta.setContentAreaFilled(false);
 		carta.setPreferredSize(new Dimension(100, 150));
@@ -143,7 +144,7 @@ public class PlayerPanel extends JPanel {
 	
 	public void drawEnemyCard(Card card) {
         JButton carta = new JButton();
-        carta.setIcon(new ImageIcon("ImageLibrary/CARTE-UNO/small/"+card.toString()));
+        carta.setIcon(new ImageIcon(subPath+card.toString()));
         carta.setBorder(BorderFactory.createEmptyBorder());
         carta.setContentAreaFilled(false);
         carta.setPreferredSize(new Dimension(100, 150));

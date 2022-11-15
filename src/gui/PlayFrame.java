@@ -42,7 +42,7 @@ public class PlayFrame extends JFrame {
 		deckPanel = new DeckPanel(controller.getDiscard().getLastDiscard(), "Deck", 50, 2);
 		
 		Dimension dim = getPreferredSize();
-		dim.width = 550;
+		dim.width = 625;
 		dim.height = 700;
 		rightPlayerAI.setPreferredSize(dim);
 		leftPlayerAI.setPreferredSize(dim);
@@ -91,7 +91,6 @@ public class PlayFrame extends JFrame {
 	private void setFrameSettings() {
 		setIconImage(iconApp.getImage());
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-		pack();
 		setMinimumSize(new Dimension(1700, 850));
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		setResizable(true);

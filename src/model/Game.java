@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Game {
@@ -22,7 +23,7 @@ public class Game {
     private int currentPlayer;
     private Deck deck;
     private Discard discard;
-    private List<Player> playersHand;
+    private List<Player> playersList;
     private Card.Color validColor;
     private Card.Value validValue;
     private GameDirection gameDirection;
@@ -37,8 +38,13 @@ public class Game {
         rightPlayer = new Player(new Account("Right Player", 0));
         leftPlayer = new Player(new Account("Left Player", 0));
         bottomPlayer = new Player(player);
+        System.out.println(topPlayer.getAccountInfo().toString());
+        System.out.println(rightPlayer.getAccountInfo().toString());
+        System.out.println(leftPlayer.getAccountInfo().toString());
+        System.out.println(bottomPlayer.getAccountInfo().toString());
     }
     
+    //NOT USED YET
     public Game(AccountListDatabase players, Account player) {
         topPlayer = new Player(new Account("Top Player", 0));
         rightPlayer = new Player(new Account("Right Player", 0));
@@ -48,8 +54,18 @@ public class Game {
         deck = new Deck();
         discard = new Discard();
         discard.setDiscard(deck.getCard());
+        
+        playersList = new ArrayList<>(Arrays.asList(
+                topPlayer, rightPlayer, leftPlayer, bottomPlayer));
+        dealCards(playersList);
     }
     
+    private void dealCards(List<Player> playersList) {
+        for (Player player : playersList) {
+            player.setHandCards(new ArrayList<>(deck.getCards(7)));
+        }
+    }
+
     public void setAI(List<Account> players) {
     }
     

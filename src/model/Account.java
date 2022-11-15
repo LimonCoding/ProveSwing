@@ -10,8 +10,8 @@ public class Account extends Object {
 	private String alias;
 	private int level = 0;
 	private ImageIcon accountIcon;
-	
-	public Account(String alias, int level) {
+
+    public Account(String alias, int level) {
 		this.alias = alias;
 		this.level = level;
 		
@@ -55,4 +55,9 @@ public class Account extends Object {
 	public void setId(int id) {
 		this.id = id;
 	}
+	
+	@Override
+    public String toString() {
+        return "Account [id=" + id + ", alias=" + alias + ", level=" + level + ", accountIcon=" + accountIcon + "]";
+    }
 }
