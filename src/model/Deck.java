@@ -50,6 +50,7 @@ public class Deck extends Stack<Card> {
                 deckCards.push(new Card(Card.Color.WILD, v));
             }
         }
+        Collections.shuffle(deckCards);
 		return deckCards;
 	}
 	
