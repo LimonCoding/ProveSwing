@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Stack;
 
-public class Deck {
+public class Deck extends Stack<Card> {
 
-	private final Stack<Card> deck;
+	private Stack<Card> deck;
 	private static int numCards = 0;
 	int cards = 0;
 	
@@ -50,9 +50,16 @@ public class Deck {
                 deckCards.push(new Card(Card.Color.WILD, v));
             }
         }
-		
-		Collections.shuffle(deckCards);
 		return deckCards;
+	}
+	
+	public void suffle() {
+	    Collections.shuffle(deck);
+	}
+	
+	public void replaceDeck(Stack<Card> deck) {
+	    Collections.shuffle(deck);
+	    this.deck = deck;
 	}
 	
 	public Card getCard() {

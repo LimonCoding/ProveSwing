@@ -2,7 +2,7 @@ package model;
 
 import java.util.Stack;
 
-public class Discard {
+public class Discard extends Stack<Card> {
 
     private final Stack<Card> discard;
     private static int numCards = 0;

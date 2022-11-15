@@ -61,5 +61,11 @@ public class Card {
     public boolean isWild() {
         return this.getColor().equals(Color.WILD);
     }
+    
+    public boolean isSpecial() {
+        return this.getValue().equals(Value.DRAW_TWO) ||
+                this.getValue().equals(Value.REVERSE) ||
+                 this.getValue().equals(Value.SKIP); 
+    }
 
 }
