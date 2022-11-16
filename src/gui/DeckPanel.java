@@ -58,7 +58,7 @@ public class DeckPanel extends JPanel {
 		myCardLayout = new FlowLayout(FlowLayout.CENTER,space,nCards);
 	}
 	
-	public JButton getDeck() {
+	public JButton getDeckButton() {
 		return deck;
 	}
 	

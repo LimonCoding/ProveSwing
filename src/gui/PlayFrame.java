@@ -69,7 +69,7 @@ public class PlayFrame extends JFrame {
 		 */
 	    myPlayer.setCard(controller.getGame().getBottomPlayer().getHandCards());
 		
-		deckPanel.getDeck().addActionListener(new ActionListener() {
+		deckPanel.getDeckButton().addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 			    System.out.println(controller.getDeck().toString());

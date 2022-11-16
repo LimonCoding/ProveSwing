@@ -4,11 +4,16 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Stack;
 
+import model.Card.Color;
+import model.Card.Value;
+
 public class Deck extends Stack<Card> {
 
 	private Stack<Card> deck;
 	private static int numCards = 0;
 	int cards = 0;
+	
+	private static final int numColors = Color.values().length-1;
 	
     public Deck() {
 		this.deck = initDeck();
@@ -17,37 +22,24 @@ public class Deck extends Stack<Card> {
 	private Stack<Card> initDeck() {
 		Stack<Card> deckCards = new Stack<>();
 		
-		Card.Color[] colors = Card.Color.values();
-		Card.Value[] values = Card.Value.values();
-		
-		for (int i = 0; i < colors.length-1; i++) {
+		for (int color = 0; color < numColors; color++) {
             
-            Card.Color color = colors[i];
-            Card.Value value = values[0];
+            deckCards.push(new Card(Color.forValue(color), Value.forValue(0)));
             
-            deckCards.push(new Card(color, value));
-            
-            for (int j = 1; j < 10; j++) {
-                Card.Value oneToNine = values[j];
-                deckCards.push(new Card(color, oneToNine));
-                deckCards.push(new Card(color, oneToNine));
+            for (int oneToNine = 1; oneToNine <= 9; oneToNine++) {
+                deckCards.push(new Card(Color.forValue(color), Value.forValue(oneToNine)));
+                deckCards.push(new Card(Color.forValue(color), Value.forValue(oneToNine)));
             }
             
-            Card.Value[] special = new Card.Value[] { 
-                    Card.Value.REVERSE, Card.Value.DRAW_TWO, Card.Value.SKIP 
-            };
-            for (Card.Value v : special) {
-                deckCards.push(new Card(color, v));
-                deckCards.push(new Card(color, v));
+            for (int special = 10; special <= 12; special++) {
+                deckCards.push(new Card(Color.forValue(color), Value.forValue(special)));
+                deckCards.push(new Card(Color.forValue(color), Value.forValue(special)));
             }
         }
         
-        values = new Card.Value[] { 
-                Card.Value.WILD, Card.Value.WILD_FOUR
-        };
-        for (Card.Value v : values) {
-            for (int i = 0; i < 4; i++) {
-                deckCards.push(new Card(Card.Color.WILD, v));
+        for (int wildColor = 13; wildColor <= 14; wildColor++) {
+            for (int wildValue = 0; wildValue < 4; wildValue++) {
+                deckCards.push(new Card(Color.WILD, Value.forValue(wildColor)));
             }
         }
         Collections.shuffle(deckCards);

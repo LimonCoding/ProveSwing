@@ -10,6 +10,13 @@ public class Account extends Object {
 	private String alias;
 	private int level = 0;
 	private ImageIcon accountIcon;
+	
+	public Account(String alias) {
+        this.alias = alias;
+        
+        this.id = count;
+        count++;
+    }
 
     public Account(String alias, int level) {
 		this.alias = alias;

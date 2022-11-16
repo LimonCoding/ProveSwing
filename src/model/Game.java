@@ -2,12 +2,16 @@ package model;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
+
+import model.AiPlayer.Strategy;
 
 public class Game {
     
     public enum GameDirection {
-        CLOCKWISE(true), COUNTERCLOCKWISE(false);
+        CLOCKWISE(true), COUNTER_CLOCKWISE(false);
         
         private boolean gameDirection;
         
@@ -18,6 +22,13 @@ public class Game {
         public boolean getGameDirection() {
             return gameDirection;
         }
+        
+        public static GameDirection forValue(boolean gameDirection) {
+            for (GameDirection g: values()) {
+                if (g.getGameDirection() == gameDirection) return g;
+            }
+            return CLOCKWISE;
+        }
     }
     
     private int currentPlayerId;
@@ -25,6 +36,7 @@ public class Game {
     private Deck deck;
     private Discard discard;
     private List<Player> playersList;
+    private List<Player> sortedPlayerList;
     private Card.Color validColor;
     private Card.Value validValue;
     private GameDirection gameDirection;
@@ -47,27 +59,50 @@ public class Game {
     }
     
     //NOT USED YET
-    public Game(AccountListDatabase players, Account player) {
-        topPlayer = new Player(new Account("Top Player", 0));
-        rightPlayer = new Player(new Account("Right Player", 0));
-        leftPlayer = new Player(new Account("Left Player", 0));
-        bottomPlayer = new Player(player);
+    public Game() {
+        topPlayer = new AiPlayer(new Account("Top Player"), Strategy.KEEP_COLOR);
+        rightPlayer = new AiPlayer(new Account("Right Player"), Strategy.CHANGE_COLOR);
+        leftPlayer = new AiPlayer(new Account("Left Player"), Strategy.USE_SPECIAL);
+        bottomPlayer = new Player(new Account("Me", 0));
         
         deck = new Deck();
+        System.out.println(deck.toString());
         discard = new Discard();
-        discard.setDiscard(deck.getCard());
         
         playersList = new ArrayList<>(Arrays.asList(topPlayer, rightPlayer, leftPlayer, bottomPlayer));
-        dealCards(playersList);
+        sortedPlayerList = playersList.stream()
+                                      .sorted(Comparator.comparingInt(Player::getPlayerId))
+                                          .collect(Collectors.toList());
+        dealCards(sortedPlayerList);
         
         currentPlayerId = 0;
-        lastPlayerId = playersList.size()-1;
+        lastPlayerId = playersList.size();
         startGame(this);
+        System.out.println(deck.toString());
+        System.out.println(discard.toString());
+        
+        System.out.println(this.getGameDirection());
+        reverseTurn();
+        System.out.println(this.getGameDirection());
+        
+        System.out.println(getCurrentPlayer().getPlayerId());
+        nextTurn();
+        System.out.println(getCurrentPlayer().getPlayerId());
+        nextTurn();
+        System.out.println(getCurrentPlayer().getPlayerId());
+        nextTurn();
+        System.out.println(getCurrentPlayer().getPlayerId());
+        nextTurn();
+        System.out.println(getCurrentPlayer().getPlayerId());
+        nextTurn();
+        System.out.println(getCurrentPlayer().getPlayerId());
     }
     
     private void dealCards(List<Player> playersList) {
         for (Player player : playersList) {
             player.setHandCards(new ArrayList<>(deck.getCards(7)));
+            System.out.println(player.getAccountInfo().toString());
+            System.out.println(player.getHandCards().toString());
         }
     }
     
@@ -81,6 +116,8 @@ public class Game {
         }
         
         discard.setDiscard(card);
+        
+        gameDirection = Game.GameDirection.CLOCKWISE;
     }
     
     public void refillDeck() {
@@ -111,21 +148,25 @@ public class Game {
         currentPlayerId = (next == playersList.size()) ? 0 : next;
     }
     
+    public void reverseTurn() {
+        gameDirection = GameDirection.forValue(!gameDirection.getGameDirection());
+    }
+    
     public int previousId() {
         int previous = currentPlayerId - 1;
         return (previous == -1) ? lastPlayerId : previous;
     }
     
     public Player getCurrentPlayer() {
-        return playersList.get(currentPlayerId);
+        return sortedPlayerList.get(currentPlayerId);
     }
     
     public Player getPreviousPlayer() {
-        return playersList.get(previousId());
+        return sortedPlayerList.get(previousId());
     }
     
     public List<Player> getPlayers() {
-        return playersList;
+        return sortedPlayerList;
     }
 
     public void setAI(List<Account> players) {
@@ -163,6 +204,11 @@ public class Game {
 
     public Player getBottomPlayer() {
         return bottomPlayer;
+    }
+    
+    public static void main(String[] args) {
+        new Game();
+        
     }
 
 }

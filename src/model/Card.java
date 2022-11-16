@@ -14,6 +14,13 @@ public class Card {
 		public int getColor() {
 			return color;
 		}
+		
+		public static Color forValue(int color) {
+            for (Color c: values()) {
+                if (c.getColor() == color) return c;
+            }
+            return null;
+        }
 	}
 	
 	public enum Value {
@@ -25,13 +32,20 @@ public class Card {
 		
 		private final int value;
 		
+		Value (int value) {
+            this.value = value;
+        }
+		
 		public int getValue() {
 			return value;
 		}
 		
-		Value (int value) {
-	        this.value = value;
-	    }
+		public static Value forValue(int value) {
+            for (Value v: values()) {
+                if (v.getValue() == value) return v;
+            }
+            return null;
+        }
 	}
 	
 	private final Color color;
