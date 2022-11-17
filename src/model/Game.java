@@ -47,23 +47,10 @@ public class Game {
     private Player bottomPlayer;
     
     public Game(Account player) {
-        topPlayer = new Player(new Account("Top Player", 0));
-        rightPlayer = new Player(new Account("Right Player", 0));
-        leftPlayer = new Player(new Account("Left Player", 0));
-        bottomPlayer = new Player(player);
-        System.out.println(bottomPlayer.getAccountInfo().toString());
-        System.out.println(topPlayer.getAccountInfo().toString());
-        System.out.println(rightPlayer.getAccountInfo().toString());
-        System.out.println(leftPlayer.getAccountInfo().toString());
-        lastPlayerId = 0;
-    }
-    
-    //NOT USED YET
-    public Game() {
         topPlayer = new AiPlayer(new Account("Top Player"), Strategy.KEEP_COLOR);
         rightPlayer = new AiPlayer(new Account("Right Player"), Strategy.CHANGE_COLOR);
         leftPlayer = new AiPlayer(new Account("Left Player"), Strategy.USE_SPECIAL);
-        bottomPlayer = new Player(new Account("Me", 0));
+        bottomPlayer = new Player(player);
         
         deck = new Deck();
         System.out.println(deck.toString());
@@ -74,7 +61,6 @@ public class Game {
                                       .sorted(Comparator.comparingInt(Player::getPlayerId))
                                           .collect(Collectors.toList());
         dealCards(sortedPlayerList);
-        
         currentPlayerId = 0;
         lastPlayerId = playersList.size();
         startGame(this);
@@ -113,9 +99,10 @@ public class Game {
         
         if (card.isWild() || card.isSpecial()) {
             startGame(game);
+            System.out.println("DISCARD NOT LEGIT");
+        } else {
+            discard.setDiscard(card);
         }
-        
-        discard.setDiscard(card);
         
         gameDirection = Game.GameDirection.CLOCKWISE;
     }
@@ -188,6 +175,14 @@ public class Game {
         return gameDirection;
     }
     
+    public Deck getDeck() {
+        return deck;
+    }
+    
+    public Discard getDiscard() {
+        return discard;
+    }
+    
     //////////////////////////////////////
     
     public Player getTopPlayer() {
@@ -206,9 +201,4 @@ public class Game {
         return bottomPlayer;
     }
     
-    public static void main(String[] args) {
-        new Game();
-        
-    }
-
 }

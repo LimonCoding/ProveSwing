@@ -24,8 +24,10 @@ public class DeckPanel extends JPanel {
 	
 	private JButton deck;
 	private JButton discard;
+	private FlowLayout myCardLayout;
 	
-	FlowLayout myCardLayout;
+	/* TO DO: SET AN IMAGE ICON TO SEE GAME DIRECTION IN GAME */
+	private ImageIcon gameDirection;
 	
 	public DeckPanel(Card discard, String borderTitle, int space, int nCards) {
 		setNameBorder(borderTitle);
@@ -37,7 +39,6 @@ public class DeckPanel extends JPanel {
 		setLayout(myCardLayout);
 		setOpaque(false);
 		
-
 		/**
 		 * Creazione e posizionamento dei bottoni Mazzo e Scartate
 		 */
@@ -78,5 +79,13 @@ public class DeckPanel extends JPanel {
 	    this.discard.setBorder(BorderFactory.createEmptyBorder());
         this.discard.setContentAreaFilled(false);
         this.discard.setPreferredSize(new Dimension(100, 150));
+    }
+
+    public ImageIcon getGameDirection() {
+        return gameDirection;
+    }
+
+    public void setGameDirection(ImageIcon gameDirection) {
+        this.gameDirection = gameDirection;
     }
 }

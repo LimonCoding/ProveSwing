@@ -1,6 +1,5 @@
 package controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import gui.AccountEvent;
@@ -13,21 +12,12 @@ import model.Game;
 
 public class Controller {
     
-    private Deck deck;
-    private Discard discard;
     private AccountListDatabase db;
     private Game game;
     
     public void createGame(Account player) {
-        deck = new Deck();
-        discard = new Discard();
         game = new Game(player);
         System.out.println(getDeck().toString());
-        discard.setDiscard(deck.getCard());
-        game.getTopPlayer().setHandCards(new ArrayList<>(deck.getCards(7)));
-        game.getRightPlayer().setHandCards(new ArrayList<>(deck.getCards(7)));
-        game.getLeftPlayer().setHandCards(new ArrayList<>(deck.getCards(7)));
-        game.getBottomPlayer().setHandCards(new ArrayList<>(deck.getCards(7)));
 
     }
     
@@ -36,11 +26,11 @@ public class Controller {
     }
     
     public Deck getDeck() {
-        return this.deck;
+        return this.game.getDeck();
     }
 
     public Discard getDiscard() {
-        return this.discard;
+        return this.game.getDiscard();
     }
     
     public boolean legitDiscard(Card card) {
