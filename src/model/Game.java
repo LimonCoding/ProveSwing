@@ -67,6 +67,11 @@ public class Game {
         System.out.println(deck.toString());
         System.out.println(discard.toString());
         
+        System.out.println(validColor+" "+validValue);
+        for (Player p : playersList) {
+            System.out.println("VALID MOVES: "+p.getValidMoves(validValue, validColor));
+        }
+        
         System.out.println(this.getGameDirection());
         reverseTurn();
         System.out.println(this.getGameDirection());
@@ -200,5 +205,4 @@ public class Game {
     public Player getBottomPlayer() {
         return bottomPlayer;
     }
-    
 }

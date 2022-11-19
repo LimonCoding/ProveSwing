@@ -6,6 +6,7 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -58,8 +59,12 @@ public class AccountFrame extends JFrame {
 			}
 		});
 		
-		JButton submit = new JButton("PLAY");
+		JButton submit = new JButton();
         submit.setToolTipText("Clicca per giocare!");
+        submit.setIcon(new ImageIcon("ImageLibrary/startButton.png"));
+        submit.setBorder(BorderFactory.createEmptyBorder());
+        submit.setContentAreaFilled(false);
+        submit.setPreferredSize(new Dimension(100, 50));
         submit.setMargin(new InsetsUIResource(10, 20, 10, 20));
         submit.setFont(new Font("Cabin Bold", 30, 30));
         submit.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -87,7 +92,7 @@ public class AccountFrame extends JFrame {
         
         Dimension dim = getPreferredSize();
         dim.width = 1200;
-        dim.height = 1200;
+        dim.height = 800;
         tablePanel.setPreferredSize(dim);
 		
 		myPanel.add(accountPanel, BorderLayout.PAGE_START);

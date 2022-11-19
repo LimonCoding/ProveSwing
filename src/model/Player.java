@@ -1,6 +1,10 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import model.Card.Color;
+import model.Card.Value;
 
 public class Player {
 
@@ -42,6 +46,18 @@ public class Player {
     
     public void addHandCard(Card handCards) {
         this.handCards.add(handCards);
+    }
+    
+    //It can be sorted by color, value, if it's a wild card or a special one
+    public List<Card> getValidMoves(Value validValue, Color validColor) {
+        List<Card> validCards = new ArrayList<>();
+        for(Card card : this.getHandCards()) {
+            if(card.getValue().equals(validValue) || card.getColor().equals(validColor)
+                                               || card.getColor().equals(Color.WILD)) {
+                validCards.add(card);
+            }
+        }
+        return validCards;
     }
     
     public void discard(Card card) {
