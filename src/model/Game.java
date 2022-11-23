@@ -34,27 +34,27 @@ public class Game {
     private int currentPlayerId;
     private final int lastPlayerId;
     private Deck deck;
-    private Discard discard;
+    private Discarded discarded;
     private List<Player> playersList;
     private List<Player> sortedPlayerList;
     private Card.Color validColor;
     private Card.Value validValue;
     private GameDirection gameDirection;
     
-    private Player topPlayer;
-    private Player rightPlayer;
-    private Player leftPlayer;
+    private AiPlayer topPlayer;
+    private AiPlayer rightPlayer;
+    private AiPlayer leftPlayer;
     private Player bottomPlayer;
     
     public Game(Account player) {
-        topPlayer = new AiPlayer(new Account("Top Player"), Strategy.KEEP_COLOR);
-        rightPlayer = new AiPlayer(new Account("Right Player"), Strategy.CHANGE_COLOR);
+        topPlayer = new AiPlayer(new Account("Top Player"), Strategy.SAME_COLOR);
+        rightPlayer = new AiPlayer(new Account("Right Player"), Strategy.SAME_VALUE);
         leftPlayer = new AiPlayer(new Account("Left Player"), Strategy.USE_SPECIAL);
         bottomPlayer = new Player(player);
         
         deck = new Deck();
         System.out.println(deck.toString());
-        discard = new Discard();
+        discarded = new Discarded();
         
         playersList = new ArrayList<>(Arrays.asList(topPlayer, rightPlayer, leftPlayer, bottomPlayer));
         sortedPlayerList = playersList.stream()
@@ -65,12 +65,25 @@ public class Game {
         lastPlayerId = playersList.size();
         startGame(this);
         System.out.println(deck.toString());
-        System.out.println(discard.toString());
+        System.out.println(discarded.toString());
+        Card rejected = discarded.getLastDiscard();
         
         System.out.println(validColor+" "+validValue);
+        System.out.println();
         for (Player p : playersList) {
             System.out.println("VALID MOVES: "+p.getValidMoves(validValue, validColor));
         }
+        System.out.println();
+        System.out.println(topPlayer.getAiStrategy());
+        topPlayer.chooseCard(topPlayer.getValidMoves(validValue, validColor), rejected);
+        System.out.println();
+        topPlayer.setAiStrategy(Strategy.SAME_VALUE);
+        System.out.println(topPlayer.getAiStrategy());
+        topPlayer.chooseCard(topPlayer.getValidMoves(validValue, validColor), rejected);
+        System.out.println();
+        topPlayer.setAiStrategy(Strategy.USE_SPECIAL);
+        System.out.println(topPlayer.getAiStrategy());
+        topPlayer.chooseCard(topPlayer.getValidMoves(validValue, validColor), rejected);
         
         System.out.println(this.getGameDirection());
         reverseTurn();
@@ -106,7 +119,7 @@ public class Game {
             startGame(game);
             System.out.println("DISCARD NOT LEGIT");
         } else {
-            discard.setDiscard(card);
+            discarded.setDiscard(card);
         }
         
         gameDirection = Game.GameDirection.CLOCKWISE;
@@ -114,7 +127,7 @@ public class Game {
     
     public void refillDeck() {
         if (deck.isEmpty()) {
-            deck.replaceDeck(discard);
+            deck.replaceDeck(discarded);
         }
     }
     
@@ -122,7 +135,7 @@ public class Game {
         if (card.getColor().equals(validColor) ||
              card.getValue().equals(validValue) ||
               card.isWild()) {
-            discard.setDiscard(card);
+            discarded.setDiscard(card);
             return true;
         }
         return false;
@@ -184,8 +197,8 @@ public class Game {
         return deck;
     }
     
-    public Discard getDiscard() {
-        return discard;
+    public Discarded getDiscard() {
+        return discarded;
     }
     
     //////////////////////////////////////

@@ -7,7 +7,7 @@ import model.Account;
 import model.AccountListDatabase;
 import model.Card;
 import model.Deck;
-import model.Discard;
+import model.Discarded;
 import model.Game;
 
 public class Controller {
@@ -29,7 +29,7 @@ public class Controller {
         return this.game.getDeck();
     }
 
-    public Discard getDiscard() {
+    public Discarded getDiscard() {
         return this.game.getDiscard();
     }
     

@@ -81,5 +81,9 @@ public class Card {
                 this.getValue().equals(Value.REVERSE) ||
                  this.getValue().equals(Value.SKIP); 
     }
+    
+    public boolean isSameValue(Value validValue) {
+        return this.getValue().equals(validValue); 
+    }
 
 }

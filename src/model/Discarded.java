@@ -2,14 +2,14 @@ package model;
 
 import java.util.Stack;
 
-public class Discard extends Stack<Card> {
+public class Discarded extends Stack<Card> {
 
-    private final Stack<Card> discard;
+    private final Stack<Card> discarded;
     private static int numCards = 0;
     int cards = 0;
     
-    public Discard() {
-        this.discard = initDiscard();
+    public Discarded() {
+        this.discarded = initDiscard();
     }
     
     private Stack<Card> initDiscard() {
@@ -17,19 +17,19 @@ public class Discard extends Stack<Card> {
     }
     
     public void setDiscard(Card discard) {
-        this.discard.push(discard);
+        this.discarded.push(discard);
     }
     
     public Card getLastDiscard() {
-        int index = discard.size()-1;
-        return discard.get(index);
+        int index = discarded.size()-1;
+        return discarded.get(index);
     }
     
     @Override
     public String toString() {
         String discardString = "";
         numCards = 0;
-        for (Card card : discard) {
+        for (Card card : discarded) {
             discardString += (numCards++) + " " + card.toString() + "\n";
         }
         return "DISCARD: \n" + discardString + "";
