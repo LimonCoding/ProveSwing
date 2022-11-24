@@ -2,6 +2,7 @@ package model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import model.Card.Color;
 import model.Card.Value;
@@ -79,5 +80,25 @@ public class Player {
     @Override
     public String toString() {
         return accountInfo.toString()+" [handCards=" + handCards + "]";
+    }
+
+    public void chooseCard(List<Card> validCards, Card rejected) {
+        List<Card> validByColor = validCards.stream()
+                .filter(card -> card.getColor().equals(rejected.getColor()))
+                .collect(Collectors.toList());
+        System.out.println("- validByColor -");
+        validByColor.forEach(System.out::println);
+        
+        List<Card> validByValue = validCards.stream()
+                .filter(card -> card.getValue().equals(rejected.getValue()))
+                .collect(Collectors.toList());
+        System.out.println("- validByValue -");
+        validByValue.forEach(System.out::println);
+        
+        List<Card> validWild = validCards.stream()
+                .filter(card -> card.isWild())
+                .collect(Collectors.toList());
+        System.out.println("- validWild -");
+        validWild.forEach(System.out::println);
     }
 }

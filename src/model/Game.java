@@ -57,6 +57,7 @@ public class Game {
         discarded = new Discarded();
         
         playersList = new ArrayList<>(Arrays.asList(topPlayer, rightPlayer, leftPlayer, bottomPlayer));
+        List<AiPlayer> aiPlayersList = new ArrayList<>(Arrays.asList(topPlayer, rightPlayer, leftPlayer));
         sortedPlayerList = playersList.stream()
                                       .sorted(Comparator.comparingInt(Player::getPlayerId))
                                           .collect(Collectors.toList());
@@ -71,19 +72,14 @@ public class Game {
         System.out.println(validColor+" "+validValue);
         System.out.println();
         for (Player p : playersList) {
-            System.out.println("VALID MOVES: "+p.getValidMoves(validValue, validColor));
+            System.out.println("VALID MOVES OF "+p.getAccountInfo().getAlias()+": "+p.getValidMoves(validValue, validColor));
         }
-        System.out.println();
-        System.out.println(topPlayer.getAiStrategy());
-        topPlayer.chooseCard(topPlayer.getValidMoves(validValue, validColor), rejected);
-        System.out.println();
-        topPlayer.setAiStrategy(Strategy.SAME_VALUE);
-        System.out.println(topPlayer.getAiStrategy());
-        topPlayer.chooseCard(topPlayer.getValidMoves(validValue, validColor), rejected);
-        System.out.println();
-        topPlayer.setAiStrategy(Strategy.USE_SPECIAL);
-        System.out.println(topPlayer.getAiStrategy());
-        topPlayer.chooseCard(topPlayer.getValidMoves(validValue, validColor), rejected);
+        for (AiPlayer a : aiPlayersList) {
+            System.out.println(a.getAccountInfo().getAlias()+" - Strategy: "+a.getAiStrategy());
+            a.chooseCard(a.getValidMoves(validValue, validColor), rejected);
+        }
+        System.out.println(bottomPlayer.getAccountInfo().getAlias()+" - Strategy: KEEP_COLOR");
+        bottomPlayer.chooseCard(bottomPlayer.getValidMoves(validValue, validColor), rejected);
         
         System.out.println(this.getGameDirection());
         reverseTurn();

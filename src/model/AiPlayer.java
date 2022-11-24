@@ -1,6 +1,5 @@
 package model;
 
-import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -52,57 +51,104 @@ public class AiPlayer extends Player {
     
     //Based on getValidMoves method, 
     //AI player can choose on cards ordered by strategy specifications
-    public void chooseCard(List<Card> validCards, Card discarded) {
+    public void chooseCard(List<Card> validCards, Card rejected) {
         if(aiStrategy.equals(Strategy.SAME_COLOR)) {
             //ORDERING BASED ON SAME COLOR CARD OF LAST DISCARD
-            // | TO DO | | TO DO | | TO DO | | TO DO | | TO DO |
-            List<Card> sortedByColor = validCards.stream()
-                    .sorted(new Comparator<Card>() {
-                        @Override
-                        public int compare(Card c, Card discarded) {
-                            if (c.getValue().equals(discarded.getValue())) {
-                                return 1;
-                            }
-                            return c.getColor().compareTo(discarded.getColor());
-                        }
-                    })
+            List<Card> validByColor = validCards.stream()
+                    .filter(card -> card.getColor().equals(rejected.getColor()))
                     .collect(Collectors.toList());
-            sortedByColor.forEach(System.out::println);
+            System.out.println("- validByColor -");
+            validByColor.forEach(System.out::println);
+            
+            List<Card> validByValue = validCards.stream()
+                    .filter(card -> card.getValue().equals(rejected.getValue()))
+                    .collect(Collectors.toList());
+            System.out.println("- validByValue -");
+            validByValue.forEach(System.out::println);
+            
+            List<Card> validWild = validCards.stream()
+                    .filter(card -> card.isWild())
+                    .collect(Collectors.toList());
+            System.out.println("- validWild -");
+            validWild.forEach(System.out::println);
+            
 //            return validCards.get((int)(Math.random()*validCards.size()));
         }
         if(aiStrategy.equals(Strategy.SAME_VALUE)) {
             //ORDERING BASED ON SAME VALUE CARD OF LAST DISCARD
-            // | TO DO | | TO DO | | TO DO | | TO DO | | TO DO |
-            List<Card> sortedByValue = validCards.stream()
-                    .sorted(new Comparator<Card>() {
-                        @Override
-                        public int compare(Card c, Card discarded) {
-                            return c.getValue().compareTo(discarded.getValue());
-                        }
-                    })
+            List<Card> validByValue = validCards.stream()
+                    .filter(card -> card.getValue().equals(rejected.getValue()))
                     .collect(Collectors.toList());
-            sortedByValue.forEach(System.out::println);
+            System.out.println("- validByValue -");
+            validByValue.forEach(System.out::println);
+            
+            List<Card> validByColor = validCards.stream()
+                    .filter(card -> card.getColor().equals(rejected.getColor()))
+                    .collect(Collectors.toList());
+            System.out.println("- validByColor -");
+            validByColor.forEach(System.out::println);
+            
+            List<Card> validWild = validCards.stream()
+                    .filter(card -> card.isWild())
+                    .collect(Collectors.toList());
+            System.out.println("- validWild -");
+            validWild.forEach(System.out::println);
+            
 //            return validCards.get(validCards.size()-1);
         }
         if(aiStrategy.equals(Strategy.USE_SPECIAL)) {
             //ORDERING BASED ON SAME COLOR OF LAST DISCARD BUT WITH SPECIAL CARDS VALUE FIRST
-            // | TO DO | | TO DO | | TO DO | | TO DO | | TO DO |
-            List<Card> sortedBySpecial = validCards.stream()
-                    .sorted(Comparator.comparing(Card::getColor).
-                            thenComparing(Card::getValue).reversed())
+            List<Card> validSpecial = validCards.stream()
+                    .filter(card -> card.getValue().equals(rejected.getValue()) && rejected.isSpecial())
                     .collect(Collectors.toList());
-            sortedBySpecial.forEach(System.out::println);
+            System.out.println("- validSpecial -");
+            validSpecial.forEach(System.out::println);
+            
+            List<Card> validByColor = validCards.stream()
+                    .filter(card -> card.getColor().equals(rejected.getColor()))
+                    .collect(Collectors.toList());
+            System.out.println("- validByColor -");
+            validByColor.forEach(System.out::println);
+            
+            List<Card> validByValue = validCards.stream()
+                    .filter(card -> card.getValue().equals(rejected.getValue()))
+                    .collect(Collectors.toList());
+            System.out.println("- validByValue -");
+            validByValue.forEach(System.out::println);
+            
+            List<Card> validWild = validCards.stream()
+                    .filter(card -> card.isWild())
+                    .collect(Collectors.toList());
+            System.out.println("- validWild -");
+            validWild.forEach(System.out::println);
+            
 //            return validCards.get(validCards.size()-1);
         }
         if(aiStrategy.equals(Strategy.USE_WILD)) {
             //ORDERING BASED ON WILD COLOR CARDS
-            // | TO DO | | TO DO | | TO DO | | TO DO | | TO DO |
-            List<Card> sorterByWild = validCards.stream()
-                    .sorted(Comparator.comparing(Card::isWild)
-                    .thenComparing(Card::getColor)
-                    .thenComparing(Card::getValue))
+            List<Card> validWild = validCards.stream()
+                    .filter(card -> card.isWild())
                     .collect(Collectors.toList());
-            sorterByWild.forEach(System.out::println);
+            System.out.println("validWild");
+            validWild.forEach(System.out::println);
+            
+            List<Card> validByColor = validCards.stream()
+                    .filter(card -> card.getColor().equals(rejected.getColor()))
+                    .collect(Collectors.toList());
+            System.out.println("validByColor");
+            validByColor.forEach(System.out::println);
+            
+            List<Card> validByValue = validCards.stream()
+                    .filter(card -> card.getValue().equals(rejected.getValue()))
+                    .collect(Collectors.toList());
+            System.out.println("validByValue");
+            validByValue.forEach(System.out::println);
+            
+            List<Card> validSpecial = validCards.stream()
+                    .filter(card -> card.getValue().equals(rejected.getValue()) && rejected.isSpecial())
+                    .collect(Collectors.toList());
+            System.out.println("validSpecial");
+            validSpecial.forEach(System.out::println);
 //            return validCards.get(validCards.size()-1);
         }
 //        return null;
