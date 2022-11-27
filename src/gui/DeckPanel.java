@@ -8,6 +8,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 
+import controller.Controller;
 import model.Card;
 
 public class DeckPanel extends JPanel {
@@ -16,8 +17,6 @@ public class DeckPanel extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
-	private static final ImageIcon deckCard = new ImageIcon("ImageLibrary/CARTE-UNO/small/RETRO.png");
 	
 	private Border innerBorder;
 	private Border outerBorder;
@@ -28,9 +27,11 @@ public class DeckPanel extends JPanel {
 	
 	/* TO DO: SET AN IMAGE ICON TO SEE GAME DIRECTION IN GAME */
 	private ImageIcon gameDirection;
+	Controller controller;
 	
-	public DeckPanel(Card discard, String borderTitle, int space, int nCards) {
-		setNameBorder(borderTitle);
+	public DeckPanel(Controller controller, Card discard, String borderTitle, int space, int nCards) {
+		this.controller = controller;
+	    setNameBorder(borderTitle);
 		outerBorder = BorderFactory.createEmptyBorder(20, 20, 20, 20);
 		
 		setBorder(BorderFactory.createCompoundBorder(outerBorder, innerBorder));
@@ -68,7 +69,7 @@ public class DeckPanel extends JPanel {
     }
 	
 	public void setDeck() {
-	    deck.setIcon(deckCard);
+	    deck.setIcon(controller.getDeck().getDeckFace());
 	    deck.setBorder(BorderFactory.createEmptyBorder());
         deck.setContentAreaFilled(false);
         deck.setPreferredSize(new Dimension(100, 150));

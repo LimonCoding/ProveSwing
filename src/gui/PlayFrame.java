@@ -7,7 +7,9 @@ import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 import javax.swing.WindowConstants;
 
 import controller.Controller;
@@ -22,10 +24,14 @@ public class PlayFrame extends JFrame {
 	private PlayerPanel leftPlayerAI;
 	private PlayerPanel myPlayer;
 	private DeckPanel deckPanel;
+	JFrame frame;
+	Controller controller;
 	
-	public PlayFrame(Controller controller, int id) {
+	public PlayFrame(Controller c, int id) {
 		
 		super("Play Frame");
+		frame = this;
+		this.controller = c; 
 		controller.createGame(controller.getAccount(id));
 		
 		JPanel myPanel = new PanelGradient();
@@ -35,11 +41,11 @@ public class PlayFrame extends JFrame {
 		/**
 		 * Creazione e posizionamento dei pannelli per giocatore
 		 */
-		topPlayerAI = new PlayerPanel(controller, this, "Top Player", -30, 15);
-		rightPlayerAI = new PlayerPanel(controller, this, "Right Player", -50, 15);
-		leftPlayerAI = new PlayerPanel(controller, this, "Left Player", -50, 15);
-		myPlayer = new PlayerPanel(controller, this, controller.getAccount(id).getAlias(), -30, 15);
-		deckPanel = new DeckPanel(controller.getDiscard().getLastDiscard(), "Deck", 50, 2);
+		topPlayerAI = new PlayerPanel(controller, this, controller.getGame().getTopPlayer(), -30, 15);
+		rightPlayerAI = new PlayerPanel(controller, this, controller.getGame().getRightPlayer(), -50, 15);
+		leftPlayerAI = new PlayerPanel(controller, this, controller.getGame().getLeftPlayer(), -50, 15);
+		myPlayer = new PlayerPanel(controller, this, controller.getGame().getBottomPlayer(), -30, 15);
+		deckPanel = new DeckPanel(controller, controller.getDiscard().getLastDiscard(), "Deck", 50, 2);
 		
 		Dimension dim = getPreferredSize();
 		dim.width = 625;
@@ -47,11 +53,8 @@ public class PlayFrame extends JFrame {
 		rightPlayerAI.setPreferredSize(dim);
 		leftPlayerAI.setPreferredSize(dim);
 		
-		myPanel.add(topPlayerAI, BorderLayout.PAGE_START);
-		myPanel.add(rightPlayerAI, BorderLayout.EAST);
-		myPanel.add(leftPlayerAI, BorderLayout.WEST);
-		myPanel.add(myPlayer, BorderLayout.PAGE_END);
-		myPanel.add(deckPanel, BorderLayout.CENTER);
+		updateCurrentPlayer(controller);
+		
 		/**
 		 * Creazione e posizionamento delle carte (bottoni) per il giocatore 1
 		 */
@@ -72,19 +75,62 @@ public class PlayFrame extends JFrame {
 		deckPanel.getDeckButton().addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-			    System.out.println(controller.getDeck().toString());
-				myPlayer.drawCard(controller.getDeck().getCard());	
-				setVisible(true);
+			    if (controller.getGame().getCurrentPlayer().equals(myPlayer.getPlayer())) {
+			        System.out.println(controller.getDeck().toString());
+	                myPlayer.drawCard(controller.getDeck().getCard(false)); 
+	                setVisible(true);
+                } else {
+                    System.out.println(controller.getGame().getCurrentPlayer());
+                    JOptionPane.showMessageDialog(frame, 
+                        "Wait your turn!", 
+                        "Not your turn!", JOptionPane.ERROR_MESSAGE);
+                }
+			    
 			}
 		});
-
 		
+		myPanel.add(topPlayerAI, BorderLayout.PAGE_START);
+        myPanel.add(rightPlayerAI, BorderLayout.EAST);
+        myPanel.add(leftPlayerAI, BorderLayout.WEST);
+        myPanel.add(myPlayer, BorderLayout.PAGE_END);
+        myPanel.add(deckPanel, BorderLayout.CENTER);
 		add(myPanel);
-		
 		setFrameSettings();
 	}
 	
-	public DeckPanel getDeckPanel() {
+    public void updateCurrentPlayer(Controller controller) {
+	    System.out.println("Gui Game ID: "+controller.getGame().getCurrentPlayer().getGameId());
+	    System.out.println(controller.getGame().getCurrentPlayer());
+	    switch (controller.getGame().getCurrentPlayer().getGameId()) {
+            case 0 -> {
+                myPlayer.setPlayerTurn();
+                rightPlayerAI.clearTurn();
+                topPlayerAI.clearTurn();
+                leftPlayerAI.clearTurn();
+                }
+            case 1 -> {
+                rightPlayerAI.setPlayerTurn();
+                myPlayer.clearTurn();
+                topPlayerAI.clearTurn();
+                leftPlayerAI.clearTurn();
+            }
+            case 2 -> {
+                topPlayerAI.setPlayerTurn();
+                myPlayer.clearTurn();
+                rightPlayerAI.clearTurn();
+                leftPlayerAI.clearTurn();
+            }
+            case 3 -> {
+                leftPlayerAI.setPlayerTurn();
+                myPlayer.clearTurn();
+                rightPlayerAI.clearTurn();
+                topPlayerAI.clearTurn();
+            }
+        }
+	    SwingUtilities.updateComponentTreeUI(frame);
+    }
+
+    public DeckPanel getDeckPanel() {
 	    return deckPanel;
 	}
 	

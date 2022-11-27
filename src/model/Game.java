@@ -37,6 +37,7 @@ public class Game {
     private Discarded discarded;
     private List<Player> playersList;
     private List<Player> sortedPlayerList;
+    private List<AiPlayer> aiPlayersList;
     private Card.Color validColor;
     private Card.Value validValue;
     private GameDirection gameDirection;
@@ -47,23 +48,23 @@ public class Game {
     private Player bottomPlayer;
     
     public Game(Account player) {
-        topPlayer = new AiPlayer(new Account("Top Player"), Strategy.SAME_COLOR);
-        rightPlayer = new AiPlayer(new Account("Right Player"), Strategy.SAME_VALUE);
-        leftPlayer = new AiPlayer(new Account("Left Player"), Strategy.USE_SPECIAL);
         bottomPlayer = new Player(player);
+        rightPlayer = new AiPlayer(new Account("Right Player"), Strategy.SAME_VALUE);
+        topPlayer = new AiPlayer(new Account("Top Player"), Strategy.SAME_COLOR);
+        leftPlayer = new AiPlayer(new Account("Left Player"), Strategy.USE_SPECIAL);
         
         deck = new Deck();
         System.out.println(deck.toString());
         discarded = new Discarded();
         
-        playersList = new ArrayList<>(Arrays.asList(topPlayer, rightPlayer, leftPlayer, bottomPlayer));
-        List<AiPlayer> aiPlayersList = new ArrayList<>(Arrays.asList(topPlayer, rightPlayer, leftPlayer));
+        playersList = new ArrayList<>(Arrays.asList(bottomPlayer, topPlayer, rightPlayer, leftPlayer));
+        aiPlayersList = new ArrayList<>(Arrays.asList(topPlayer, rightPlayer, leftPlayer));
         sortedPlayerList = playersList.stream()
-                                      .sorted(Comparator.comparingInt(Player::getPlayerId))
+                                      .sorted(Comparator.comparing(Player::getGameId))
                                           .collect(Collectors.toList());
-        dealCards(sortedPlayerList);
         currentPlayerId = 0;
-        lastPlayerId = playersList.size();
+        dealCards(sortedPlayerList);
+        lastPlayerId = playersList.size()-1;
         startGame(this);
         System.out.println(deck.toString());
         System.out.println(discarded.toString());
@@ -80,34 +81,36 @@ public class Game {
         }
         System.out.println(bottomPlayer.getAccountInfo().getAlias()+" - Strategy: KEEP_COLOR");
         bottomPlayer.chooseCard(bottomPlayer.getValidMoves(validValue, validColor), rejected);
-        
-        System.out.println(this.getGameDirection());
-        reverseTurn();
-        System.out.println(this.getGameDirection());
-        
-        System.out.println(getCurrentPlayer().getPlayerId());
-        nextTurn();
-        System.out.println(getCurrentPlayer().getPlayerId());
-        nextTurn();
-        System.out.println(getCurrentPlayer().getPlayerId());
-        nextTurn();
-        System.out.println(getCurrentPlayer().getPlayerId());
-        nextTurn();
-        System.out.println(getCurrentPlayer().getPlayerId());
-        nextTurn();
-        System.out.println(getCurrentPlayer().getPlayerId());
+//        System.out.println(this.getGameDirection());
+//        reverseTurn();
+//        System.out.println(this.getGameDirection());
+//        
+//        System.out.println(getCurrentPlayer().getGameId());
+//        nextTurn();
+//        System.out.println(getCurrentPlayer().getGameId());
+//        nextTurn();
+//        System.out.println(getCurrentPlayer().getGameId());
+//        nextTurn();
+//        System.out.println(getCurrentPlayer().getGameId());
+//        nextTurn();
+//        System.out.println(getCurrentPlayer().getGameId());
+//        nextTurn();
+//        System.out.println(getCurrentPlayer().getGameId());
     }
     
     private void dealCards(List<Player> playersList) {
-        for (Player player : playersList) {
-            player.setHandCards(new ArrayList<>(deck.getCards(7)));
-            System.out.println(player.getAccountInfo().toString());
-            System.out.println(player.getHandCards().toString());
+        for (AiPlayer p : aiPlayersList) {
+            p.setHandCards(new ArrayList<>(deck.getCards(7, false)));
+//            System.out.println(p.getAccountInfo().toString());
+//            System.out.println(p.getHandCards().toString());
         }
+        bottomPlayer.setHandCards(new ArrayList<>(deck.getCards(7, false)));
+//        System.out.println(bottomPlayer.getAccountInfo().toString());
+//        System.out.println(bottomPlayer.getHandCards().toString());
     }
     
     private void startGame(Game game) {
-        Card card = deck.getCard();
+        Card card = deck.getCard(true);
         validColor = card.getColor();
         validValue = card.getValue();
         

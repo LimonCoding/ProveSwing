@@ -12,28 +12,28 @@ public class Player {
     private List<Card> handCards;
     private Account accountInfo;
     
-    private static int count = 1;
-    private int playerId;
+    private static int count = 0;
+    private int gameId;
     
     public Player(Account accountInfo, List<Card> handCards) {
         this.accountInfo = accountInfo;
         this.handCards = handCards;
         
-        this.playerId = count;
+        this.gameId = count;
         count++;
     }
     
     public Player(List<Card> handCards) {
         this.handCards = handCards;
         
-        this.playerId = count;
+        this.gameId = count;
         count++;
     }
     
     public Player(Account accountInfo) {
         this.accountInfo = accountInfo;
         
-        this.playerId = count;
+        this.gameId = count;
         count++;
     }
     
@@ -45,8 +45,8 @@ public class Player {
         this.handCards = handCards;
     }
     
-    public void addHandCard(Card handCards) {
-        this.handCards.add(handCards);
+    public void addHandCard(Card handCard) {
+        this.handCards.add(handCard);
     }
     
     //It can be sorted by color, value, if it's a wild card or a special one
@@ -73,13 +73,13 @@ public class Player {
         this.accountInfo = accountInfo;
     }
     
-    public int getPlayerId() {
-        return playerId;
+    public int getGameId() {
+        return gameId;
     }
     
     @Override
     public String toString() {
-        return accountInfo.toString()+" [handCards=" + handCards + "]";
+        return "GameID: "+this.getGameId()+" "+accountInfo.toString()+" [handCards=" + handCards + "]";
     }
 
     public void chooseCard(List<Card> validCards, Card rejected) {

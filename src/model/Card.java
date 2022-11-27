@@ -1,5 +1,7 @@
 package model;
 
+import javax.swing.ImageIcon;
+
 public class Card {
 	
 	public enum Color {
@@ -50,11 +52,30 @@ public class Card {
 	
 	private final Color color;
 	private final Value value;
+	private static final String subPath = "ImageLibrary/CARTE-UNO/small/";
+	private boolean covered;
+    private final ImageIcon backFace = new ImageIcon("ImageLibrary/CARTE-UNO/small/RETRO.png");
+	private ImageIcon faceCard;
 	
 	public Card(final Color color, final Value value) {
 		this.color = color;
 		this.value = value;
+		this.covered = false;
+		if (covered) {
+		    this.faceCard = backFace;
+        } else 
+            this.faceCard = new ImageIcon(subPath+this.toString());
 	}
+	
+	public Card(final Color color, final Value value, boolean covered) {
+        this.color = color;
+        this.value = value;
+        this.covered = covered;
+        if (covered) {
+            this.faceCard = backFace;
+        } else 
+            this.faceCard = new ImageIcon(subPath+this.toString());
+    }
 	
 	public static Card getCard(final Color color, final Value value) {
 		return new Card(color, value);
@@ -84,6 +105,22 @@ public class Card {
     
     public boolean isSameValue(Value validValue) {
         return this.getValue().equals(validValue); 
+    }
+
+    public ImageIcon getFaceCard() {
+        return faceCard;
+    }
+
+    public boolean isCovered() {
+        return covered;
+    }
+
+    public void setCovered(boolean covered) {
+        this.covered = covered;
+        if (covered) {
+            this.faceCard = backFace;
+        } else 
+            this.faceCard = new ImageIcon(subPath+this.toString());
     }
 
 }

@@ -1,6 +1,7 @@
 package model;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class AiPlayer extends Player {
@@ -57,12 +58,21 @@ public class AiPlayer extends Player {
             List<Card> validByColor = validCards.stream()
                     .filter(card -> card.getColor().equals(rejected.getColor()))
                     .collect(Collectors.toList());
+            Optional<Card> validCardByColor = validCards.stream()
+                    .filter(card -> card.getColor().equals(rejected.getColor()))
+                    .findAny();
+            
+            System.out.println(validCardByColor);
             System.out.println("- validByColor -");
             validByColor.forEach(System.out::println);
             
             List<Card> validByValue = validCards.stream()
                     .filter(card -> card.getValue().equals(rejected.getValue()))
                     .collect(Collectors.toList());
+            Optional<Card> validCardByValue = validCards.stream()
+                    .filter(card -> card.getValue().equals(rejected.getValue()))
+                    .findAny();
+            System.out.println(validCardByValue);
             System.out.println("- validByValue -");
             validByValue.forEach(System.out::println);
             
@@ -152,6 +162,9 @@ public class AiPlayer extends Player {
 //            return validCards.get(validCards.size()-1);
         }
 //        return null;
+    }
+    
+    public void drawCard() {
     }
 
 }
