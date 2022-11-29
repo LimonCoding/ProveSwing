@@ -77,7 +77,9 @@ public class PlayFrame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 			    if (controller.getGame().getCurrentPlayer().equals(myPlayer.getPlayer())) {
 			        System.out.println(controller.getDeck().toString());
-	                myPlayer.drawCard(controller.getDeck().getCard(false)); 
+	                myPlayer.drawCard(controller.getDeck().getCard(false));
+	                controller.getGame().nextTurn();
+	                updateCurrentPlayer(controller);
 	                setVisible(true);
                 } else {
                     System.out.println(controller.getGame().getCurrentPlayer());

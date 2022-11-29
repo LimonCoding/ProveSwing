@@ -148,8 +148,14 @@ public class Game {
     }
     
     public void nextTurn() {
-        int next = currentPlayerId + 1;
-        currentPlayerId = (next == playersList.size()) ? 0 : next;
+        if (gameDirection.getGameDirection()) {
+            int next = currentPlayerId + 1;
+            currentPlayerId = (next == playersList.size()) ? 0 : next;
+        } else {
+            int next = currentPlayerId - 1;
+            currentPlayerId = (next == -1) ? lastPlayerId : next;
+        }
+        
     }
     
     public void reverseTurn() {
