@@ -79,8 +79,6 @@ public class Game {
             System.out.println(a.getAccountInfo().getAlias()+" - Strategy: "+a.getAiStrategy());
             a.chooseCard(a.getValidMoves(validValue, validColor), rejected);
         }
-        System.out.println(bottomPlayer.getAccountInfo().getAlias()+" - Strategy: KEEP_COLOR");
-        bottomPlayer.chooseCard(bottomPlayer.getValidMoves(validValue, validColor), rejected);
 //        System.out.println(this.getGameDirection());
 //        reverseTurn();
 //        System.out.println(this.getGameDirection());
@@ -208,15 +206,15 @@ public class Game {
     
     //////////////////////////////////////
     
-    public Player getTopPlayer() {
+    public AiPlayer getTopPlayer() {
         return topPlayer;
     }
 
-    public Player getRightPlayer() {
+    public AiPlayer getRightPlayer() {
         return rightPlayer;
     }
 
-    public Player getLeftPlayer() {
+    public AiPlayer getLeftPlayer() {
         return leftPlayer;
     }
 

@@ -48,7 +48,7 @@ public class PlayFrame extends JFrame {
 		deckPanel = new DeckPanel(controller, controller.getDiscard().getLastDiscard(), "Deck", 50, 2);
 		
 		Dimension dim = getPreferredSize();
-		dim.width = 625;
+		dim.width = 550;
 		dim.height = 700;
 		rightPlayerAI.setPreferredSize(dim);
 		leftPlayerAI.setPreferredSize(dim);
@@ -115,6 +115,7 @@ public class PlayFrame extends JFrame {
                 myPlayer.clearTurn();
                 topPlayerAI.clearTurn();
                 leftPlayerAI.clearTurn();
+                controller.getGame().getRightPlayer().play(controller.getGame().getDiscard().getLastDiscard());
             }
             case 2 -> {
                 topPlayerAI.setPlayerTurn();
