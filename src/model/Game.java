@@ -54,7 +54,7 @@ public class Game {
         leftPlayer = new AiPlayer(new Account("Left Player"), Strategy.USE_SPECIAL);
         
         deck = new Deck();
-        System.out.println(deck.toString());
+//        System.out.println(deck.toString());
         discarded = new Discarded();
         
         playersList = new ArrayList<>(Arrays.asList(bottomPlayer, topPlayer, rightPlayer, leftPlayer));
@@ -66,18 +66,18 @@ public class Game {
         dealCards(sortedPlayerList);
         lastPlayerId = playersList.size()-1;
         startGame(this);
-        System.out.println(deck.toString());
-        System.out.println(discarded.toString());
-        Card rejected = discarded.getLastDiscard();
+//        System.out.println(deck.toString());
+//        System.out.println(discarded);
         
-        System.out.println(validColor+" "+validValue);
+        
+        System.out.println("Valid color + valid value: "+validColor+" "+validValue);
         System.out.println();
-        for (Player p : playersList) {
-            System.out.println("VALID MOVES OF "+p.getAccountInfo().getAlias()+": "+p.getValidMoves(validValue, validColor));
-        }
+//        for (Player p : playersList) {
+//            System.out.println("VALID MOVES OF "+p.getAccountInfo().getAlias()+": "+p.getValidMoves(validValue, validColor));
+//        }
         for (AiPlayer a : aiPlayersList) {
-            System.out.println(a.getAccountInfo().getAlias()+" - Strategy: "+a.getAiStrategy());
-            a.chooseCard(a.getValidMoves(validValue, validColor), rejected);
+//            System.out.println(a.getAccountInfo().getAlias()+" - Strategy: "+a.getAiStrategy());
+            a.chooseCard(a.getValidMoves(validValue, validColor), discarded.getLastDiscard());
         }
 //        System.out.println(this.getGameDirection());
 //        reverseTurn();
@@ -99,26 +99,24 @@ public class Game {
     private void dealCards(List<Player> playersList) {
         for (AiPlayer p : aiPlayersList) {
             p.setHandCards(new ArrayList<>(deck.getCards(7, false)));
-//            System.out.println(p.getAccountInfo().toString());
-//            System.out.println(p.getHandCards().toString());
         }
         bottomPlayer.setHandCards(new ArrayList<>(deck.getCards(7, false)));
-//        System.out.println(bottomPlayer.getAccountInfo().toString());
-//        System.out.println(bottomPlayer.getHandCards().toString());
     }
     
     private void startGame(Game game) {
         Card card = deck.getCard(true);
+        System.out.println(card);
         validColor = card.getColor();
         validValue = card.getValue();
         
         if (card.isWild() || card.isSpecial()) {
-            startGame(game);
             System.out.println("DISCARD NOT LEGIT");
+            startGame(game);
         } else {
+            System.out.println("Discard Setted: "+card);
             discarded.setDiscard(card);
         }
-        
+        System.out.println("Discarder from model game: "+discarded);
         gameDirection = Game.GameDirection.CLOCKWISE;
     }
     

@@ -4,15 +4,8 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.FontMetrics;
-import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.Rectangle;
-import java.awt.Shape;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.ImageObserver;
-import java.text.AttributedCharacterIterator;
 import java.util.List;
 
 import javax.swing.BorderFactory;
@@ -113,6 +106,10 @@ public class PlayerPanel extends JPanel {
                             frame.updateCurrentPlayer(controller);
                             frame.setVisible(true);
                             controller.getDiscard().setDiscard(card);
+                            
+                            System.out.println("Discarded from player panel: "+controller.getDiscard().getLastDiscard());
+                            System.out.println("Last rejected: "+controller.getDiscard().getLastDiscard());
+//                            controller.getGame().getRightPlayer().play(controller.getGame().getDiscard().getLastDiscard());
                             frame.getDeckPanel().getDiscardButton().setVisible(true);
                             frame.getDeckPanel().getDiscardButton().setIcon(carta.getIcon());
                             JButton buttonThatWasClicked = (JButton)e.getSource();
@@ -156,7 +153,7 @@ public class PlayerPanel extends JPanel {
                     frame.updateCurrentPlayer(controller);
                     System.out.println(controller.getGame().getBottomPlayer().getHandCards().toString());
                     controller.getDiscard().setDiscard(card);
-                    System.out.println("\n"+controller.getDiscard().toString());
+                    System.out.println("\nDiscarded from player panel: "+controller.getDiscard().toString());
                     frame.getDeckPanel().getDiscardButton().setVisible(true);
                     frame.getDeckPanel().getDiscardButton().setIcon(carta.getIcon());
                     JButton buttonThatWasClicked = (JButton)e.getSource();

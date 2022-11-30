@@ -4,9 +4,7 @@ import java.util.Stack;
 
 public class Discarded extends Stack<Card> {
 
-    private final Stack<Card> discarded;
-    private static int numCards = 0;
-    int cards = 0;
+    private Stack<Card> discarded;
     
     public Discarded() {
         this.discarded = initDiscard();
@@ -17,21 +15,13 @@ public class Discarded extends Stack<Card> {
     }
     
     public void setDiscard(Card discard) {
-        this.discarded.push(discard);
+        discarded.push(discard);
+        System.out.println("Discarded from model discard: "+discarded);
     }
     
     public Card getLastDiscard() {
-        int index = discarded.size()-1;
+        int index = (discarded.size()-1);
         return discarded.get(index);
     }
     
-    @Override
-    public String toString() {
-        String discardString = "";
-        numCards = 0;
-        for (Card card : discarded) {
-            discardString += (numCards++) + " " + card.toString() + "\n";
-        }
-        return "DISCARD: \n" + discardString + "";
-    }
 }

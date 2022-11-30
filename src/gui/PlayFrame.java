@@ -76,13 +76,13 @@ public class PlayFrame extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 			    if (controller.getGame().getCurrentPlayer().equals(myPlayer.getPlayer())) {
-			        System.out.println(controller.getDeck().toString());
+//			        System.out.println(controller.getDeck().toString());
 	                myPlayer.drawCard(controller.getDeck().getCard(false));
 	                controller.getGame().nextTurn();
 	                updateCurrentPlayer(controller);
 	                setVisible(true);
                 } else {
-                    System.out.println(controller.getGame().getCurrentPlayer());
+                    System.out.println("Current player from playframe: "+controller.getGame().getCurrentPlayer());
                     JOptionPane.showMessageDialog(frame, 
                         "Wait your turn!", 
                         "Not your turn!", JOptionPane.ERROR_MESSAGE);
@@ -101,8 +101,8 @@ public class PlayFrame extends JFrame {
 	}
 	
     public void updateCurrentPlayer(Controller controller) {
-	    System.out.println("Gui Game ID: "+controller.getGame().getCurrentPlayer().getGameId());
-	    System.out.println(controller.getGame().getCurrentPlayer());
+//	    System.out.println("Gui Game ID: "+controller.getGame().getCurrentPlayer().getGameId());
+//	    System.out.println(controller.getGame().getCurrentPlayer());
 	    switch (controller.getGame().getCurrentPlayer().getGameId()) {
             case 0 -> {
                 myPlayer.setPlayerTurn();
@@ -115,7 +115,6 @@ public class PlayFrame extends JFrame {
                 myPlayer.clearTurn();
                 topPlayerAI.clearTurn();
                 leftPlayerAI.clearTurn();
-                controller.getGame().getRightPlayer().play(controller.getGame().getDiscard().getLastDiscard());
             }
             case 2 -> {
                 topPlayerAI.setPlayerTurn();

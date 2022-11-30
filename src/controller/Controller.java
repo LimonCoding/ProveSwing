@@ -17,7 +17,7 @@ public class Controller {
     
     public void createGame(Account player) {
         game = new Game(player);
-        System.out.println(getDeck().toString());
+//        System.out.println(getDeck().toString());
 
     }
     
