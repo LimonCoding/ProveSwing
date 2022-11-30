@@ -41,18 +41,19 @@ public class AiPlayer extends Player {
     }
     
     public void play(Card rejected) {
-        new Timer(4000, (ae)->{
-            Optional<Card> selected = chooseCard(getHandCards(), rejected);
-            for (Card card : this.getHandCards()) {
-                Optional<Card> opCard = Optional.of(card);
-                if (selected.isPresent()) {
-                    this.getHandCards().remove(card);
-                    System.out.println("Removed: "+card+ " "+opCard);
-                } else {
-                    System.out.println("Not Removed: "+card+ " "+opCard);
-                }
+        System.out.println(this.getHandCards());
+        Timer play = new Timer(5000, (ae)->{
+            Card selected = chooseCard(getHandCards(), rejected);
+            if (!(selected == null)) {
+                System.out.println(selected);
+                this.getHandCards().removeIf(c -> c.equals(selected));
+                System.out.println(this.getHandCards());
+            } else {
+                System.out.println("Have to draw a card");
             }
-        }).start();
+        });
+        play.setRepeats(false);
+        play.start();
     }
     
     public Strategy getAiStrategy() {
@@ -65,7 +66,7 @@ public class AiPlayer extends Player {
     
     //Based on getValidMoves method, 
     //AI player can choose on cards ordered by strategy specifications
-    public Optional<Card> chooseCard(List<Card> validCards, Card rejected) {
+    public Card chooseCard(List<Card> validCards, Card rejected) {
         if(aiStrategy.equals(Strategy.SAME_COLOR)) {
             //ORDERING BASED ON SAME COLOR CARD OF LAST DISCARD
             List<Card> validByColor = validCards.stream()
@@ -85,9 +86,6 @@ public class AiPlayer extends Player {
 //            System.out.println(validCardByValue);
 //            System.out.println("- validByValue -");
 //            validByValue.forEach(System.out::println);
-            if (!validCardByValue.isEmpty()) {
-                return validCardByValue;
-            }
             
             List<Card> validWild = validCards.stream()
                     .filter(card -> card.isWild())
@@ -98,14 +96,11 @@ public class AiPlayer extends Player {
 //            validWild.forEach(System.out::println);
             
             if (!validCardByColor.isEmpty()) {
-                return validCardByColor;
+                return validCardByColor.get();
             } else if (!validCardByValue.isEmpty()) {
-                return validCardByValue;
-            } else if (!validCardByWild.isEmpty()) {
-                return validCardByWild;
-            } else {
-                return null;
-            }
+                return validCardByValue.get();
+            } else if (!validCardByWild.isEmpty())
+                return validCardByWild.get();
             
         }
         if(aiStrategy.equals(Strategy.SAME_VALUE)) {
@@ -135,13 +130,11 @@ public class AiPlayer extends Player {
 //            validWild.forEach(System.out::println);
             
             if (!validCardByValue.isEmpty()) {
-                return validCardByValue;
+                return validCardByValue.get();
             } else if (!validCardByColor.isEmpty()) {
-                return validCardByColor;
+                return validCardByColor.get();
             } else if (!validCardByWild.isEmpty()) {
-                return validCardByWild;
-            } else {
-                return null;
+                return validCardByWild.get();
             }
             
         }
@@ -180,16 +173,15 @@ public class AiPlayer extends Player {
 //            validWild.forEach(System.out::println);
             
             if (!validCardBySpecial.isEmpty()) {
-                return validCardBySpecial;
+                return validCardBySpecial.get();
             } else if (!validCardByColor.isEmpty()) {
-                return validCardByColor;
+                return validCardByColor.get();
             } else if (!validCardByValue.isEmpty()) {
-                return validCardByValue;
+                return validCardByValue.get();
             } else if (!validCardByWild.isEmpty()) {
-                return validCardByWild;
-            } else {
-                return null;
+                return validCardByWild.get();
             }
+            
         }
         if(aiStrategy.equals(Strategy.USE_WILD)) {
             //ORDERING BASED ON WILD COLOR CARDS
@@ -226,16 +218,15 @@ public class AiPlayer extends Player {
 //            validSpecial.forEach(System.out::println);
             
             if (!validCardByWild.isEmpty()) {
-                return validCardByWild;
+                return validCardByWild.get();
             } else if (!validCardByColor.isEmpty()) {
-                return validCardByColor;
+                return validCardByColor.get();
             } else if (!validCardByValue.isEmpty()) {
-                return validCardByValue;
+                return validCardByValue.get();
             } else if (!validCardBySpecial.isEmpty()) {
-                return validCardBySpecial;
-            } else {
-                return null;
-            }
+                return validCardBySpecial.get();
+            } 
+            
         }
         return null;
     }

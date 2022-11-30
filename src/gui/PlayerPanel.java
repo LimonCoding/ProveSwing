@@ -109,7 +109,7 @@ public class PlayerPanel extends JPanel {
                             
                             System.out.println("Discarded from player panel: "+controller.getDiscard().getLastDiscard());
                             System.out.println("Last rejected: "+controller.getDiscard().getLastDiscard());
-//                            controller.getGame().getRightPlayer().play(controller.getGame().getDiscard().getLastDiscard());
+                            controller.getGame().getRightPlayer().play(controller.getGame().getDiscard().getLastDiscard());
                             frame.getDeckPanel().getDiscardButton().setVisible(true);
                             frame.getDeckPanel().getDiscardButton().setIcon(carta.getIcon());
                             JButton buttonThatWasClicked = (JButton)e.getSource();
