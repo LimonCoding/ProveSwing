@@ -92,9 +92,7 @@ public class PlayerPanel extends JPanel {
         cards.stream().forEach((card) -> {
 	        JButton carta = new JButton();
             carta.setIcon(card.getFaceCard());
-            carta.setBorder(BorderFactory.createEmptyBorder());
-            carta.setContentAreaFilled(false);
-            carta.setPreferredSize(new Dimension(100, 150));
+            setCardButtonSettings(carta);
             add(carta);
             carta.addActionListener(new ActionListener() {
                 @Override
@@ -102,14 +100,8 @@ public class PlayerPanel extends JPanel {
                     if (controller.getGame().getCurrentPlayer().equals(player)) {
                         if (controller.legitDiscard(card)) {
                             controller.getGame().getBottomPlayer().discard(card);
-                            controller.getGame().nextTurn();
-                            frame.updateCurrentPlayer(controller);
                             frame.setVisible(true);
                             controller.getDiscard().setDiscard(card);
-                            
-                            System.out.println("Discarded from player panel: "+controller.getDiscard().getLastDiscard());
-                            System.out.println("Last rejected: "+controller.getDiscard().getLastDiscard());
-                            controller.getGame().getRightPlayer().play(controller.getGame().getDiscard().getLastDiscard());
                             frame.getDeckPanel().getDiscardButton().setVisible(true);
                             frame.getDeckPanel().getDiscardButton().setIcon(carta.getIcon());
                             JButton buttonThatWasClicked = (JButton)e.getSource();
@@ -117,13 +109,15 @@ public class PlayerPanel extends JPanel {
                             parent.remove(buttonThatWasClicked);
                             parent.revalidate();
                             parent.repaint();
+                            controller.getGame().nextTurn();
+                            frame.updateCurrentPlayer(controller);
                             } else {
                                 System.out.println(player);
                                 System.out.println(controller.getGame().getCurrentPlayer());
                                 JOptionPane.showMessageDialog(frame, 
                                     "This card is not legit to throw.", 
                                     "Unlegit discard!", JOptionPane.ERROR_MESSAGE);
-                       }
+                            }
                     } else {
                         System.out.println(controller.getGame().getCurrentPlayer());
                         JOptionPane.showMessageDialog(frame, 
@@ -137,11 +131,9 @@ public class PlayerPanel extends JPanel {
 	public void drawCard(Card card) {
 		JButton carta = new JButton();
 		carta.setIcon(card.getFaceCard());
-		carta.setBorder(BorderFactory.createEmptyBorder());
-		carta.setContentAreaFilled(false);
-		carta.setPreferredSize(new Dimension(100, 150));
+		setCardButtonSettings(carta);
 		add(carta);
-		controller.getGame().getBottomPlayer().addHandCard(card);
+		controller.getGame().getBottomPlayer().drawCard(card);
 		System.out.println(controller.getGame().getBottomPlayer().getHandCards().toString());
 		carta.addActionListener(new ActionListener() {
             @Override
@@ -174,20 +166,33 @@ public class PlayerPanel extends JPanel {
 	    cards.stream().forEach((card) -> {
 	        JButton carta = new JButton();
             carta.setIcon(card.getFaceCard());
-            carta.setBorder(BorderFactory.createEmptyBorder());
-            carta.setContentAreaFilled(false);
-            carta.setPreferredSize(new Dimension(100, 150));
+            setCardButtonSettings(carta);
             add(carta);
 	    });
+	    System.out.println(cards);
     }
+	
+	public void updateEnemyCard(List<Card> cards) {
+	    removeAll();
+	    cards.stream().forEach((card) -> {
+            JButton carta = new JButton();
+            carta.setIcon(card.getFaceCard());
+            setCardButtonSettings(carta);
+            add(carta);
+        });
+	}
 	
 	public void drawEnemyCard(Card card) {
         JButton carta = new JButton();
         carta.setIcon(card.getFaceCard());
-        carta.setBorder(BorderFactory.createEmptyBorder());
-        carta.setContentAreaFilled(false);
-        carta.setPreferredSize(new Dimension(100, 150));
+        setCardButtonSettings(carta);
         add(carta);
     }
+	
+	public void setCardButtonSettings(JButton carta) {
+	    carta.setBorder(BorderFactory.createEmptyBorder());
+        carta.setContentAreaFilled(false);
+        carta.setPreferredSize(new Dimension(100, 150));
+	}
     
 }

@@ -14,14 +14,17 @@ public class Discarded extends Stack<Card> {
         return new Stack<>();
     }
     
+    public Stack<Card> getDiscarded() {
+        return discarded;
+    }
+    
     public void setDiscard(Card discard) {
-        discarded.push(discard);
-        System.out.println("Discarded from model discard: "+discarded);
+        push(discard);
     }
     
     public Card getLastDiscard() {
-        int index = (discarded.size()-1);
-        return discarded.get(index);
+        int index = (size()-1);
+        return get(index);
     }
     
 }

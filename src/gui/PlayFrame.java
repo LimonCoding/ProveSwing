@@ -10,6 +10,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
+import javax.swing.Timer;
 import javax.swing.WindowConstants;
 
 import controller.Controller;
@@ -115,18 +116,48 @@ public class PlayFrame extends JFrame {
                 myPlayer.clearTurn();
                 topPlayerAI.clearTurn();
                 leftPlayerAI.clearTurn();
+                System.out.println("Last rejected: "+controller.getDiscard().getLastDiscard());
+                controller.getGame().Aiplay(controller.getGame().getDiscard().getLastDiscard());
+                Timer wait = new Timer(6000, (ae)->{
+                    rightPlayerAI.updateEnemyCard(controller.getGame().getRightPlayer().getHandCards());
+                    deckPanel.getDiscardButton().setIcon(controller.getDiscard().getLastDiscard().getFaceCard());
+                    SwingUtilities.updateComponentTreeUI(frame);
+                    updateCurrentPlayer(controller);
+                });
+                wait.setRepeats(false);
+                wait.start();
             }
             case 2 -> {
                 topPlayerAI.setPlayerTurn();
                 myPlayer.clearTurn();
                 rightPlayerAI.clearTurn();
                 leftPlayerAI.clearTurn();
+                System.out.println("Last rejected: "+controller.getDiscard().getLastDiscard());
+                controller.getGame().Aiplay(controller.getDiscard().getLastDiscard());
+                Timer wait = new Timer(5000, (ae)->{
+                    topPlayerAI.updateEnemyCard(controller.getGame().getTopPlayer().getHandCards());
+                    deckPanel.getDiscardButton().setIcon(controller.getDiscard().getLastDiscard().getFaceCard());
+                    SwingUtilities.updateComponentTreeUI(frame);
+                    updateCurrentPlayer(controller);
+                });
+                wait.setRepeats(false);
+                wait.start();
             }
             case 3 -> {
                 leftPlayerAI.setPlayerTurn();
                 myPlayer.clearTurn();
                 rightPlayerAI.clearTurn();
                 topPlayerAI.clearTurn();
+                System.out.println("Last rejected: "+controller.getDiscard().getLastDiscard());
+                controller.getGame().Aiplay(controller.getDiscard().getLastDiscard());
+                Timer wait = new Timer(5000, (ae)->{
+                    leftPlayerAI.updateEnemyCard(controller.getGame().getLeftPlayer().getHandCards());
+                    deckPanel.getDiscardButton().setIcon(controller.getDiscard().getLastDiscard().getFaceCard());
+                    SwingUtilities.updateComponentTreeUI(frame);
+                    updateCurrentPlayer(controller);
+                });
+                wait.setRepeats(false);
+                wait.start();
             }
         }
 	    SwingUtilities.updateComponentTreeUI(frame);

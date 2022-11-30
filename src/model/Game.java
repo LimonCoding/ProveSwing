@@ -6,6 +6,9 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.swing.SwingUtilities;
+import javax.swing.Timer;
+
 import model.AiPlayer.Strategy;
 
 public class Game {
@@ -34,7 +37,7 @@ public class Game {
     private int currentPlayerId;
     private final int lastPlayerId;
     private Deck deck;
-    private Discarded discarded;
+    private Discarded discardList;
     private List<Player> playersList;
     private List<Player> sortedPlayerList;
     private List<AiPlayer> aiPlayersList;
@@ -47,6 +50,9 @@ public class Game {
     private AiPlayer leftPlayer;
     private Player bottomPlayer;
     
+    private final static boolean FLIPPED = false;
+    private final static boolean NOT_FLIPPED = false;
+    
     public Game(Account player) {
         bottomPlayer = new Player(player);
         rightPlayer = new AiPlayer(new Account("Right Player"), Strategy.SAME_VALUE);
@@ -55,7 +61,7 @@ public class Game {
         
         deck = new Deck();
 //        System.out.println(deck.toString());
-        discarded = new Discarded();
+        discardList = new Discarded();
         
         playersList = new ArrayList<>(Arrays.asList(bottomPlayer, topPlayer, rightPlayer, leftPlayer));
         aiPlayersList = new ArrayList<>(Arrays.asList(topPlayer, rightPlayer, leftPlayer));
@@ -77,7 +83,7 @@ public class Game {
 //        }
         for (AiPlayer a : aiPlayersList) {
 //            System.out.println(a.getAccountInfo().getAlias()+" - Strategy: "+a.getAiStrategy());
-            a.chooseCard(a.getValidMoves(validValue, validColor), discarded.getLastDiscard());
+            a.chooseCard(a.getValidMoves(validValue, validColor), discardList.getLastDiscard());
         }
 //        System.out.println(this.getGameDirection());
 //        reverseTurn();
@@ -98,9 +104,9 @@ public class Game {
     
     private void dealCards(List<Player> playersList) {
         for (AiPlayer p : aiPlayersList) {
-            p.setHandCards(new ArrayList<>(deck.getCards(7, false)));
+            p.setHandCards(new ArrayList<>(deck.getCards(7, FLIPPED)));
         }
-        bottomPlayer.setHandCards(new ArrayList<>(deck.getCards(7, false)));
+        bottomPlayer.setHandCards(new ArrayList<>(deck.getCards(7, FLIPPED)));
     }
     
     private void startGame(Game game) {
@@ -114,15 +120,15 @@ public class Game {
             startGame(game);
         } else {
             System.out.println("Discard Setted: "+card);
-            discarded.setDiscard(card);
+            discardList.setDiscard(card);
         }
-        System.out.println("Discarder from model game: "+discarded);
+        System.out.println("Discarder from model game: "+discardList);
         gameDirection = Game.GameDirection.CLOCKWISE;
     }
     
     public void refillDeck() {
         if (deck.isEmpty()) {
-            deck.replaceDeck(discarded);
+            deck.replaceDeck(discardList);
         }
     }
     
@@ -130,17 +136,34 @@ public class Game {
         if (card.getColor().equals(validColor) ||
              card.getValue().equals(validValue) ||
               card.isWild()) {
-            discarded.setDiscard(card);
+            discardList.setDiscard(card);
             return true;
         }
         return false;
     }
     
+    public void Aiplay(Card rejected) {
+        AiPlayer p = (AiPlayer) sortedPlayerList.get(currentPlayerId);
+        Timer aiPlay = new Timer(5000, (ae)->{
+            Card drawOrThrows;
+            drawOrThrows = p.play(rejected);
+            if (!(drawOrThrows == null)) {
+                discardList.setDiscard(drawOrThrows);
+                System.out.println(p.getAccountInfo().getAlias()+" Hand: "+p.getHandCards());
+                System.out.println("discarded after aiPlay: "+discardList);
+                nextTurn();
+            } else {
+                p.drawCard(deck.getCard(FLIPPED));
+                System.out.println(p.getAccountInfo().getAlias()+" have to draw a card");
+                nextTurn();
+            }
+        });
+        aiPlay.setRepeats(false);
+        aiPlay.start();
+    }
+    
     public boolean winGame() {
-        for (Player p : playersList) {
-            return p.getHandCards().equals(null);
-        }
-        return false;
+        return sortedPlayerList.get(currentPlayerId).getHandCards().equals(null);
     }
     
     public void nextTurn() {
@@ -198,10 +221,6 @@ public class Game {
         return deck;
     }
     
-    public Discarded getDiscard() {
-        return discarded;
-    }
-    
     //////////////////////////////////////
     
     public AiPlayer getTopPlayer() {
@@ -218,5 +237,9 @@ public class Game {
 
     public Player getBottomPlayer() {
         return bottomPlayer;
+    }
+
+    public Discarded getDiscard() {
+        return discardList;
     }
 }

@@ -44,7 +44,7 @@ public class Player {
         this.handCards = handCards;
     }
     
-    public void addHandCard(Card handCard) {
+    public void drawCard(Card handCard) {
         this.handCards.add(handCard);
     }
     
