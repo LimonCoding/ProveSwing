@@ -18,6 +18,7 @@ import javax.swing.border.TitledBorder;
 import controller.Controller;
 import model.Card;
 import model.Player;
+import model.Card.Value;
 
 public class PlayerPanel extends JPanel {
 	
@@ -88,6 +89,7 @@ public class PlayerPanel extends JPanel {
 	}
 	
 	public void setCard(List<Card> cards) {
+	    removeAll();
 	    controller.getGame().getBottomPlayer().setHandCards(cards);
         cards.stream().forEach((card) -> {
 	        JButton carta = new JButton();
@@ -109,6 +111,32 @@ public class PlayerPanel extends JPanel {
                             parent.remove(buttonThatWasClicked);
                             parent.revalidate();
                             parent.repaint();
+                            if (card.getValue().equals(Value.SKIP)) {
+                                controller.getGame().nextTurn();
+                            }
+                            if (card.getValue().equals(Value.REVERSE)) {
+                                controller.getGame().reverseTurn();
+                            }
+                            if (card.getValue().equals(Value.DRAW_TWO)) {
+                                Player drawTwo = controller.getGame().getNextPlayer();
+                                drawTwo.drawCard(controller.getGame().getDeck().getCard(false));
+                                drawTwo.drawCard(controller.getGame().getDeck().getCard(false));
+                            }
+                            if (card.getValue().equals(Value.WILD)) {
+                                JOptionPane.showInternalConfirmDialog(frame,
+                                        "This card is not legit to throw.", 
+                                        "Unlegit discard!", JOptionPane.QUESTION_MESSAGE);
+                            }
+                            if (card.getValue().equals(Value.WILD_FOUR)) {
+                                Player drawTwo = controller.getGame().getNextPlayer();
+                                drawTwo.drawCard(controller.getGame().getDeck().getCard(false));
+                                drawTwo.drawCard(controller.getGame().getDeck().getCard(false));
+                                drawTwo.drawCard(controller.getGame().getDeck().getCard(false));
+                                drawTwo.drawCard(controller.getGame().getDeck().getCard(false));
+                                JOptionPane.showInternalConfirmDialog(frame,
+                                        "This card is not legit to throw.", 
+                                        "Unlegit discard!", JOptionPane.QUESTION_MESSAGE);
+                            }
                             controller.getGame().nextTurn();
                             frame.updateCurrentPlayer(controller);
                             } else {
@@ -140,14 +168,22 @@ public class PlayerPanel extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 if (controller.legitDiscard(card)) {
                     controller.getGame().getBottomPlayer().discard(card);
-                    controller.getGame().nextTurn();
-                    System.out.println(controller.getGame().getCurrentPlayer().getAccountInfo().getAlias());
-                    frame.updateCurrentPlayer(controller);
-                    System.out.println(controller.getGame().getBottomPlayer().getHandCards().toString());
                     controller.getDiscard().setDiscard(card);
-                    System.out.println("\nDiscarded from player panel: "+controller.getDiscard().toString());
                     frame.getDeckPanel().getDiscardButton().setVisible(true);
                     frame.getDeckPanel().getDiscardButton().setIcon(carta.getIcon());
+                    if (card.getValue().equals(Value.SKIP)) {
+                        controller.getGame().nextTurn();
+                    }
+                    if (card.getValue().equals(Value.REVERSE)) {
+                        controller.getGame().reverseTurn();
+                    }
+                    if (card.getValue().equals(Value.DRAW_TWO)) {
+                        Player drawTwo = controller.getGame().getNextPlayer();
+                        drawTwo.drawCard(controller.getGame().getDeck().getCard(false));
+                        drawTwo.drawCard(controller.getGame().getDeck().getCard(false));
+                    }
+                    controller.getGame().nextTurn();
+                    frame.updateCurrentPlayer(controller);
                     JButton buttonThatWasClicked = (JButton)e.getSource();
                     Container parent = buttonThatWasClicked.getParent();
                     parent.remove(buttonThatWasClicked);

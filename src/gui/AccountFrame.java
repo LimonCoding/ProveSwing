@@ -5,6 +5,8 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -111,7 +113,16 @@ public class AccountFrame extends JFrame {
 	
     private void setFrameSettings() {
     	setIconImage(iconApp.getImage());
-		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+    	setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        addWindowListener(new WindowAdapter() {
+              public void windowClosing(WindowEvent we) {
+                int result = JOptionPane.showConfirmDialog(frame,
+                    "Do you want to Exit ?", "Exit Confirmation : ",
+                    JOptionPane.YES_NO_OPTION);
+                if (result == JOptionPane.YES_OPTION)
+                  frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+              }
+            });
 		pack();
 		setMinimumSize(new Dimension(1500, 700));
 		setExtendedState(JFrame.MAXIMIZED_BOTH);

@@ -6,10 +6,10 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import javax.swing.SwingUtilities;
 import javax.swing.Timer;
 
 import model.AiPlayer.Strategy;
+import model.Card.Value;
 
 public class Game {
     
@@ -51,7 +51,7 @@ public class Game {
     private Player bottomPlayer;
     
     private final static boolean FLIPPED = false;
-    private final static boolean NOT_FLIPPED = false;
+    private final static boolean NOT_FLIPPED = true;
     
     public Game(Account player) {
         bottomPlayer = new Player(player);
@@ -148,6 +148,17 @@ public class Game {
             Card drawOrThrows;
             drawOrThrows = p.play(rejected);
             if (!(drawOrThrows == null)) {
+                if (drawOrThrows.getValue().equals(Value.SKIP)) {
+                    nextTurn();
+                }
+                if (drawOrThrows.getValue().equals(Value.REVERSE)) {
+                    reverseTurn();
+                }
+                if (drawOrThrows.getValue().equals(Value.DRAW_TWO)) {
+                    Player drawTwo = getNextPlayer();
+                    drawTwo.drawCard(deck.getCard(FLIPPED));
+                    drawTwo.drawCard(deck.getCard(FLIPPED));
+                }
                 discardList.setDiscard(drawOrThrows);
                 System.out.println(p.getAccountInfo().getAlias()+" Hand: "+p.getHandCards());
                 System.out.println("discarded after aiPlay: "+discardList);
@@ -186,12 +197,26 @@ public class Game {
         return (previous == -1) ? lastPlayerId : previous;
     }
     
+    public int nextId() {
+        if (gameDirection.getGameDirection()) {
+            int next = currentPlayerId + 1;
+            return (next == playersList.size()) ? 0 : next;
+        } else {
+            int next = currentPlayerId - 1;
+            return (next == -1) ? lastPlayerId : next;
+        }
+    }
+    
     public Player getCurrentPlayer() {
         return sortedPlayerList.get(currentPlayerId);
     }
     
     public Player getPreviousPlayer() {
         return sortedPlayerList.get(previousId());
+    }
+    
+    public Player getNextPlayer() {
+        return sortedPlayerList.get(nextId());
     }
     
     public List<Player> getPlayers() {

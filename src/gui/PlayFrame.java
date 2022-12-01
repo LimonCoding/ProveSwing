@@ -3,6 +3,9 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -47,7 +50,7 @@ public class PlayFrame extends JFrame {
 		leftPlayerAI = new PlayerPanel(controller, this, controller.getGame().getLeftPlayer(), -50, 15);
 		myPlayer = new PlayerPanel(controller, this, controller.getGame().getBottomPlayer(), -30, 15);
 		deckPanel = new DeckPanel(controller, controller.getDiscard().getLastDiscard(), "Deck", 50, 2);
-		
+        
 		Dimension dim = getPreferredSize();
 		dim.width = 550;
 		dim.height = 700;
@@ -55,23 +58,6 @@ public class PlayFrame extends JFrame {
 		leftPlayerAI.setPreferredSize(dim);
 		
 		updateCurrentPlayer(controller);
-		
-		/**
-		 * Creazione e posizionamento delle carte (bottoni) per il giocatore 1
-		 */
-		topPlayerAI.setEnemyCard(controller.getGame().getTopPlayer().getHandCards());
-		/**
-		 * Creazione e posizionamento delle carte (bottoni) per il giocatore 2
-		 */
-		rightPlayerAI.setEnemyCard(controller.getGame().getRightPlayer().getHandCards());
-		/**
-		 * Creazione e posizionamento delle carte (bottoni) per il giocatore 3
-		 */
-		leftPlayerAI.setEnemyCard(controller.getGame().getLeftPlayer().getHandCards());
-		/**
-		 * Creazione e posizionamento delle carte (bottoni) per il giocatore 4 (io)
-		 */
-	    myPlayer.setCard(controller.getGame().getBottomPlayer().getHandCards());
 		
 		deckPanel.getDeckButton().addActionListener(new ActionListener() {
 			@Override
@@ -160,6 +146,10 @@ public class PlayFrame extends JFrame {
                 wait.start();
             }
         }
+	    topPlayerAI.updateEnemyCard(controller.getGame().getTopPlayer().getHandCards());
+        rightPlayerAI.updateEnemyCard(controller.getGame().getRightPlayer().getHandCards());
+        leftPlayerAI.updateEnemyCard(controller.getGame().getLeftPlayer().getHandCards());
+        myPlayer.setCard(controller.getGame().getBottomPlayer().getHandCards());
 	    SwingUtilities.updateComponentTreeUI(frame);
     }
 
@@ -169,7 +159,16 @@ public class PlayFrame extends JFrame {
 	
 	private void setFrameSettings() {
 		setIconImage(iconApp.getImage());
-		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		addWindowListener(new WindowAdapter() {
+		      public void windowClosing(WindowEvent we) {
+		        int result = JOptionPane.showConfirmDialog(frame,
+		            "Do you want to Exit ?", "Exit Confirmation : ",
+		            JOptionPane.YES_NO_OPTION);
+		        if (result == JOptionPane.YES_OPTION)
+		          frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		      }
+		    });
 		setMinimumSize(new Dimension(1700, 850));
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		setResizable(true);
