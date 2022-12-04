@@ -9,6 +9,7 @@ import javax.swing.ImageIcon;
 
 import model.Card.Color;
 import model.Card.Value;
+import model.Game.Flipped;
 
 public class Deck extends Stack<Card> {
 
@@ -59,15 +60,15 @@ public class Deck extends Stack<Card> {
 	    this.deck = deck;
 	}
 	
-	public Card getCard(boolean covered) {
+	public Card getCard(Flipped flipped) {
 	    if(deck.isEmpty()) {
             refillDeck(null);
             Card card = deck.pop();
-            card.setCovered(covered);
+            card.setCovered(flipped);
             return card;
         } else {
             Card card = deck.pop();
-            card.setCovered(covered);
+            card.setCovered(flipped);
             return card;
         }
 	}
@@ -78,7 +79,7 @@ public class Deck extends Stack<Card> {
         }
     }
 
-    public ArrayList<Card> getCards(int nCards, boolean covered) {
+    public ArrayList<Card> getCards(int nCards, Flipped covered) {
 	    ArrayList<Card> cardsDrawed = new ArrayList<>(nCards);
         for (int i = 0; i < nCards; i++) {
             Card card = deck.pop();

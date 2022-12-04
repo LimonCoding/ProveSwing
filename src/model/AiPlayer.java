@@ -2,7 +2,7 @@ package model;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
+
 
 public class AiPlayer extends Player {
     
@@ -61,23 +61,25 @@ public class AiPlayer extends Player {
         this.aiStrategy = aiStrategy;
     }
     
+    
     //Based on getValidMoves method, 
     //AI player can choose on cards ordered by strategy specifications
     public Card chooseCard(List<Card> validCards, Card rejected) {
+        Optional<Card> validCardByWild = validCards.stream()
+                .filter(card -> card.isWild())
+                .findAny();
+        Optional<Card> validCardByColor = validCards.stream()
+                .filter(card -> card.getColor().equals(rejected.getColor()))
+                .findAny();
+        Optional<Card> validCardByValue = validCards.stream()
+                .filter(card -> card.getValue().equals(rejected.getValue()))
+                .findAny();
+        Optional<Card> validCardBySpecial = validCards.stream()
+                .filter(card -> card.getValue().equals(rejected.getValue()) && rejected.isSpecial())
+                .findAny();
+        
         if(aiStrategy.equals(Strategy.SAME_COLOR)) {
             //ORDERING BASED ON SAME COLOR CARD OF LAST DISCARD
-            Optional<Card> validCardByColor = validCards.stream()
-                    .filter(card -> card.getColor().equals(rejected.getColor()))
-                    .findAny();
-            
-            Optional<Card> validCardByValue = validCards.stream()
-                    .filter(card -> card.getValue().equals(rejected.getValue()))
-                    .findAny();
-            
-            Optional<Card> validCardByWild = validCards.stream()
-                    .filter(card -> card.isWild())
-                    .findAny();
-            
             if (!validCardByColor.isEmpty()) {
                 return validCardByColor.get();
                 
@@ -92,17 +94,6 @@ public class AiPlayer extends Player {
         }
         if(aiStrategy.equals(Strategy.SAME_VALUE)) {
             //ORDERING BASED ON SAME VALUE CARD OF LAST DISCARD
-            Optional<Card> validCardByValue = validCards.stream()
-                    .filter(card -> card.getValue().equals(rejected.getValue()))
-                    .findAny();
-            
-            Optional<Card> validCardByColor = validCards.stream()
-                    .filter(card -> card.getColor().equals(rejected.getColor()))
-                    .findAny();
-            
-            Optional<Card> validCardByWild = validCards.stream()
-                    .filter(card -> card.isWild())
-                    .findAny();
             
             if (!validCardByValue.isEmpty()) {
                 
@@ -118,21 +109,6 @@ public class AiPlayer extends Player {
         }
         if(aiStrategy.equals(Strategy.USE_SPECIAL)) {
             //ORDERING BASED ON SAME COLOR OF LAST DISCARD BUT WITH SPECIAL CARDS VALUE FIRST
-            Optional<Card> validCardBySpecial = validCards.stream()
-                    .filter(card -> card.getValue().equals(rejected.getValue()) && rejected.isSpecial())
-                    .findAny();
-            
-            Optional<Card> validCardByColor = validCards.stream()
-                    .filter(card -> card.getColor().equals(rejected.getColor()))
-                    .findAny();
-            
-            Optional<Card> validCardByValue = validCards.stream()
-                    .filter(card -> card.getValue().equals(rejected.getValue()))
-                    .findAny();
-            
-            Optional<Card> validCardByWild = validCards.stream()
-                    .filter(card -> card.isWild())
-                    .findAny();
             
             if (!validCardBySpecial.isEmpty()) {
                 return validCardBySpecial.get();
@@ -151,22 +127,6 @@ public class AiPlayer extends Player {
         }
         if(aiStrategy.equals(Strategy.USE_WILD)) {
             //ORDERING BASED ON WILD COLOR CARDS
-            Optional<Card> validCardByWild = validCards.stream()
-                    .filter(card -> card.isWild())
-                    .findAny();
-            
-            Optional<Card> validCardByColor = validCards.stream()
-                    .filter(card -> card.getColor().equals(rejected.getColor()))
-                    .findAny();
-            
-            Optional<Card> validCardByValue = validCards.stream()
-                    .filter(card -> card.getValue().equals(rejected.getValue()))
-                    .findAny();
-            
-            Optional<Card> validCardBySpecial = validCards.stream()
-                    .filter(card -> card.getValue().equals(rejected.getValue()) && rejected.isSpecial())
-                    .findAny();
-            
             if (!validCardByWild.isEmpty()) {
                 return validCardByWild.get();
                 

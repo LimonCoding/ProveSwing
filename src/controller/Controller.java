@@ -9,6 +9,7 @@ import model.Card;
 import model.Deck;
 import model.Discarded;
 import model.Game;
+import model.Player;
 
 public class Controller {
     
@@ -17,8 +18,6 @@ public class Controller {
     
     public void createGame(Account player) {
         game = new Game(player);
-//        System.out.println(getDeck().toString());
-
     }
     
     public Game getGame() {
@@ -33,11 +32,8 @@ public class Controller {
         return this.game.getDiscard();
     }
     
-    public boolean legitDiscard(Card card) {
-        Card lastDiscard = getDiscard().getLastDiscard();
-        return lastDiscard.getColor().equals(card.getColor()) ||
-                lastDiscard.getValue().equals(card.getValue()) ||
-                card.isWild() || lastDiscard.isWild();
+    public Card getLastDiscard() {
+        return this.game.getDiscard().getLastDiscard();
     }
     
 	public void createAccountList() {
@@ -57,5 +53,13 @@ public class Controller {
 		int level = ev.getLevel();
 		Account account = new Account(alias, level);
 		db.addAccount(account);
+	}
+	
+	public Player getCurrentPlayer() {
+        return this.game.getCurrentPlayer();
+    }
+	
+	public String getCurrentPlayerAlias() {
+	    return this.game.getCurrentPlayer().getAccountInfo().getAlias();
 	}
 }

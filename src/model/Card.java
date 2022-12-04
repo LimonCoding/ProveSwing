@@ -2,12 +2,14 @@ package model;
 
 import javax.swing.ImageIcon;
 
+import model.Game.Flipped;
+
 public class Card {
 	
 	public enum Color {
 		BLUE(0), GREEN(1), RED(2), YELLOW(3), WILD(4);
 		
-		private final int color;
+		private int color;
 		
 		Color(int color) {
 			this.color = color;
@@ -50,40 +52,44 @@ public class Card {
         }
 	}
 	
-	private final Color color;
+	private Color color;
 	private final Value value;
 	private static final String subPath = "ImageLibrary/CARTE-UNO/small/";
-	private boolean covered;
+	private Flipped covered;
     private final ImageIcon backFace = new ImageIcon("ImageLibrary/CARTE-UNO/small/RETRO.png");
 	private ImageIcon faceCard;
 	
-	public Card(final Color color, final Value value) {
+	public Card(Color color, final Value value) {
 		this.color = color;
 		this.value = value;
-		this.covered = false;
-		if (covered) {
+		this.covered = Flipped.FLIPPED;
+		if (covered.getFlipped()) {
 		    this.faceCard = backFace;
         } else 
             this.faceCard = new ImageIcon(subPath+this.toString());
 	}
 	
-	public Card(final Color color, final Value value, boolean covered) {
+	public Card(Color color, final Value value, Flipped covered) {
         this.color = color;
         this.value = value;
         this.covered = covered;
-        if (covered) {
+        if (this.covered.getFlipped()) {
             this.faceCard = backFace;
         } else 
             this.faceCard = new ImageIcon(subPath+this.toString());
     }
 	
-	public static Card getCard(final Color color, final Value value) {
+	public static Card getCard(Color color, final Value value) {
 		return new Card(color, value);
 	}
 	
 	public Color getColor() {
 		return color;
 	}
+	
+	public void setColor(Color color) {
+        this.color = color;
+    }
 
 	public Value getValue() {
 		return value;
@@ -111,13 +117,13 @@ public class Card {
         return faceCard;
     }
 
-    public boolean isCovered() {
+    public Flipped isCovered() {
         return covered;
     }
 
-    public void setCovered(boolean covered) {
-        this.covered = covered;
-        if (covered) {
+    public void setCovered(Flipped flipped) {
+        this.covered = flipped;
+        if (flipped.getFlipped()) {
             this.faceCard = backFace;
         } else 
             this.faceCard = new ImageIcon(subPath+this.toString());

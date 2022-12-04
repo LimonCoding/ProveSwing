@@ -2,6 +2,8 @@ package model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import model.Card.Color;
 import model.Card.Value;
@@ -48,8 +50,16 @@ public class Player {
         this.handCards.add(handCard);
     }
     
+    public void drawCards(List<Card> handCards) {
+        for (Card card : handCards) {
+            this.handCards.add(card);
+        }
+    }
+    
     //It can be sorted by color, value, if it's a wild card or a special one
-    public List<Card> getValidMoves(Value validValue, Color validColor) {
+    public List<Card> getValidMoves(Card lastDiscard) {
+        Value validValue = lastDiscard.getValue();
+        Color validColor = lastDiscard.getColor();
         List<Card> validCards = new ArrayList<>();
         for(Card card : this.getHandCards()) {
             if(card.getValue().equals(validValue) || card.getColor().equals(validColor)
@@ -58,6 +68,25 @@ public class Player {
             }
         }
         return validCards;
+    }
+    
+    public Card.Color chooseColor() {
+        int handColor = this.getHandCards().stream()
+                .collect(Collectors.groupingBy(         // creating an intermediate Map<Integer, Long>
+                        Card::getColor,                 // map's key
+                        Collectors.counting()           // value
+                    ))
+                    .entrySet().stream()                // creating a stream over the map's entries
+                    .max(Map.Entry.comparingByValue())  // picking the entry with the highest value -> result: Optional<Map.Entry<Integer, Long>>
+                    .map(Map.Entry::getKey)             // transforming the optional result Optional<Integer> 
+                    .get().getColor(); 
+        switch (handColor) {
+            case 0 : return Card.Color.BLUE;
+            case 1 : return Card.Color.GREEN;
+            case 2 : return Card.Color.RED;
+            case 3 : return Card.Color.YELLOW;
+        }
+        return null;
     }
     
     public void discard(Card card) {

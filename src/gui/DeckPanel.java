@@ -1,10 +1,13 @@
 package gui;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 
@@ -27,7 +30,10 @@ public class DeckPanel extends JPanel {
 	
 	/* TO DO: SET AN IMAGE ICON TO SEE GAME DIRECTION IN GAME */
 	private ImageIcon gameDirection;
-	Controller controller;
+	private Controller controller;
+	
+	private JLabel turnLabel;
+	private JLabel lastDiscardLabel;
 	
 	public DeckPanel(Controller controller, Card discard, String borderTitle, int space, int nCards) {
 		this.controller = controller;
@@ -50,6 +56,16 @@ public class DeckPanel extends JPanel {
 		this.discard = new JButton();
 		setDiscardButton(discard.toString());
 		add(this.discard);
+		
+		turnLabel = new JLabel();
+		turnLabel.setFont(new Font("Cabin Bold", 30, 30));
+		turnLabel.setForeground(Color.BLACK);
+		add(turnLabel);
+		
+		lastDiscardLabel = new JLabel();
+		lastDiscardLabel.setFont(new Font("Cabin Bold", 30, 30));
+		lastDiscardLabel.setForeground(Color.BLACK);
+        add(lastDiscardLabel);
 	}
 	
 	public void setNameBorder(String title) {
@@ -88,5 +104,13 @@ public class DeckPanel extends JPanel {
 
     public void setGameDirection(ImageIcon gameDirection) {
         this.gameDirection = gameDirection;
+    }
+    
+    public void updateLabelTurn() {
+        this.turnLabel.setText("It's "+controller.getCurrentPlayerAlias()+" turn.");
+    }
+    
+    public void updateLabelDiscard() {
+        this.lastDiscardLabel.setText(controller.getLastDiscard()+" it's last discard");
     }
 }
