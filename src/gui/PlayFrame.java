@@ -112,7 +112,6 @@ public class PlayFrame extends JFrame {
                 myPlayer.clearTurn();
                 topPlayerAI.clearTurn();
                 leftPlayerAI.clearTurn();
-                System.out.println("Last rejected: "+controller.getGame().getDiscard().getLastDiscard());
                 controller.getGame().AiPlay(controller.getGame().getDiscard().getLastDiscard());
                 
                 aiPlayerGuiUpdate.start();

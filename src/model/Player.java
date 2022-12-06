@@ -92,6 +92,13 @@ public class Player {
     public void discard(Card card) {
         handCards.remove(card);
     }
+    
+    public boolean uno() {
+        if (this.getHandCards().size() == 1) {
+            return true;
+        }
+        return false;
+    }
 
     public Account getAccountInfo() {
         return accountInfo;

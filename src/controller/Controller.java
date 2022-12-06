@@ -62,4 +62,12 @@ public class Controller {
 	public String getCurrentPlayerAlias() {
 	    return this.game.getCurrentPlayer().getAccountInfo().getAlias();
 	}
+	
+	public boolean getUno() {
+	    return this.game.getCurrentPlayer().uno();
+	}
+	
+	public boolean checkWin() {
+	    return this.game.winGame(this.game.getCurrentPlayer());
+	}
 }

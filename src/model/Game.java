@@ -102,7 +102,7 @@ public class Game {
         for (AiPlayer p : aiPlayersList) {
             p.setHandCards(new ArrayList<>(deck.getCards(7, Flipped.FLIPPED)));
         }
-        bottomPlayer.setHandCards(new ArrayList<>(deck.getCards(7, Flipped.FLIPPED)));
+        bottomPlayer.setHandCards(new ArrayList<>(deck.getCards(1, Flipped.FLIPPED)));
     }
     
     private void startGame(Game game) {
@@ -170,8 +170,14 @@ public class Game {
                 nextTurn();
             }
         });
-        aiPlay.setRepeats(false);
-        aiPlay.start();
+        if (!winGame(sortedPlayerList.get(previousId()))) {
+            aiPlay.setRepeats(false);
+            aiPlay.start(); 
+            System.out.println("Previus player hand: "+sortedPlayerList.get(previousId()).getHandCards());
+        } else {
+            System.out.println("GAME OVEEEEEEEER");
+        }
+        
     }
     
     public void play(Card rejected) {
@@ -197,13 +203,13 @@ public class Game {
     
     public boolean legitDiscard(Card card) {
         Card lastDiscard = getDiscard().getLastDiscard();
-        return lastDiscard.getColor().equals(card.getColor()) ||
+        return (lastDiscard.getColor().equals(card.getColor()) ||
                 lastDiscard.getValue().equals(card.getValue()) ||
-                card.isWild() || lastDiscard.isWild();
+                card.isWild() || lastDiscard.isWild()) && !(bottomPlayer.getHandCards().size()==1 && card.isWild());
     }
     
-    public boolean winGame() {
-        return sortedPlayerList.get(currentPlayerId).getHandCards().equals(null);
+    public boolean winGame(Player winner) {
+        return sortedPlayerList.get(winner.getGameId()).getHandCards().isEmpty();
     }
     
     public void nextTurn() {
