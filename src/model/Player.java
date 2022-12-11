@@ -71,22 +71,33 @@ public class Player {
     }
     
     public Card.Color chooseColor() {
-        int handColor = this.getHandCards().stream()
-                .collect(Collectors.groupingBy(         // creating an intermediate Map<Integer, Long>
-                        Card::getColor,                 // map's key
-                        Collectors.counting()           // value
-                    ))
-                    .entrySet().stream()                // creating a stream over the map's entries
-                    .max(Map.Entry.comparingByValue())  // picking the entry with the highest value -> result: Optional<Map.Entry<Integer, Long>>
-                    .map(Map.Entry::getKey)             // transforming the optional result Optional<Integer> 
-                    .get().getColor(); 
+        List<Card> handNoWild = this.handCards.stream()
+                .filter(card -> !(card.getColor().equals(Color.WILD)))
+                .collect(Collectors.toList());
+        
+        int handColor;
+        System.out.println(handNoWild);
+        if (handNoWild.isEmpty()) {
+            return Color.forValue((int)(Math.random()*(3-0+1)+0));
+        } else {
+            handColor = handNoWild.stream()
+                    .collect(Collectors.groupingBy(         // creating an intermediate Map<Integer, Long>
+                            Card::getColor,                 // map's key
+                            Collectors.counting()           // value
+                        ))
+                        .entrySet().stream()                // creating a stream over the map's entries
+                        .max(Map.Entry.comparingByValue())  // picking the entry with the highest value -> result: Optional<Map.Entry<Integer, Long>>
+                        .map(Map.Entry::getKey)             // transforming the optional result Optional<Integer> 
+                        .get().getColor(); 
+            System.out.println("hand color:     "+handColor);
+        }
         switch (handColor) {
             case 0 : return Card.Color.BLUE;
             case 1 : return Card.Color.GREEN;
             case 2 : return Card.Color.RED;
             case 3 : return Card.Color.YELLOW;
         }
-        return null;
+        return Color.forValue((int)(Math.random()*(3-0+1)+0));
     }
     
     public void discard(Card card) {

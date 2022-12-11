@@ -44,7 +44,6 @@ public class PlayerPanel extends JPanel {
 		setCardLayoutSpec(space, nCards);
 		setLayout(myCardLayout);
 		setOpaque(false);
-		
 	}
 	
 	public PlayerPanel(Controller controller, PlayFrame frame, String alias, int space, int nCards) {
@@ -58,7 +57,6 @@ public class PlayerPanel extends JPanel {
         setCardLayoutSpec(space, nCards);
         setLayout(myCardLayout);
         setOpaque(false);
-        
     }
 	
 	public void setInnerBorder(String title) {
@@ -73,13 +71,14 @@ public class PlayerPanel extends JPanel {
 
     public void setPlayerTurn() {
 	    innerBorder.setTitleColor(Color.RED);
-	    setBackground(Color.yellow);
+	    setBackground(new Color(255,255,255,60));
 	    setOpaque(true);
     }
 	
 	public void clearTurn() {
 	    innerBorder.setTitleColor(Color.BLACK);
-	    setOpaque(false);
+	    setBackground(new Color(0,0,0,30));
+	    setOpaque(true);
     }
 	
 	public void setOuterBorder() {

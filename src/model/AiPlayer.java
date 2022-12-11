@@ -2,6 +2,9 @@ package model;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+
+import model.Card.Color;
 
 
 public class AiPlayer extends Player {
@@ -65,17 +68,21 @@ public class AiPlayer extends Player {
     //Based on getValidMoves method, 
     //AI player can choose on cards ordered by strategy specifications
     public Card chooseCard(List<Card> validCards, Card rejected) {
+        List<Card> handNoWild = validCards.stream()
+                .filter(card -> !(card.getColor().equals(Color.WILD)))
+                .collect(Collectors.toList());
+        
         Optional<Card> validCardByWild = validCards.stream()
                 .filter(card -> card.isWild())
                 .findAny();
-        Optional<Card> validCardByColor = validCards.stream()
-                .filter(card -> card.getColor().equals(rejected.getColor()))
-                .findAny();
-        Optional<Card> validCardByValue = validCards.stream()
-                .filter(card -> card.getValue().equals(rejected.getValue()))
-                .findAny();
         Optional<Card> validCardBySpecial = validCards.stream()
                 .filter(card -> card.getValue().equals(rejected.getValue()) && rejected.isSpecial())
+                .findAny();
+        Optional<Card> validCardByColor = handNoWild.stream()
+                .filter(card -> card.getColor().equals(rejected.getColor()))
+                .findAny();
+        Optional<Card> validCardByValue = handNoWild.stream()
+                .filter(card -> card.getValue().equals(rejected.getValue()))
                 .findAny();
         
         if(aiStrategy.equals(Strategy.SAME_COLOR)) {
@@ -94,7 +101,6 @@ public class AiPlayer extends Player {
         }
         if(aiStrategy.equals(Strategy.SAME_VALUE)) {
             //ORDERING BASED ON SAME VALUE CARD OF LAST DISCARD
-            
             if (!validCardByValue.isEmpty()) {
                 
                 return validCardByValue.get();
@@ -109,7 +115,6 @@ public class AiPlayer extends Player {
         }
         if(aiStrategy.equals(Strategy.USE_SPECIAL)) {
             //ORDERING BASED ON SAME COLOR OF LAST DISCARD BUT WITH SPECIAL CARDS VALUE FIRST
-            
             if (!validCardBySpecial.isEmpty()) {
                 return validCardBySpecial.get();
                 

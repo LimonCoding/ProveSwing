@@ -102,7 +102,7 @@ public class Game {
         for (AiPlayer p : aiPlayersList) {
             p.setHandCards(new ArrayList<>(deck.getCards(7, Flipped.FLIPPED)));
         }
-        bottomPlayer.setHandCards(new ArrayList<>(deck.getCards(1, Flipped.FLIPPED)));
+        bottomPlayer.setHandCards(new ArrayList<>(deck.getCards(7, Flipped.FLIPPED)));
     }
     
     private void startGame(Game game) {
@@ -138,6 +138,7 @@ public class Game {
     
     public void AiPlay(Card rejected) {
         AiPlayer p = (AiPlayer) sortedPlayerList.get(currentPlayerId);
+        System.out.println("------------------------------------");
         Timer aiPlay = new Timer(SEC_AI_PLAY, (ae)->{
             Card drawOrThrows;
             drawOrThrows = p.play(rejected);
@@ -177,7 +178,6 @@ public class Game {
         } else {
             System.out.println("GAME OVEEEEEEEER");
         }
-        
     }
     
     public void play(Card rejected) {

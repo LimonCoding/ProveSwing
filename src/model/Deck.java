@@ -22,6 +22,7 @@ public class Deck extends Stack<Card> {
 	
     public Deck() {
 		this.deck = initDeck();
+		shuffle();
 	}
 	
 	private Stack<Card> initDeck() {
@@ -47,11 +48,10 @@ public class Deck extends Stack<Card> {
                 deckCards.push(new Card(Color.WILD, Value.forValue(wildColor)));
             }
         }
-        Collections.shuffle(deckCards);
 		return deckCards;
 	}
 	
-	public void suffle() {
+	public void shuffle() {
 	    Collections.shuffle(deck);
 	}
 	

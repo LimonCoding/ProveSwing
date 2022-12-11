@@ -1,5 +1,7 @@
 package controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 import gui.AccountEvent;
@@ -54,6 +56,14 @@ public class Controller {
 		Account account = new Account(alias, level);
 		db.addAccount(account);
 	}
+	
+	public void saveToFile(File file) throws IOException {
+	    db.saveAccounts(file);
+	}
+	
+	public void loadToFile(File file) throws IOException {
+        db.loadAccounts(file);
+    }
 	
 	public Player getCurrentPlayer() {
         return this.game.getCurrentPlayer();

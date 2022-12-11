@@ -7,6 +7,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -16,7 +22,6 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
-import javax.swing.WindowConstants;
 import javax.swing.plaf.InsetsUIResource;
 
 import com.formdev.flatlaf.FlatDarkLaf;
@@ -39,12 +44,12 @@ public class AccountFrame extends JFrame {
 		FlatDarkLaf.setup();
 		
 		myPanel = new PanelGradient();
-		accountPanel = new AccountPanel();
-		tablePanel = new TablePanel();
 		controller = new Controller();
-		controller.createAccountList();
+        controller.createAccountList();
+		tablePanel = new TablePanel();
 		tablePanel.setData(controller.getAccounts());
 		tablePanel.setOpaque(false);
+		accountPanel = new AccountPanel();
 		
 		BorderLayout mainLayout = new BorderLayout();
 		myPanel.setLayout(mainLayout);
@@ -53,10 +58,17 @@ public class AccountFrame extends JFrame {
 		BoxLayout layout = new BoxLayout(accountPanel, BoxLayout.PAGE_AXIS);
 		accountPanel.setLayout(layout);
 		
+		loadAccounts();
+		
 		accountPanel.setAccountListener(new AccountListener() {
 			@Override
 			public void accountEventOccurred(AccountEvent e) {
 				controller.addAccount(e);
+				try {
+                    controller.saveToFile(new File("C:\\Users\\Simone\\git\\ProveSwing\\saves\\saves.txt"));
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
 				accountPanel.updateAccountGuiList(controller, tablePanel);
 			}
 		});
@@ -107,7 +119,18 @@ public class AccountFrame extends JFrame {
 		setFrameSettings();
 	}
 	
-	public String getAccountName() {
+	private void loadAccounts() {
+	    try {
+            File file = new File("C:\\Users\\Simone\\git\\ProveSwing\\saves\\saves.txt");
+            System.out.println(file);
+            controller.loadToFile(file);
+            accountPanel.updateAccountGuiList(controller, tablePanel);
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        }
+    }
+
+    public String getAccountName() {
 		return getAccountName();
 	}
 	

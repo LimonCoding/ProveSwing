@@ -1,8 +1,10 @@
 package model;
 
+import java.io.Serializable;
+
 import javax.swing.ImageIcon;
 
-public class Account extends Object {
+public class Account extends Object implements Serializable {
 	
 	private static int count = 0;
 
@@ -21,9 +23,12 @@ public class Account extends Object {
     public Account(String alias, int level) {
 		this.alias = alias;
 		this.level = level;
-		
-		this.id = count;
-		count++;
+		if (AccountListDatabase.getAccountsSaved()!=null) {
+		    this.id = AccountListDatabase.getAccountsSaved().length;
+        } else {
+            this.id = count;
+            count++;
+        }
 	}
 	
 	public Account(String alias, int level, ImageIcon accountIcon) {

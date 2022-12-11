@@ -43,23 +43,15 @@ public class AccountPanel extends JPanel {
 		
 		AbstractAction action = new AbstractAction()
 		{
-		    /**
-			 * 
-			 */
-			private static final long serialVersionUID = 1L;
-
 			@Override
 		    public void actionPerformed(ActionEvent e)
 		    {
 		    	if (checkBtn()) {
 		    		accountName = insertName.getText();
-		    		
 		    		AccountEvent ev = new AccountEvent(this, accountName, 0);
-		    		
 		    		if (accountListener != null) {
 						accountListener.accountEventOccurred(ev);
 					}
-		    		
 		    		insertName.setText(null);
 		    		setVisible(true);
 			    }
