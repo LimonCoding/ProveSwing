@@ -65,7 +65,7 @@ public class AccountFrame extends JFrame {
 			public void accountEventOccurred(AccountEvent e) {
 				controller.addAccount(e);
 				try {
-                    controller.saveToFile(new File("C:\\Users\\Simone\\git\\ProveSwing\\saves\\saves.txt"));
+                    controller.saveToFile(new File("saves/saves.txt"));
                 } catch (IOException e1) {
                     e1.printStackTrace();
                 }
@@ -121,7 +121,7 @@ public class AccountFrame extends JFrame {
 	
 	private void loadAccounts() {
 	    try {
-            File file = new File("C:\\Users\\Simone\\git\\ProveSwing\\saves\\saves.txt");
+            File file = new File("saves/saves.txt");
             System.out.println(file);
             controller.loadToFile(file);
             accountPanel.updateAccountGuiList(controller, tablePanel);
